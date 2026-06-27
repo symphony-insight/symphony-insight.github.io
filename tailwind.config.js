@@ -11,7 +11,8 @@ export default {
         tide: "#4b8f9f"
       },
       boxShadow: {
-        soft: "0 18px 45px rgba(35, 50, 56, 0.08)"
+        soft: "0 18px 45px rgba(35, 50, 56, 0.08)",
+        premium: "0 30px 80px rgba(35, 50, 56, 0.14)"
       }
     }
   },

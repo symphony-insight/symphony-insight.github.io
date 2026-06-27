@@ -23,7 +23,8 @@ export function ReportReviewPage() {
   }, [selectedChildId]);
 
   const updateStatus = (status: ReportStatus) => {
-    mockApi.updateReportStatus("report-xiaoyu-8", status, "陈老师").then(refresh);
+    if (!report) return;
+    mockApi.updateReportStatus(report.id, status, "陈老师").then(refresh);
   };
 
   if (!report) return <div>{language === "zh" ? "报告审核加载中" : "Loading report"}</div>;
@@ -31,7 +32,7 @@ export function ReportReviewPage() {
   return (
     <div className="space-y-6">
       <div>
-        <p className="text-sm font-semibold text-coral">AI 报告审核</p>
+        <p className="text-sm font-semibold text-coral">{t(language, "report")}</p>
         <h1 className="mt-1 text-3xl font-bold">{t(language, "reportTitle")}</h1>
         <p className="mt-2 max-w-3xl text-stone-600">{t(language, "reportIntro")}</p>
       </div>

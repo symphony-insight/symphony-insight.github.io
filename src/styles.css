@@ -22,6 +22,80 @@ body {
   animation: page-enter 320ms ease-out both;
 }
 
+.premium-app-shell {
+  position: relative;
+  background:
+    linear-gradient(145deg, rgba(246, 243, 238, 0.96) 0%, rgba(235, 243, 241, 0.92) 42%, rgba(246, 238, 232, 0.96) 100%),
+    repeating-linear-gradient(110deg, rgba(75, 143, 159, 0.06) 0 1px, transparent 1px 28px);
+}
+
+.premium-app-shell::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='1200' height='520' viewBox='0 0 1200 520' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%234b8f9f' stroke-opacity='0.12' stroke-width='2'%3E%3Cpath d='M0 250 C160 190 240 330 400 260 S650 190 820 250 1040 320 1200 240'/%3E%3Cpath d='M0 310 C180 250 270 390 450 320 S710 250 880 310 1060 370 1200 300'/%3E%3Cpath d='M0 190 C150 135 260 250 420 198 S660 140 840 192 1040 245 1200 180'/%3E%3C/g%3E%3C/svg%3E");
+  background-position: top center;
+  background-repeat: no-repeat;
+  opacity: 0.9;
+}
+
+.premium-app-shell > * {
+  position: relative;
+  z-index: 1;
+}
+
+.glass-nav {
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.54);
+  box-shadow: 0 16px 40px rgba(35, 50, 56, 0.08);
+}
+
+.immersive-hero {
+  position: relative;
+  isolation: isolate;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.84), rgba(255, 255, 255, 0.58)),
+    linear-gradient(110deg, rgba(75, 143, 159, 0.22), transparent 52%),
+    linear-gradient(290deg, rgba(217, 124, 101, 0.18), transparent 48%);
+}
+
+.immersive-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='980' height='360' viewBox='0 0 980 360' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke-linecap='round'%3E%3Cpath d='M30 240 C180 120 290 315 440 190 S720 98 940 215' stroke='%23233238' stroke-opacity='0.09' stroke-width='28'/%3E%3Cpath d='M18 250 C176 128 292 315 446 198 S718 110 946 220' stroke='%234b8f9f' stroke-opacity='0.16' stroke-width='4'/%3E%3Cpath d='M60 290 C220 210 335 330 500 255 S760 205 930 285' stroke='%23d97c65' stroke-opacity='0.16' stroke-width='3'/%3E%3C/g%3E%3C/svg%3E");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.summary-glass-card,
+.score-ring-panel,
+.observation-score-card {
+  backdrop-filter: blur(18px);
+}
+
+.summary-glass-card,
+.observation-score-card {
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease;
+  will-change: transform;
+}
+
+.summary-glass-card:hover,
+.observation-score-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 24px 60px rgba(35, 50, 56, 0.12);
+  border-color: rgba(75, 143, 159, 0.3);
+}
+
 .soft-rise,
 .rubric-card {
   transition:
@@ -92,7 +166,9 @@ body {
   }
 
   .soft-rise:hover,
-  .rubric-card:hover {
+  .rubric-card:hover,
+  .summary-glass-card:hover,
+  .observation-score-card:hover {
     transform: none;
   }
 }
