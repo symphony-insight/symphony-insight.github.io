@@ -1,56 +1,105 @@
-# Premium Observation Dashboard Design
+# 高端儿童观察看板设计规格
 
-## Goal
+## 1. 目标
 
-Transform the current SymPhony Insight frontend from a prototype-style dashboard into a premium, user-friendly observation product for teachers and caregivers.
+把当前 SymPhony Insight 前端从“原型后台”升级为一个更高端、更像正式产品的儿童共创观察看板。
 
-The redesigned Chinese experience must feel like a polished product, not a demo. It must avoid internal engineering terms, explain every score in plain language, and present the 9 observation rubrics as clear visual insight rather than dense text cards.
+新版中文体验必须满足三点：
 
-## Audience
+1. 使用老师和家长能直接理解的表达，不出现研发/数据后台术语。
+2. 用可视化方式讲清楚 9 个观察问题的具体评分，而不是让用户读大段说明。
+3. 首屏必须有高级产品感，避免看起来像普通 demo 或内部管理系统。
 
-Primary users:
+本轮仍然只做前端，不接后端，不加入真实登录，不做医学诊断或疗效表达。
 
-- Special education teachers reviewing a child's music co-creation activities.
-- Caregivers reading teacher-approved summaries.
-- Product/demo viewers judging whether SymPhony Insight is credible and high-end.
+## 2. 目标用户
 
-Secondary users:
+主要用户：
 
-- Product operators checking whether the prototype has a coherent workflow.
-- Researchers validating whether the interface remains observation-only.
+- 特教老师：查看孩子最近多次音乐共创活动中的参与、回应、恢复和适配情况。
+- 家长/监护人：阅读老师审核后的摘要，理解孩子在哪些活动设置下更舒服。
+- 项目展示对象：快速判断这个系统是否有产品完成度，而不是简单 demo。
 
-## Core Experience Principles
+次要用户：
 
-1. **Human-first language**  
-   The Chinese interface must use ordinary teacher/caregiver wording. It should explain what happened, what to look at, and what to try next.
+- 产品团队：检查当前信息结构、视觉表达和复核流程是否成立。
+- 研究/专业人员：确认系统仍然只呈现观察材料，不替代专业判断。
 
-2. **Premium first impression**  
-   The first screen should feel like a designed product: immersive visual header, glass navigation, refined cards, strong hierarchy, and confident spacing.
+## 3. 设计原则
 
-3. **Scores must be readable without training**  
-   A user should understand what `4/5` means without reading a methodology document. Each rubric needs a score, status, plain explanation, and visual cue.
+### 3.1 人话优先
 
-4. **Observation-only safety**  
-   The product must never imply diagnosis, treatment efficacy, medical improvement, or automated professional judgment.
+中文界面必须像老师在解释孩子的活动情况：
 
-5. **Useful before beautiful**  
-   Visual polish must help comprehension. Large charts and animations should clarify the child's observation profile, not become decoration.
+- 推荐：`孩子在哪些环节更愿意参与`
+- 避免：`活动参与维度表现较好`
 
-## Non-Goals
+- 推荐：`不舒服后，通常能在老师轻提示下回到活动`
+- 避免：`恢复节律指标出现改善`
 
-- Do not add backend integration.
-- Do not add real authentication.
-- Do not add medical, therapeutic, or diagnostic claims.
-- Do not build a marketing landing page.
-- Do not introduce a heavy 3D scene, particle system, or expensive animation layer.
-- Do not migrate away from React, Vite, Tailwind, Recharts, Zustand, or Vitest in this iteration.
-- Do not remove English support; the Chinese copy is the priority, but the language toggle must still work.
+### 3.2 首屏必须像正式产品
 
-## Terminology Rules
+首页第一屏需要有明确的产品气质：
 
-### Chinese UI Forbidden Terms
+- 沉浸式视觉背景。
+- 玻璃感顶部导航。
+- 大标题直接出现孩子和观察主题。
+- 中央有清晰的搜索/控制区域。
+- 有一个主视觉评分图，而不是只堆小卡片。
 
-The Chinese visible interface must not show these terms:
+### 3.3 评分必须一眼能懂
+
+用户看到 `4/5` 时，必须同时知道：
+
+- 这项是什么观察问题。
+- 当前属于什么状态。
+- 为什么是这个分数。
+- 老师主要看什么行为。
+
+### 3.4 观察而非诊断
+
+系统不能表达：
+
+- 自动诊断。
+- 疗效判断。
+- 病情改善。
+- 康复有效。
+- 代替老师、治疗师或医生判断。
+
+所有结论都必须保持为“观察材料 + 老师复核”。
+
+### 3.5 视觉服务理解
+
+高级感不是堆动画或炫技。图表、动效、背景和卡片都必须帮助用户理解孩子情况。
+
+## 4. 非目标
+
+本轮不做：
+
+- 后端接入。
+- 真实账号体系。
+- GitHub Pages 发布。
+- 医学/治疗/康复结论。
+- 营销落地页。
+- 重型 3D、粒子系统、复杂视差滚动。
+- 大规模技术栈迁移。
+- 新增大型可视化依赖。
+
+继续使用：
+
+- React
+- TypeScript
+- Vite
+- Tailwind CSS
+- Zustand
+- Recharts
+- Vitest
+
+## 5. 中文术语规范
+
+### 5.1 中文界面禁用词
+
+中文可见界面不得出现以下词：
 
 - `Session`
 - `Motion`
@@ -68,9 +117,9 @@ The Chinese visible interface must not show these terms:
 - `康复有效`
 - `恢复正常`
 
-### Chinese Replacements
+### 5.2 替代表达
 
-| Internal term | Chinese UI replacement |
+| 内部词 | 中文界面表达 |
 |---|---|
 | Session | 第 N 次活动 |
 | Session timeline | 活动记录 |
@@ -84,149 +133,275 @@ The Chinese visible interface must not show these terms:
 | trend | 最近变化 |
 | teacher review | 老师复核 |
 
-### Copy Tone
+### 5.3 导航中文名称
 
-Chinese copy should sound like a teacher-facing product:
-
-- Use: `孩子在哪些环节更愿意参与`
-- Avoid: `活动参与维度表现较好`
-- Use: `不舒服后，通常能在老师轻提示下回到活动`
-- Avoid: `恢复节律指标出现改善`
-
-## Information Architecture
-
-The app keeps four main sections but renames the Chinese labels:
-
-| Current route | Chinese label | Purpose |
+| 当前页面 | 新中文名称 | 用户理解 |
 |---|---|---|
-| Overview | 总览 | Premium observation dashboard and 9-score overview |
-| Session Timeline | 活动记录 | Story-style review of each activity |
-| Motion-Affect | 状态变化 | Which music, visual, and support settings fit the child |
-| Report Review | 报告审核 | Teacher approval and family-facing summary |
+| Overview | 总览 | 看孩子最近整体情况 |
+| Session Timeline | 活动记录 | 看每一次活动发生了什么 |
+| Motion-Affect | 状态变化 | 看什么设置更适合孩子 |
+| Report Review | 报告审核 | 老师确认后再导出 |
 
-English labels may remain closer to current product language, but must not break layout.
+英文界面可以保留更接近产品/研究的表达，但不能破坏布局。
 
-## Visual Direction
+## 6. 整体视觉方向
 
-### Overall Style
+### 6.1 风格关键词
 
-Use a high-end calm product aesthetic:
+新版首页风格应该是：
 
-- Light, airy interface.
-- Large immersive first screen.
-- Soft glass panels.
-- 8px card radius by default, with larger radius allowed only for the hero search/control surface and score ring container.
-- Restrained shadows.
-- Warm off-white surface.
-- Multi-hue palette: deep teal, coral, soft sky, sage, warm ivory. Avoid a one-note blue/purple dashboard.
+- 高端。
+- 安静。
+- 温暖。
+- 有呼吸感。
+- 信息清楚。
+- 不是普通后台。
+- 不是儿童卡通风。
 
-### Background Treatment
+### 6.2 视觉参考的取舍
 
-The overview page should open with an immersive hero band inspired by the user-provided reference image:
+参考用户截图中的结构：
 
-- Full-width top visual area.
-- Use a generated/static visual asset or CSS-backed atmospheric image treatment related to music, soft light, sound waves, classroom calm, or nature.
-- The visual should fade into the white dashboard surface.
-- Hero text is over the visual, not inside a card.
-- The child name and observation context must be visible in the first viewport.
+- 大幅背景视觉。
+- 顶部玻璃导航。
+- 白色浮动仪表盘区域。
+- 大型主图表。
+- 小型信息模块。
+- 轻微透明和柔和阴影。
 
-The hero must not use:
+但不照搬截图中的商业内容：
 
-- Commercial affiliate or revenue imagery.
-- Generic business analytics language.
-- Dark blurred stock background that makes the product hard to read.
+- 不用 affiliate / revenue / traffic source 语言。
+- 不用商业统计指标。
+- 不用强营销式 slogan。
 
-### Layout
+### 6.3 色彩
 
-Overview desktop layout:
+使用多色但克制的高级色板：
 
-1. Hero/navigation band.
-2. Floating search/control row.
-3. Four high-signal summary cards.
-4. Two-column main dashboard:
-   - Left: priority findings and score cards.
-   - Right: large 9-rubric visualization.
-5. Lower section:
-   - Recent changes.
-   - Teacher review focus.
-   - Next activity suggestions.
+- 深青绿：用于主导航、主按钮、强调线。
+- 珊瑚色：用于需要复核、提醒、重点行为。
+- 柔和蓝：用于稳定、平静、观察依据。
+- 鼠尾草绿：用于参与、恢复、适配较好。
+- 暖白/米白：用于主背景和卡片底色。
 
-Mobile layout:
+避免：
 
-1. Hero.
-2. Compact child switcher and language toggle.
-3. Summary cards in a 2-column grid.
-4. Score visualization first.
-5. Score cards stacked.
-6. Activity and report summaries stacked.
+- 全页面单一蓝紫渐变。
+- 高饱和儿童色。
+- 大面积深色后台风。
+- 纯白无层次的表格后台。
 
-## Data Presentation
+### 6.4 背景
 
-### Summary Cards
+首页顶部使用“柔和抽象声波背景”。
 
-Replace current metric cards with four teacher-readable cards:
+要求：
 
-1. `活动记录`  
-   Value: `8 次`  
-   Caption: `已形成小宇自己的观察基线`
+- 本地静态资源或 CSS/SVG 实现。
+- 主题与音乐、声音、共创、观察相关。
+- 背景从顶部沉浸区自然过渡到白色看板区。
+- 标题文字叠在背景上，但必须有足够对比度。
 
-2. `创作片段`  
-   Value: `20 个`  
-   Caption: `动作、哼唱和互动留下的可用片段`
+不使用：
 
-3. `最近状态`  
-   Value: `投入`  
-   Caption: `最近一次活动中更多出现`
+- 远程图片依赖。
+- 商业图库感强的素材。
+- 模糊到看不清的深色图片。
 
-4. `老师复核`  
-   Value: `陈老师`  
-   Caption: `报告导出前由老师确认`
+## 7. 首页信息架构
 
-Each card should include a small visual sparkline, icon, or state marker. Do not show raw internal codes.
+首页是本轮改造重点，名称为“总览”。
 
-### 9 Rubric Visualization
+桌面布局顺序：
 
-Add a new central visualization named `9 项观察总览`.
+1. 沉浸式视觉首屏。
+2. 玻璃导航。
+3. 搜索/控制浮层。
+4. 四个高信号摘要卡。
+5. 主区域双列布局：
+   - 左侧：今日重点、评分卡。
+   - 右侧：9 项观察总览主图。
+6. 下方：
+   - 最近变化。
+   - 老师复核重点。
+   - 下一次活动建议。
 
-Recommended display: segmented radial score ring.
+移动端布局顺序：
 
-Requirements:
+1. 沉浸式视觉首屏。
+2. 儿童切换和语言切换。
+3. 四个摘要卡。
+4. 9 项观察总览主图。
+5. 评分卡纵向排列。
+6. 最近变化和报告审核摘要。
 
-- 9 segments, one per observation question.
-- Each segment represents a score from 1 to 5.
-- Use color and length/opacity to encode score.
-- Center label shows a plain summary, for example:
-  - `整体观察`
-  - `较稳定`
-  - `仍有 3 项需要老师支持`
-- Hover/focus state reveals:
-  - rubric title
-  - `4/5`
-  - status label
-  - one plain explanation
-- Keyboard focus must access the same information.
+## 8. 首屏设计
 
-If radial rendering becomes unreliable, fallback to a premium heatmap grid:
+### 8.1 顶部导航
 
-- 3 by 3 layout.
-- Each cell shows title, score, state, and a small progress bar.
-- The fallback must still feel intentionally designed, not like a plain table.
+中文导航：
 
-### Rubric Score Cards
+- `总览`
+- `活动记录`
+- `状态变化`
+- `报告审核`
 
-Each rubric card should show:
+导航样式：
 
-- Observation question title.
-- Score as `4/5`.
-- Plain status label.
-- One sentence explanation.
-- One primary observable behavior.
-- Small progress visualization.
-- Optional expand action for score anchors.
+- 玻璃感胶囊按钮。
+- 当前页面使用深青绿实底。
+- 非当前页面使用半透明白色。
+- 图标保留，但必须和文字对齐。
 
-Status labels:
+### 8.2 主标题
 
-| Score | Chinese status |
+中文主标题：
+
+`小宇的共创观察`
+
+副标题：
+
+`8 次活动记录 · 老师已复核 · 下次建议已生成`
+
+英文可对应为：
+
+`Xiaoyu's Co-Creation Observation`
+
+### 8.3 搜索/控制区域
+
+使用一个浮动搜索胶囊，视觉参考截图中间的搜索框。
+
+占位文案：
+
+`搜索活动、观察问题或老师备注`
+
+行为要求：
+
+- 本轮必须可用，不做纯装饰。
+- 输入关键词后，本地过滤评分卡和观察发现。
+- 空搜索显示全部。
+- 无结果提示：`没有找到相关观察记录，可以换个关键词试试。`
+- 不打开外部搜索。
+
+## 9. 摘要卡
+
+首页保留四个摘要卡，但改成老师/家长能懂的内容。
+
+### 9.1 卡片一：活动记录
+
+标题：`活动记录`  
+数值：`8 次`  
+说明：`已形成小宇自己的观察基线`
+
+### 9.2 卡片二：创作片段
+
+标题：`创作片段`  
+数值：`20 个`  
+说明：`动作、哼唱和互动留下的可用片段`
+
+### 9.3 卡片三：最近状态
+
+标题：`最近状态`  
+数值：`投入`  
+说明：`最近一次活动中更多出现`
+
+### 9.4 卡片四：老师复核
+
+标题：`老师复核`  
+数值：`陈老师`  
+说明：`报告导出前由老师确认`
+
+每张卡都要有一个小视觉元素：
+
+- 小折线。
+- 小状态点。
+- 小图标。
+- 简单进度条。
+
+不能只显示数字。
+
+## 10. 9 项观察总览
+
+### 10.1 组件名称
+
+新组件：
+
+`ObservationScoreRing`
+
+显示标题：
+
+`9 项观察总览`
+
+### 10.2 推荐形态
+
+采用“九段式环形评分盘”。
+
+要求：
+
+- 9 个分段，对应 9 个观察问题。
+- 每段编码 1-5 分。
+- 分数越高，段落越明显或颜色越深。
+- 中间显示整体结论。
+
+中间文案示例：
+
+`整体观察`
+
+`较稳定`
+
+`仍有 3 项需要老师支持`
+
+### 10.3 交互
+
+桌面端：
+
+- 鼠标悬停某个分段，高亮对应评分卡。
+- 键盘聚焦某个分段，显示同样信息。
+
+移动端：
+
+- 点击某个分段，在图下方展示详情。
+- 不依赖 hover 才能看到信息。
+
+### 10.4 分段详情
+
+每个分段详情必须显示：
+
+- 观察问题标题。
+- 分数，例如 `4/5`。
+- 状态，例如 `比较稳定`。
+- 一句解释，例如 `多数时候能主动参与，偶尔需要老师轻提示。`
+
+### 10.5 备用方案
+
+如果环形评分盘实现后在移动端或可访问性上不稳定，使用“高级九宫格热力图”备用。
+
+备用图要求：
+
+- 3 × 3 布局。
+- 每格显示问题、分数、状态、小进度条。
+- 视觉必须像刻意设计的主图，不得退化成普通表格。
+
+## 11. 评分卡设计
+
+### 11.1 卡片内容
+
+每个观察问题对应一张评分卡。
+
+卡片必须包含：
+
+- 观察问题标题。
+- 分数：`4/5`。
+- 状态标签。
+- 一句解释。
+- 一个主要观察行为。
+- 小型进度可视化。
+- 可展开的评分说明。
+
+### 11.2 状态标签
+
+| 分数 | 中文状态 |
 |---:|---|
 | 1 | 暂时困难 |
 | 2 | 需要较多支持 |
@@ -234,170 +409,223 @@ Status labels:
 | 4 | 比较稳定 |
 | 5 | 很稳定 |
 
-Score card examples:
+### 11.3 卡片示例
 
-- `愿不愿意参与`  
-  `4/5 · 比较稳定`  
-  `多数时候能进入活动，偶尔需要老师轻提示。`  
-  `主要看：能不能主动开始或继续活动`
+示例一：
 
-- `不舒服后能不能回来`  
-  `3/5 · 需要一点支持`  
-  `降低亮度或放慢节奏后，更容易回到活动。`  
-  `主要看：暂停后能不能回到活动`
+`愿不愿意参与`
 
-### Review Focus Panel
+`4/5 · 比较稳定`
 
-Add a high-signal panel named `今天先看这 3 件事`.
+`多数时候能进入活动，偶尔需要老师轻提示。`
 
-It should show:
+`主要看：能不能主动开始或继续活动`
+
+示例二：
+
+`不舒服后能不能回来`
+
+`3/5 · 需要一点支持`
+
+`降低亮度或放慢节奏后，更容易回到活动。`
+
+`主要看：暂停后能不能回到活动`
+
+## 12. 今天先看这 3 件事
+
+新增重点面板：
+
+`今天先看这 3 件事`
+
+内容：
 
 1. `参与和表达更稳定`  
-   `熟悉旋律和慢节奏时，小宇更愿意参与。`
+   `熟悉旋律和慢节奏时，小宇更愿意参与。`  
+   状态：`已确认`
 
 2. `高亮动画需要复核`  
-   `第 6 次活动后出现退出，建议默认降低亮度。`
+   `第 6 次活动后出现退出，建议默认降低亮度。`  
+   状态：`待复核`
 
 3. `下一次活动建议`  
-   `从低亮度、慢节奏和熟悉旋律开始。`
+   `从低亮度、慢节奏和熟悉旋律开始。`  
+   状态：`下次尝试`
 
-Each item should include a clear state marker:
+每项需要有明确状态标记，不只是一段文字。
 
-- `已确认`
-- `待复核`
-- `下次尝试`
+## 13. 活动记录页
 
-## Page-Specific Design
+### 13.1 页面名称
 
-### Overview Page
+中文导航和页面标题统一为：
 
-The overview page is the premium product front door.
+`活动记录`
 
-Required visible sections:
+### 13.2 禁用表达
 
-1. Immersive hero.
-2. Glass navigation.
-3. Search/control pill.
-4. Summary cards.
-5. 9-rubric score ring.
-6. Rubric score cards.
-7. Review focus panel.
-8. Recent observation findings.
+不得显示：
 
-The page must still work with three children: 小宇, 乐乐, 安安.
+- `Session 时间轴`
+- `Session 6`
+- `session-6`
 
-### Activity Records Page
+### 13.3 替代表达
 
-Rename from `Session 时间轴` to `活动记录`.
+统一使用：
 
-Replace `Session N` labels with `第 N 次活动`.
+- `第 1 次活动`
+- `第 2 次活动`
+- `第 6 次活动`
+- `第 8 次活动`
 
-Use story-card format:
+### 13.4 页面结构
 
-- Date.
-- Activity number.
-- Plain state label.
-- What happened.
-- What helped.
-- What needs review.
+活动记录页改成“观察胶片”或“故事卡”形式。
 
-Example:
+每张活动卡包含：
+
+- 日期。
+- 第几次活动。
+- 当时状态。
+- 发生了什么。
+- 什么设置有帮助。
+- 什么需要复核。
+
+示例：
 
 `第 6 次活动`
 
 `高亮动画后，小宇短暂停下并退出活动。老师降低亮度后，下一次活动更容易回到共创流程。`
 
-### State Changes Page
+## 14. 状态变化页
 
-Rename from `动作-情绪关联` to `状态变化`.
+### 14.1 页面名称
 
-Main title:
+中文导航为：
+
+`状态变化`
+
+页面主标题：
 
 `什么设置更适合孩子`
 
-Sections:
+### 14.2 页面目标
 
-1. `音乐和节奏`
-2. `画面亮度`
-3. `老师支持方式`
+这个页面回答三个实际问题：
 
-Avoid showing technical matrix language. Charts should answer a practical question:
+1. 哪些音乐和节奏更适合孩子？
+2. 哪些画面亮度和动画强度可能增加负担？
+3. 老师怎样支持时，孩子更容易回到活动？
 
-- Which settings help participation?
-- Which settings increase load?
-- What should be kept next time?
+### 14.3 页面分区
 
-### Report Review Page
+使用三个明确区块：
 
-Keep teacher approval workflow.
+- `音乐和节奏`
+- `画面亮度`
+- `老师支持方式`
 
-Improve headings:
+### 14.4 禁用表达
 
-- `专业观察版` can remain if used for teacher-side copy.
-- Parent-facing section should use `给家长看的摘要`.
-- `老师审核单向阀` should be replaced with `老师确认后再导出`.
+不得显示：
 
-## Component Plan
+- `Motion x Affect Matrix`
+- `动作-情绪关联`
+- `matrix`
+- `stimulus`
 
-New components:
+### 14.5 新组件
 
-- `src/components/overview/ImmersiveHero.tsx`
-  - Owns hero visual, headline, subtitle, child switcher placement hook, and search/control pill.
+新增组件：
 
-- `src/components/overview/ObservationScoreRing.tsx`
-  - Shows 9-segment score visualization.
-  - Receives display-ready rubric data.
-  - Provides hover and keyboard labels.
+`SettingFitPanel`
 
-- `src/components/overview/ObservationScoreCard.tsx`
-  - Shows a single rubric score with progress bar, status, and primary observable behavior.
+用途：
 
-- `src/components/overview/ReviewFocusPanel.tsx`
-  - Shows the three review priorities.
+- 替代当前偏技术的矩阵。
+- 用普通语言展示什么设置更适合孩子。
+- 每个设置项显示：结论、观察依据、下次建议。
 
-- `src/components/state/SettingFitPanel.tsx`
-  - Replaces the technical motion-affect matrix with practical setting-fit sections for music/tempo, visual brightness, and teacher support.
+## 15. 报告审核页
 
-- `src/lib/displayRubrics.ts`
-  - Converts raw `EvaluationDimension` objects into UI-friendly display data:
-    - `scoreLabel`
-    - `statusLabel`
-    - `plainExplanation`
-    - `primaryObservable`
-    - `tone`
-    - `sourceLabel`
+### 15.1 保留内容
 
-Updated components:
+保留老师审核流程：
 
-- `src/components/layout/AppShell.tsx`
-  - Update Chinese navigation labels.
-  - Keep layout responsive.
+- 草稿。
+- 老师备注。
+- 通过。
+- 退回。
+- 导出前必须审核。
 
-- `src/pages/OverviewPage.tsx`
-  - Use new components.
-  - Remove dense rubric card rendering from page body.
+### 15.2 文案修改
 
-- `src/pages/SessionTimelinePage.tsx`
-  - Rename and restructure visible copy.
+当前 `老师审核单向阀` 改为：
 
-- `src/components/session/SessionTimeline.tsx`
-  - Replace `Session` labels and compact technical counters.
+`老师确认后再导出`
 
-- `src/pages/MotionAffectPage.tsx`
-  - Rename and restructure around practical settings.
+`家长摘要版` 改为：
 
-- `src/components/charts/MotionAffectMatrix.tsx`
-  - Remove from the Chinese state-change page and replace with `SettingFitPanel`.
-  - Keep the file only if English or test compatibility still imports it; otherwise delete it during implementation.
+`给家长看的摘要`
 
-- `src/components/report/TeacherReviewPanel.tsx`
-  - Replace `老师审核单向阀` copy.
+继续强调：
 
-## Data Model Additions
+`报告导出前必须由老师确认。`
 
-Current `EvaluationDimension` can remain as the source model.
+## 16. 组件计划
 
-Add derived display data instead of changing backend-like data:
+### 16.1 新增组件
+
+#### `src/components/overview/ImmersiveHero.tsx`
+
+负责：
+
+- 首页沉浸式背景。
+- 主标题和副标题。
+- 玻璃导航附近的视觉层次。
+- 搜索/控制胶囊。
+
+#### `src/components/overview/ObservationScoreRing.tsx`
+
+负责：
+
+- 9 段式评分总览。
+- hover/focus/tap 交互。
+- 中心整体结论。
+- 可访问性标签。
+
+#### `src/components/overview/ObservationScoreCard.tsx`
+
+负责：
+
+- 单个观察问题评分。
+- 状态标签。
+- 解释句。
+- 主要观察行为。
+- 小进度条。
+
+#### `src/components/overview/ReviewFocusPanel.tsx`
+
+负责：
+
+- `今天先看这 3 件事`。
+- 三个复核重点。
+- 状态标记。
+
+#### `src/components/state/SettingFitPanel.tsx`
+
+负责：
+
+- 状态变化页里的设置适配展示。
+- `音乐和节奏`、`画面亮度`、`老师支持方式` 三个区块。
+
+### 16.2 新增工具文件
+
+#### `src/lib/displayRubrics.ts`
+
+把原始 `EvaluationDimension` 转为展示层数据。
+
+类型：
 
 ```ts
 export type DisplayRubric = {
@@ -413,143 +641,254 @@ export type DisplayRubric = {
 };
 ```
 
-`sourceLabel` should use readable activity references:
+`sourceLabel` 必须使用普通活动引用：
 
-- Good: `来自第 2、4、5、8 次活动`
-- Bad: `session-2 / session-4 / session-5 / session-8`
+- 推荐：`来自第 2、4、5、8 次活动`
+- 禁止：`session-2 / session-4 / session-5 / session-8`
 
-## Interaction Design
+### 16.3 需要更新的组件
 
-### Search/Control Pill
+#### `src/components/layout/AppShell.tsx`
 
-The hero search pill is functional in this iteration.
+更新中文导航：
 
-Placeholder:
+- `观察总览` -> `总览`
+- `Session 时间轴` -> `活动记录`
+- `动作-情绪关联` -> `状态变化`
 
-`搜索活动、观察问题或老师备注`
+#### `src/pages/OverviewPage.tsx`
 
-Behavior:
+改为使用：
 
-- It filters rubric score cards and recent observation findings client-side.
-- Empty search shows all cards and findings.
-- No-result state shows: `没有找到相关观察记录，可以换个关键词试试。`
-- It must not open external search.
+- `ImmersiveHero`
+- `ObservationScoreRing`
+- `ObservationScoreCard`
+- `ReviewFocusPanel`
 
-### Score Ring Interactions
+移除首页中密集文字型评分卡。
 
-Desktop:
+#### `src/pages/SessionTimelinePage.tsx`
 
-- Hover a segment to highlight matching score card.
-- Focus a segment with keyboard to show the same tooltip.
+重命名中文可见文案为活动记录。
 
-Mobile:
+#### `src/components/session/SessionTimeline.tsx`
 
-- Tap a segment to show details below the ring.
-- No hover-only information.
+移除可见 `Session N`，改为 `第 N 次活动`。
 
-### Reduced Motion
+#### `src/pages/MotionAffectPage.tsx`
 
-All animations must respect `prefers-reduced-motion`.
+改为状态变化页。
 
-Allowed animations:
+#### `src/components/charts/MotionAffectMatrix.tsx`
 
-- Fade in.
-- Slight translate.
-- Soft card hover.
-- Score ring draw-once animation.
+中文状态变化页不再使用该组件。实现时可以删除，或保留但不在中文主流程引用。
 
-Avoid:
+#### `src/components/report/TeacherReviewPanel.tsx`
 
-- Infinite decorative motion.
-- Large parallax.
-- Heavy canvas.
-- Scroll-jacking.
+替换 `老师审核单向阀` 等不自然表达。
 
-## Accessibility
+## 17. 数据展示规则
 
-Required:
+当前 `EvaluationDimension` 作为原始数据继续保留。
 
-- Score ring must have readable labels for screen readers.
-- Score cards must not rely only on color.
-- Contrast must be readable on hero background.
-- Hero text must sit on a gradient overlay if needed.
-- Navigation must remain keyboard reachable.
-- Mobile layout must avoid text overlap.
+新增展示层，不直接把复杂逻辑塞进页面组件。
 
-## Performance Budget
+评分状态映射：
 
-Targets:
+| score | statusLabel | tone |
+|---:|---|---|
+| 1 | 暂时困难 | low |
+| 2 | 需要较多支持 | low |
+| 3 | 需要一点支持 | medium |
+| 4 | 比较稳定 | stable |
+| 5 | 很稳定 | strong |
 
-- No new heavy visualization library.
-- Reuse Recharts only where it already exists.
-- Prefer CSS/SVG for the score ring.
-- Avoid remote image dependencies for the core page.
-- Generated/static asset should be local and optimized.
-- Build should remain successful with the existing Vite pipeline.
+小数分数规则：
 
-The current bundle already triggers a Vite chunk warning. This redesign must not add another large dependency unless explicitly approved.
+- `4` 显示为 `4/5`
+- `4.2` 显示为 `4.2/5`
+- 状态按四舍五入后的整数映射。
 
-## Testing Plan
+## 18. 搜索交互
 
-Update or add tests for:
+搜索框必须在本轮可用。
 
-1. Chinese UI forbidden terms do not appear on core pages:
-   - `Session`
-   - `Motion`
-   - `Affect`
-   - `seed`
-   - `confidence`
-   - `dimension`
+搜索范围：
 
-2. Overview page shows premium dashboard sections:
-   - `小宇的共创观察`
-   - `9 项观察总览`
-   - `今天先看这 3 件事`
-   - at least one rubric card with `4/5 · 比较稳定`
+- 观察问题标题。
+- 观察问题解释。
+- 主要观察行为。
+- 最近观察发现标题。
+- 最近观察发现正文。
 
-3. Activity records use user-friendly labels:
-   - `第 6 次活动`
-   - no visible `Session 6`
+交互：
 
-4. State changes page answers practical questions:
-   - `什么设置更适合孩子`
-   - `音乐和节奏`
-   - `画面亮度`
-   - `老师支持方式`
+- 输入后即时过滤。
+- 清空后恢复全部。
+- 无结果显示空状态。
 
-5. Report review copy uses user-friendly wording:
-   - `老师确认后再导出`
-   - no visible `老师审核单向阀`
+空状态文案：
 
-6. Existing safety tests still pass:
-   - no diagnosis or treatment-effect terms.
+`没有找到相关观察记录，可以换个关键词试试。`
 
-Verification commands:
+## 19. 动效规则
+
+允许：
+
+- 首屏淡入。
+- 卡片轻微上浮。
+- 评分环首次绘制。
+- hover/focus 高亮。
+
+禁止：
+
+- 无限循环装饰动画。
+- 大幅视差滚动。
+- 滚动劫持。
+- 重型 canvas 动效。
+- 影响阅读的闪烁或漂浮文字。
+
+必须支持：
+
+`prefers-reduced-motion`
+
+## 20. 可访问性要求
+
+必须满足：
+
+- 评分环每个分段有可读标签。
+- 分数不能只靠颜色表达。
+- 英文和中文都不能溢出按钮或卡片。
+- 首屏背景上文字必须有足够对比度。
+- 导航、搜索框、评分分段可键盘访问。
+- 移动端不能出现文字重叠。
+
+## 21. 性能要求
+
+不得新增大型可视化依赖。
+
+优先使用：
+
+- CSS。
+- SVG。
+- 已有 Recharts。
+- Tailwind。
+
+背景资源：
+
+- 本地。
+- 轻量。
+- 可缓存。
+
+验证时允许 Vite 继续提示已有 chunk warning，但本轮不得因为新依赖明显加重 bundle。
+
+## 22. 测试计划
+
+### 22.1 中文术语测试
+
+核心中文页面不得出现：
+
+- `Session`
+- `Motion`
+- `Affect`
+- `seed`
+- `confidence`
+- `dimension`
+
+### 22.2 首页测试
+
+首页必须出现：
+
+- `小宇的共创观察`
+- `9 项观察总览`
+- `今天先看这 3 件事`
+- 至少一个 `4/5 · 比较稳定`
+- `搜索活动、观察问题或老师备注`
+
+### 22.3 活动记录测试
+
+活动记录页必须出现：
+
+- `活动记录`
+- `第 6 次活动`
+- `第 8 次活动`
+
+不得出现：
+
+- `Session 6`
+- `Session 时间轴`
+
+### 22.4 状态变化测试
+
+状态变化页必须出现：
+
+- `什么设置更适合孩子`
+- `音乐和节奏`
+- `画面亮度`
+- `老师支持方式`
+
+不得出现：
+
+- `Motion x Affect Matrix`
+- `动作-情绪关联`
+
+### 22.5 报告审核测试
+
+报告审核页必须出现：
+
+- `老师确认后再导出`
+- `给家长看的摘要`
+
+不得出现：
+
+- `老师审核单向阀`
+
+### 22.6 安全语言测试
+
+继续禁止：
+
+- `诊断`
+- `疗效`
+- `病情好转`
+- `病情恶化`
+- `康复有效`
+- `恢复正常`
+
+## 23. 验证命令
+
+每轮实现后必须运行：
 
 ```bash
 npm test -- --run
 npm run build
+npm audit --audit-level=moderate
 ```
 
-## Acceptance Criteria
+## 24. 验收标准
 
-The redesign is accepted when:
+本轮改造完成时必须满足：
 
-- The Chinese app no longer feels like a demo dashboard.
-- First viewport has a high-end, immersive product impression.
-- A non-technical user can understand the 9 scores without reading documentation.
-- Every rubric score has a visible score, status, explanation, and observable behavior.
-- Chinese pages do not expose internal engineering terms.
-- Activity records use `第 N 次活动`, not `Session N`.
-- State charts answer practical teacher/caregiver questions.
-- Tests pass.
-- Build passes.
-- No moderate-or-higher npm audit vulnerabilities are introduced.
+- 中文首页第一眼不再像 demo。
+- 中文界面不出现内部研发术语。
+- `9 项观察总览` 是页面主视觉之一。
+- 非技术用户能看懂每项评分代表什么。
+- 每个观察问题都有分数、状态、解释和主要观察行为。
+- 活动记录使用 `第 N 次活动`。
+- 状态变化页回答“什么设置更适合孩子”。
+- 报告审核页文案自然。
+- 测试通过。
+- 构建通过。
+- npm audit 没有 moderate 或更高漏洞。
 
-## Visual Asset Decision
+## 25. 本轮默认视觉资产决策
 
-Implementation should use this direction:
+使用“柔和抽象声波背景”。
 
-- Soft abstract sound-wave background.
+理由：
 
-Reason: it avoids stock-photo mismatch and keeps the product calm, premium, and domain-relevant. A warm music room or nature-light background is outside this iteration.
+- 与音乐共创主题相关。
+- 不依赖图库。
+- 不会像商业模板。
+- 更容易控制性能和可读性。
+
+暖色音乐教室或自然光背景不纳入本轮实现。
