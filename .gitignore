@@ -2,6 +2,8 @@ node_modules/
 dist/
 .worktrees/
 .DS_Store
+.ppt-venv/
+projects/
 *.tsbuildinfo
 vite.config.js
 vite.config.d.ts

@@ -65,7 +65,7 @@ describe("core pages", () => {
     expect(screen.getAllByText(/愿不愿意参加/).length).toBeGreaterThan(0);
     expect(screen.getAllByText(/4\/5/).length).toBeGreaterThan(0);
     expect(screen.getAllByText(/比较稳/).length).toBeGreaterThan(0);
-    expect(screen.getAllByText(/看到的依据/).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/关键变化/).length).toBeGreaterThan(0);
     expect(screen.getByText(/操作方式顺不顺手/)).toBeInTheDocument();
     expect(screen.getByText(/这周小目标有没有往前走/)).toBeInTheDocument();
     await user.type(screen.getByRole("searchbox", { name: /搜索活动记录/ }), "参加");

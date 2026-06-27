@@ -2,12 +2,14 @@ import { useEffect, useMemo, useState } from "react";
 import { mockApi } from "../api/mockApi";
 import { InsightCard } from "../components/insight/InsightCard";
 import { ImmersiveHero } from "../components/overview/ImmersiveHero";
-import { ObservationScoreCard } from "../components/overview/ObservationScoreCard";
-import { ObservationScoreRing } from "../components/overview/ObservationScoreRing";
+import { EvidenceNote } from "../components/overview/EvidenceNote";
+import { ObservationRadar } from "../components/overview/ObservationRadar";
 import { ReviewFocusPanel } from "../components/overview/ReviewFocusPanel";
+import { RubricChip } from "../components/overview/RubricChip";
 import { StatusPill } from "../components/ui/StatusPill";
 import { t } from "../i18n";
 import { filterDisplayRubrics, getDisplayRubrics } from "../lib/displayRubrics";
+import { getRubricEvidence } from "../lib/rubricEvidence";
 import { formatAffectLabel } from "../lib/labels";
 import { useAppStore } from "../store/useAppStore";
 import type { Child, EvaluationDimension, LongitudinalInsight, SessionSummary } from "../types/domain";
@@ -83,25 +85,32 @@ export function OverviewPage() {
 
       <ReviewFocusPanel />
 
-      <div className="grid items-start gap-4 xl:grid-cols-[0.95fr_1.05fr]">
-        <ObservationScoreRing rubrics={displayRubrics} />
+      <div className="grid items-start gap-4 xl:grid-cols-[1.05fr_0.95fr]">
+        <ObservationRadar rubrics={displayRubrics} sessionCount={sessions.length} />
         <div className="surface rounded-2xl p-6 shadow-card">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
               <p className="text-xs font-bold uppercase tracking-[0.12em] text-tide-600">逐项查看</p>
               <h2 className="mt-1 font-display text-xl font-extrabold tracking-tightish">{language === "zh" ? "每项怎么看" : "Detailed Scores"}</h2>
-              <p className="mt-1 max-w-2xl text-sm leading-6 text-ink-muted">{t(language, "dimensionSubtitle")}</p>
+              <p className="mt-1 max-w-2xl text-sm leading-6 text-ink-muted">点开任意一项看证据；完整说明见 <a href={`#/child/${selectedChildId}/rubrics`} className="font-semibold text-tide-600 hover:underline">评分说明</a>。</p>
             </div>
             <StatusPill status={t(language, "needsReview")} />
           </div>
-          <div className="mt-5 grid gap-3 md:grid-cols-2">
+          <div className="mt-5 grid gap-2 sm:grid-cols-2">
             {visibleRubrics.map((rubric) => (
-              <ObservationScoreCard key={rubric.id} rubric={rubric} />
+              <RubricChip
+                key={rubric.id}
+                rubric={rubric}
+                evidence={sessions.length > 0 ? getRubricEvidence(rubric.id, sessions, language) : undefined}
+                teacherName={child.teacher}
+              />
             ))}
           </div>
           {visibleRubrics.length === 0 ? <p className="mt-4 rounded-xl bg-paper-warm/80 p-4 text-sm text-ink-muted">没找到相关内容。可以试试搜“参加”或“亮度”。</p> : null}
         </div>
       </div>
+
+      <EvidenceNote />
 
       <div className="grid gap-4 xl:grid-cols-[0.8fr_1.2fr]">
         <section className="surface rounded-2xl p-6 shadow-card">
