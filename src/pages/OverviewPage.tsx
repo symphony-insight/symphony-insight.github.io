@@ -61,7 +61,7 @@ export function OverviewPage() {
     {
       label: t(language, "latestState"),
       value: latest ? formatAffectLabel(language, latest.affect.dominantState) : "-",
-      caption: language === "zh" ? "最近一次活动里看到的状态" : "Latest activity record"
+      caption: language === "zh" ? "最近一次里他更多是这样" : "Latest activity record"
     },
     {
       label: t(language, "teacher"),

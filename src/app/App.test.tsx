@@ -19,11 +19,11 @@ describe("App shell", () => {
     expect(screen.getByText("SymPhony Insight")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /总览/ })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /活动记录/ })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /适合设置/ })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /报告确认/ })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /怎样更舒服/ })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /活动报告/ })).toBeInTheDocument();
     expect(screen.getByLabelText("切换孩子")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /EN/ })).toBeInTheDocument();
-    expect(screen.getByText(/这里是活动记录/)).toBeInTheDocument();
+    expect(screen.getByText(/这里只是活动记录/)).toBeInTheDocument();
     expect(screen.queryByText(/Session 时间轴|动作-情绪关联|STOP/)).not.toBeInTheDocument();
   });
 
