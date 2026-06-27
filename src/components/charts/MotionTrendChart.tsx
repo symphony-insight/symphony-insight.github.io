@@ -16,7 +16,7 @@ export function MotionTrendChart({ sessions }: { sessions: SessionSummary[] }) {
     <Card className="p-4">
       <div className="flex items-center justify-between">
         <div>
-          <h3 className="font-bold">{language === "zh" ? "参与和恢复趋势" : "Participation and recovery trend"}</h3>
+          <h3 className="font-bold">{language === "zh" ? "参与和回到活动" : "Participation and recovery trend"}</h3>
           <p className="mt-1 text-sm text-stone-500">
             {language === "zh" ? "只看这个孩子自己的变化，不和其他孩子比较。" : "Tracks this child over time without comparing them to other children."}
           </p>
@@ -28,8 +28,8 @@ export function MotionTrendChart({ sessions }: { sessions: SessionSummary[] }) {
             <XAxis dataKey="name" tickLine={false} axisLine={false} />
             <YAxis tickLine={false} axisLine={false} />
             <Tooltip />
-            <Line type="monotone" dataKey="active" name={language === "zh" ? "参与动作时间 %" : "Active motion time %"} stroke="#4b8f9f" strokeWidth={3} dot={{ r: 4 }} />
-            <Line type="monotone" dataKey="material" name={language === "zh" ? "创作素材" : "Creative material"} stroke="#d97c65" strokeWidth={3} dot={{ r: 4 }} />
+            <Line type="monotone" dataKey="active" name={language === "zh" ? "参与时间 %" : "Active motion time %"} stroke="#4b8f9f" strokeWidth={3} dot={{ r: 4 }} />
+            <Line type="monotone" dataKey="material" name={language === "zh" ? "创作片段" : "Creative material"} stroke="#d97c65" strokeWidth={3} dot={{ r: 4 }} />
           </LineChart>
         </ResponsiveContainer>
       </div>

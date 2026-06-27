@@ -58,19 +58,19 @@ describe("core pages", () => {
     expect(screen.getByText("创作片段")).toBeInTheDocument();
     expect(screen.getByText("20 个")).toBeInTheDocument();
     expect(screen.getByText("最近状态")).toBeInTheDocument();
-    expect(screen.getByText("投入")).toBeInTheDocument();
-    expect(screen.getByText("老师复核")).toBeInTheDocument();
+    expect(screen.getByText("很投入")).toBeInTheDocument();
+    expect(screen.getByText("老师")).toBeInTheDocument();
     expect(screen.getByText("陈老师")).toBeInTheDocument();
-    expect(screen.getByRole("searchbox", { name: /搜索观察内容/ })).toBeInTheDocument();
-    expect(screen.getAllByText(/愿不愿意参与/).length).toBeGreaterThan(0);
+    expect(screen.getByRole("searchbox", { name: /搜索活动记录/ })).toBeInTheDocument();
+    expect(screen.getAllByText(/愿不愿意参加/).length).toBeGreaterThan(0);
     expect(screen.getAllByText(/4\/5/).length).toBeGreaterThan(0);
-    expect(screen.getAllByText(/比较稳定/).length).toBeGreaterThan(0);
-    expect(screen.getAllByText(/观察依据/).length).toBeGreaterThan(0);
-    expect(screen.getByText(/操作方式合不合适/)).toBeInTheDocument();
-    expect(screen.getByText(/本周目标有没有进展/)).toBeInTheDocument();
-    await user.type(screen.getByRole("searchbox", { name: /搜索观察内容/ }), "参与");
-    expect(screen.getAllByText(/愿不愿意参与/).length).toBeGreaterThan(0);
-    expect(screen.queryByText(/操作方式合不合适/)).not.toBeInTheDocument();
+    expect(screen.getAllByText(/比较稳/).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/看到的依据/).length).toBeGreaterThan(0);
+    expect(screen.getByText(/操作方式顺不顺手/)).toBeInTheDocument();
+    expect(screen.getByText(/这周小目标有没有往前走/)).toBeInTheDocument();
+    await user.type(screen.getByRole("searchbox", { name: /搜索活动记录/ }), "参加");
+    expect(screen.getAllByText(/愿不愿意参加/).length).toBeGreaterThan(0);
+    expect(screen.queryByText(/操作方式顺不顺手/)).not.toBeInTheDocument();
     expectNoForbiddenCopy(container);
   });
 
@@ -78,11 +78,11 @@ describe("core pages", () => {
     const { container } = render(<SessionTimelinePage />);
 
     expect((await screen.findAllByText(/第 6 次活动/)).length).toBeGreaterThan(0);
-    expect(screen.getByText(/高亮动画出现后退出/)).toBeInTheDocument();
+    expect(screen.getByText(/高亮动画出现后，他退出了活动/)).toBeInTheDocument();
     expect(screen.getAllByText(/创作片段/).length).toBeGreaterThan(0);
-    expect(screen.getByText(/负担偏高/)).toBeInTheDocument();
+    expect(screen.getByText(/有点吃力/)).toBeInTheDocument();
     expect(screen.getAllByText(/第 8 次活动/).length).toBeGreaterThan(0);
-    expect(screen.getByText(/完成完整共创流程/)).toBeInTheDocument();
+    expect(screen.getByText(/完整的共创活动/)).toBeInTheDocument();
     expect(screen.queryByText(/warmup|reveal|capture_seed/)).not.toBeInTheDocument();
     expectNoForbiddenCopy(container);
   });
@@ -90,11 +90,11 @@ describe("core pages", () => {
   it("renders state-change guidance without internal matrix language", async () => {
     const { container } = render(<MotionAffectPage />);
 
-    expect(await screen.findByText(/什么设置更适合孩子/)).toBeInTheDocument();
+    expect(await screen.findByText(/哪种设置更适合孩子/)).toBeInTheDocument();
     expect(screen.getByText(/音乐和节奏/)).toBeInTheDocument();
     expect(screen.getAllByText(/画面亮度/).length).toBeGreaterThan(0);
-    expect(screen.getByText(/老师支持方式/)).toBeInTheDocument();
-    expect(screen.getAllByText(/仅作为老师复核材料/).length).toBeGreaterThan(0);
+    expect(screen.getByText(/老师怎么帮/)).toBeInTheDocument();
+    expect(screen.getByText(/这只是给老师看的活动记录/)).toBeInTheDocument();
     expectNoForbiddenCopy(container);
   });
 
@@ -102,13 +102,13 @@ describe("core pages", () => {
     const user = userEvent.setup();
     const { container } = render(<ReportReviewPage />);
 
-    expect(await screen.findByText(/专业观察版/)).toBeInTheDocument();
-    expect(screen.getAllByText(/老师确认后再导出/).length).toBeGreaterThan(0);
+    expect(await screen.findByText(/老师看的详细版/)).toBeInTheDocument();
+    expect(screen.getAllByText(/老师看过后再导出/).length).toBeGreaterThan(0);
     expect(screen.getByText(/给家长看的摘要/)).toBeInTheDocument();
     await user.click(screen.getByRole("button", { name: /确认通过/ }));
 
-    await waitFor(() => expect(screen.getAllByText(/老师已审核通过/).length).toBeGreaterThan(0));
-    expect(screen.getByText(/老师已确认/)).toBeInTheDocument();
+    await waitFor(() => expect(screen.getAllByText(/老师看过了/).length).toBeGreaterThan(0));
+    expect(screen.getAllByText(/老师已确认/).length).toBeGreaterThan(0);
     expect(screen.queryByText(/report.approved/)).not.toBeInTheDocument();
     expectNoForbiddenCopy(container);
   });

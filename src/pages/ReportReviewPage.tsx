@@ -27,7 +27,7 @@ export function ReportReviewPage() {
     mockApi.updateReportStatus(report.id, status, "陈老师").then(refresh);
   };
 
-  if (!report) return <div>{language === "zh" ? "报告审核加载中" : "Loading report"}</div>;
+  if (!report) return <div>{language === "zh" ? "报告加载中" : "Loading report"}</div>;
 
   return (
     <div className="space-y-6">

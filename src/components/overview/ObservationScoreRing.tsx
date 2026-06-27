@@ -36,7 +36,7 @@ export function ObservationScoreRing({ rubrics }: { rubrics: DisplayRubric[] }) 
       <div className="flex items-start justify-between gap-4">
         <div>
           <h2 className="text-xl font-bold">9 项观察总览</h2>
-          <p className="mt-1 text-sm leading-6 text-stone-500">看哪一项已经稳定，哪一项还需要老师多给支持。</p>
+          <p className="mt-1 text-sm leading-6 text-stone-500">看哪些地方已经比较稳，哪些地方下次还要多帮一点。</p>
         </div>
         <div className="rounded-full bg-ink px-3 py-1 text-sm font-bold text-white">{average.toFixed(1)}/5</div>
       </div>
@@ -70,7 +70,7 @@ export function ObservationScoreRing({ rubrics }: { rubrics: DisplayRubric[] }) 
             })}
           </svg>
           <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-            <p className="text-xs font-bold text-stone-500">平均</p>
+            <p className="text-xs font-bold text-stone-500">平均分</p>
             <p className="text-4xl font-bold">{average.toFixed(1)}</p>
             <p className="mt-1 text-xs text-stone-500">满分 5 分</p>
           </div>

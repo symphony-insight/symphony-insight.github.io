@@ -29,7 +29,7 @@ export function ImmersiveHero({
       <div className="relative z-10 grid gap-6 xl:grid-cols-[1fr_440px]">
         <div className="flex min-h-[280px] flex-col justify-between">
           <div>
-            <p className="text-sm font-semibold text-coral">共鸣观察台</p>
+            <p className="text-sm font-semibold text-coral">共鸣 · 活动记录</p>
             <h1 className="mt-4 max-w-3xl text-4xl font-bold leading-tight md:text-5xl">
               {childName}
               {titleSuffix}
@@ -37,15 +37,15 @@ export function ImmersiveHero({
             <p className="mt-4 max-w-2xl text-base leading-7 text-stone-600">{intro}</p>
           </div>
 
-          <label className="mt-8 flex max-w-2xl items-center gap-3 rounded-full border border-white/80 bg-white/90 px-4 py-3 shadow-soft" aria-label="搜索观察内容">
+          <label className="mt-8 flex max-w-2xl items-center gap-3 rounded-full border border-white/80 bg-white/90 px-4 py-3 shadow-soft" aria-label="搜索活动记录">
             <Search className="h-5 w-5 text-stone-500" aria-hidden="true" />
             <input
               type="search"
               role="searchbox"
-              aria-label="搜索观察内容"
+              aria-label="搜索活动记录"
               value={searchQuery}
               onChange={handleChange}
-              placeholder="搜索观察内容"
+              placeholder="搜参加、亮度、暂停"
               className="min-w-0 flex-1 bg-transparent text-base font-medium outline-none placeholder:text-stone-400"
             />
             <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-ink text-white">

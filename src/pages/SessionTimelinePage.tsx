@@ -26,19 +26,19 @@ export function SessionTimelinePage() {
       <Card className="p-4">
         <div className="grid gap-3 md:grid-cols-4">
           <div>
-            <p className="text-sm text-stone-500">记录数量</p>
+            <p className="text-sm text-stone-500">一共记录</p>
             <p className="mt-1 text-xl font-bold">{sessions.length} 次</p>
           </div>
           <div>
-            <p className="text-sm text-stone-500">重点复核</p>
+            <p className="text-sm text-stone-500">重点看一下</p>
             <p className="mt-1 text-xl font-bold">第 6 次活动</p>
           </div>
           <div>
-            <p className="text-sm text-stone-500">完成节点</p>
+            <p className="text-sm text-stone-500">完成作品</p>
             <p className="mt-1 text-xl font-bold">第 8 次活动</p>
           </div>
           <div>
-            <p className="text-sm text-stone-500">导出状态</p>
+            <p className="text-sm text-stone-500">报告状态</p>
             <p className="mt-1 text-xl font-bold">等待老师确认</p>
           </div>
         </div>

@@ -5,7 +5,7 @@ import { Badge } from "../ui/Badge";
 import { Card } from "../ui/Card";
 
 function formatObservationText(text: string) {
-  return text.replace(/Session\s*(\d+)/g, "第 $1 次活动").replace(/创作素材/g, "创作片段");
+  return text.replace(/Session\s*(\d+)/g, "第 $1 次活动");
 }
 
 export function SessionTimeline({ sessions }: { sessions: SessionSummary[] }) {
@@ -28,11 +28,11 @@ export function SessionTimeline({ sessions }: { sessions: SessionSummary[] }) {
                   <p className="mt-2 text-sm leading-6 text-stone-600">{formatObservationText(session.story)}</p>
                 </div>
                 <div className="rounded-md bg-paper/80 p-3">
-                  <p className="text-xs font-bold text-stone-500">哪些支持有帮助</p>
+                  <p className="text-xs font-bold text-stone-500">什么做法有帮助</p>
                   <p className="mt-2 text-sm leading-6 text-stone-600">{formatObservationText(session.notes[0] ?? "保留熟悉节奏和清楚预告。")}</p>
                 </div>
                 <div className="rounded-md bg-paper/80 p-3">
-                  <p className="text-xs font-bold text-stone-500">需要老师再看</p>
+                  <p className="text-xs font-bold text-stone-500">老师再看什么</p>
                   <p className="mt-2 text-sm leading-6 text-stone-600">{formatObservationText(session.notes[1] ?? "下次活动继续观察。")}</p>
                 </div>
               </div>
@@ -41,7 +41,7 @@ export function SessionTimeline({ sessions }: { sessions: SessionSummary[] }) {
             <div className="grid grid-cols-3 gap-2 text-center text-sm xl:grid-cols-1">
               <div className="rounded-md bg-white/80 p-3">
                 <p className="font-bold">{session.participation.voluntaryActionCount}</p>
-                <p className="text-xs text-stone-500">主动动作</p>
+                <p className="text-xs text-stone-500">主动参与</p>
               </div>
               <div className="rounded-md bg-white/80 p-3">
                 <p className="font-bold">{session.participation.seedCount}</p>

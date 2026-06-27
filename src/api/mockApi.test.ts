@@ -52,15 +52,15 @@ describe("mockApi", () => {
       "goal"
     ]);
     expect(dimensions[0]).toMatchObject({
-      title: "愿不愿意参与",
+      title: "愿不愿意参加",
       titleEn: "Willingness to join",
       score: 4,
-      summary: "看孩子是不是愿意进入活动、停留一会儿，并在需要时继续尝试。"
+      summary: "看孩子愿不愿意开始活动，能不能停留一会儿，暂停后还愿不愿意再试。"
     });
-    expect(dimensions[0].criteria[0]).toBe("孩子能不能主动开始或继续活动");
+    expect(dimensions[0].criteria[0]).toBe("孩子会不会主动开始或继续");
     expect(dimensions[0].scale[0]).toContain("明显不舒服");
-    expect(dimensions[8].title).toBe("本周目标有没有进展");
-    expect(dimensions[8].summary).toContain("只和自己的小目标比较");
+    expect(dimensions[8].title).toBe("这周小目标有没有往前走");
+    expect(dimensions[8].summary).toContain("只和自己比");
   });
 
   it("keeps insight and report copy inside observation-only language", async () => {

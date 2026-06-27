@@ -31,7 +31,7 @@ export function ObservationScoreCard({ rubric }: { rubric: DisplayRubric }) {
       </div>
 
       <details className="mt-4 rounded-md bg-paper/80 px-3 py-2 text-sm">
-        <summary className="cursor-pointer font-semibold text-stone-700">评分怎么看</summary>
+        <summary className="cursor-pointer font-semibold text-stone-700">分数怎么看</summary>
         <ul className="mt-2 space-y-1 text-xs leading-5 text-stone-600">
           {rubric.guide.map((item) => (
             <li key={item}>{item}</li>

@@ -30,11 +30,11 @@ export function SettingFitPanel({ title, fitLabel, evidence, nextStep, score, to
 
       <div className="mt-5 grid gap-3 md:grid-cols-2">
         <div className="rounded-md bg-paper/80 p-3">
-          <p className="text-xs font-bold text-stone-500">看到的情况</p>
+          <p className="text-xs font-bold text-stone-500">这次看到</p>
           <p className="mt-2 text-sm leading-6 text-stone-600">{evidence}</p>
         </div>
         <div className="rounded-md bg-paper/80 p-3">
-          <p className="text-xs font-bold text-stone-500">下次怎么做</p>
+          <p className="text-xs font-bold text-stone-500">下次可以这样试</p>
           <p className="mt-2 text-sm leading-6 text-stone-600">{nextStep}</p>
         </div>
       </div>

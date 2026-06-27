@@ -58,7 +58,7 @@ export const mockApi = {
         targetType: "report",
         targetId: reportId,
         createdAt: new Date().toISOString(),
-        summary: status === "approved" ? "老师已审核通过观察报告。" : "老师更新了观察报告状态。"
+        summary: status === "approved" ? "老师已确认这份报告。" : "老师更新了报告。"
       },
       ...currentAuditLogs
     ];

@@ -19,11 +19,11 @@ describe("App shell", () => {
     expect(screen.getByText("SymPhony Insight")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /总览/ })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /活动记录/ })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /状态变化/ })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /报告审核/ })).toBeInTheDocument();
-    expect(screen.getByLabelText("切换儿童档案")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /适合设置/ })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /报告确认/ })).toBeInTheDocument();
+    expect(screen.getByLabelText("切换孩子")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /EN/ })).toBeInTheDocument();
-    expect(screen.getByText(/这里只整理活动观察/)).toBeInTheDocument();
+    expect(screen.getByText(/这里是活动记录/)).toBeInTheDocument();
     expect(screen.queryByText(/Session 时间轴|动作-情绪关联|STOP/)).not.toBeInTheDocument();
   });
 
@@ -31,11 +31,11 @@ describe("App shell", () => {
     const user = userEvent.setup();
     render(<App />);
 
-    const selector = await screen.findByLabelText("切换儿童档案");
+    const selector = await screen.findByLabelText("切换孩子");
     await screen.findByRole("option", { name: "乐乐" });
     await user.selectOptions(selector, "lele");
 
-    expect(await screen.findByText(/乐乐 · 8 次共创观察/)).toBeInTheDocument();
+    expect(await screen.findByText(/乐乐 · 8 次活动记录/)).toBeInTheDocument();
   });
 
   it("switches core navigation and header copy to English", async () => {

@@ -7,7 +7,7 @@ import { useAppStore } from "../store/useAppStore";
 import type { LongitudinalInsight, SessionSummary } from "../types/domain";
 
 function formatObservationText(text: string) {
-  return text.replace(/创作素材/g, "创作片段");
+  return text;
 }
 
 export function MotionAffectPage() {
@@ -22,7 +22,7 @@ export function MotionAffectPage() {
     });
   }, [selectedChildId]);
 
-  if (sessions.length === 0) return <div>{language === "zh" ? "状态变化加载中" : "Loading state view"}</div>;
+  if (sessions.length === 0) return <div>{language === "zh" ? "设置加载中" : "Loading state view"}</div>;
 
   const highBrightness = sessions.find((session) => session.stimulus === "high_brightness");
   const lowSupport = sessions.find((session) => session.stimulus === "low_brightness");
@@ -41,21 +41,21 @@ export function MotionAffectPage() {
           title="音乐和节奏"
           fitLabel="更适合：熟悉旋律、慢节奏"
           evidence={`${formatObservationText(slowTempo?.story ?? "慢节奏活动中，孩子更容易停留在活动里。")} 主动动作和创作片段更稳定。`}
-          nextStep="下次先用慢节奏开场，再逐步增加新的声音变化。"
+          nextStep="下次先用慢节奏开场，再慢慢加入新的声音变化。"
           score={86}
           tone="moss"
         />
         <SettingFitPanel
           title="画面亮度"
-          fitLabel="需要调低：高亮动画"
-          evidence={`${formatObservationText(highBrightness?.story ?? "高亮动画后出现退出。")} 这类画面建议先由老师复核。`}
-          nextStep="默认使用低亮度反馈，必要时再短时间尝试更明显的视觉提示。"
+          fitLabel="建议先调低：高亮动画"
+          evidence={`${formatObservationText(highBrightness?.story ?? "高亮动画后出现退出。")} 这类画面建议先请老师看一下。`}
+          nextStep="默认用低亮度画面。确实需要更明显的提示时，再短时间试一下。"
           score={62}
           tone="coral"
         />
         <SettingFitPanel
-          title="老师支持方式"
-          fitLabel="更适合：保留暂停权和重新开始"
+          title="老师怎么帮"
+          fitLabel="更适合：可以暂停，也可以重新开始"
           evidence={`${formatObservationText(lowSupport?.story ?? "降低负担后更容易回到活动。")} 清楚预告和暂停选择能降低活动压力。`}
           nextStep="每次活动开始前先说明可以暂停，结束前保留一次再试机会。"
           score={78}
@@ -65,9 +65,9 @@ export function MotionAffectPage() {
 
       <div className="grid gap-4 xl:grid-cols-3">
         <Card className="p-5 xl:col-span-2">
-          <h2 className="text-lg font-bold">高亮动画需要复核</h2>
+          <h2 className="text-lg font-bold">高亮动画要再看</h2>
           <p className="mt-3 text-sm leading-6 text-stone-600">
-            {formatObservationText(highBrightness?.story ?? "")} 该片段显示画面强度变高后，孩子更容易退出活动。下一次建议降低亮度并保留暂停权，仅作为老师复核材料。
+            {formatObservationText(highBrightness?.story ?? "")} 这次活动里，画面变亮后孩子更容易退出。下一次建议先降低亮度，并保留暂停选择。这只是给老师看的活动记录。
           </p>
           <div className="mt-4 grid gap-3 md:grid-cols-3">
             <div className="rounded-md bg-stone-50 p-3">
@@ -75,17 +75,17 @@ export function MotionAffectPage() {
               <p className="mt-1 text-2xl font-bold">{highBrightness?.motion.responseLatencyMs}ms</p>
             </div>
             <div className="rounded-md bg-stone-50 p-3">
-              <p className="text-sm text-stone-500">老师介入</p>
+              <p className="text-sm text-stone-500">老师帮忙</p>
               <p className="mt-1 text-2xl font-bold">{highBrightness?.affect.teacherInterventionCount} 次</p>
             </div>
             <div className="rounded-md bg-stone-50 p-3">
-              <p className="text-sm text-stone-500">退出记录</p>
+              <p className="text-sm text-stone-500">退出次数</p>
               <p className="mt-1 text-2xl font-bold">{highBrightness?.participation.refusalCount} 次</p>
             </div>
           </div>
         </Card>
         <Card className="p-5">
-          <h2 className="text-lg font-bold">复核提示</h2>
+          <h2 className="text-lg font-bold">老师再看</h2>
           <div className="mt-3 space-y-3 text-sm leading-6 text-stone-600">
             {insights
               .filter((insight) => insight.claimLevel === "requires_professional_review")

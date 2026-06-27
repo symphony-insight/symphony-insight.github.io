@@ -61,7 +61,7 @@ export function OverviewPage() {
     {
       label: t(language, "latestState"),
       value: latest ? formatAffectLabel(language, latest.affect.dominantState) : "-",
-      caption: language === "zh" ? "最近一次活动记录" : "Latest activity record"
+      caption: language === "zh" ? "最近一次活动里看到的状态" : "Latest activity record"
     },
     {
       label: t(language, "teacher"),
@@ -88,7 +88,7 @@ export function OverviewPage() {
         <div className="rounded-lg border border-white/70 bg-white/70 p-5 shadow-soft">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
-              <h2 className="text-xl font-bold">{language === "zh" ? "具体评分" : "Detailed Scores"}</h2>
+              <h2 className="text-xl font-bold">{language === "zh" ? "每项怎么看" : "Detailed Scores"}</h2>
               <p className="mt-1 max-w-2xl text-sm leading-6 text-stone-500">{t(language, "dimensionSubtitle")}</p>
             </div>
             <StatusPill status={t(language, "needsReview")} />
@@ -98,7 +98,7 @@ export function OverviewPage() {
               <ObservationScoreCard key={rubric.id} rubric={rubric} />
             ))}
           </div>
-          {visibleRubrics.length === 0 ? <p className="mt-4 rounded-md bg-paper/80 p-4 text-sm text-stone-500">没有找到对应的观察内容。</p> : null}
+          {visibleRubrics.length === 0 ? <p className="mt-4 rounded-md bg-paper/80 p-4 text-sm text-stone-500">没找到相关内容。可以试试搜“参加”或“亮度”。</p> : null}
         </div>
       </div>
 

@@ -26,11 +26,11 @@ function getStatusLabel(score: number, language: Language) {
     return "Very steady";
   }
 
-  if (score < 2) return "暂时困难";
-  if (score < 3) return "需要较多支持";
-  if (score < 4) return "需要一点支持";
-  if (score < 5) return "比较稳定";
-  return "很稳定";
+  if (score < 2) return "暂时还难";
+  if (score < 3) return "需要多一点帮助";
+  if (score < 4) return "需要一点提醒";
+  if (score < 5) return "比较稳";
+  return "很稳";
 }
 
 function getTone(score: number): DisplayRubric["tone"] {
@@ -54,7 +54,7 @@ export function getDisplayRubrics(dimensions: EvaluationDimension[], language: L
       plainExplanation: language === "zh" ? dimension.summary : dimension.summaryEn,
       primaryObservable: criteria[0] ?? title,
       tone: getTone(dimension.score),
-      sourceLabel: language === "zh" ? "观察依据" : "Evidence",
+      sourceLabel: language === "zh" ? "看到的依据" : "Evidence",
       guide: language === "zh" ? dimension.scale : dimension.scaleEn
     };
   });
