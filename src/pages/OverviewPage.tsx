@@ -83,36 +83,38 @@ export function OverviewPage() {
 
       <ReviewFocusPanel />
 
-      <div className="grid gap-4 xl:grid-cols-[0.95fr_1.05fr]">
+      <div className="grid items-start gap-4 xl:grid-cols-[0.95fr_1.05fr]">
         <ObservationScoreRing rubrics={displayRubrics} />
-        <div className="rounded-lg border border-white/70 bg-white/70 p-5 shadow-soft">
+        <div className="surface rounded-2xl p-6 shadow-card">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
-              <h2 className="text-xl font-bold">{language === "zh" ? "每项怎么看" : "Detailed Scores"}</h2>
-              <p className="mt-1 max-w-2xl text-sm leading-6 text-stone-500">{t(language, "dimensionSubtitle")}</p>
+              <p className="text-xs font-bold uppercase tracking-[0.12em] text-tide-600">逐项查看</p>
+              <h2 className="mt-1 font-display text-xl font-extrabold tracking-tightish">{language === "zh" ? "每项怎么看" : "Detailed Scores"}</h2>
+              <p className="mt-1 max-w-2xl text-sm leading-6 text-ink-muted">{t(language, "dimensionSubtitle")}</p>
             </div>
             <StatusPill status={t(language, "needsReview")} />
           </div>
-          <div className="mt-4 grid gap-3 md:grid-cols-2">
+          <div className="mt-5 grid gap-3 md:grid-cols-2">
             {visibleRubrics.map((rubric) => (
               <ObservationScoreCard key={rubric.id} rubric={rubric} />
             ))}
           </div>
-          {visibleRubrics.length === 0 ? <p className="mt-4 rounded-md bg-paper/80 p-4 text-sm text-stone-500">没找到相关内容。可以试试搜“参加”或“亮度”。</p> : null}
+          {visibleRubrics.length === 0 ? <p className="mt-4 rounded-xl bg-paper-warm/80 p-4 text-sm text-ink-muted">没找到相关内容。可以试试搜“参加”或“亮度”。</p> : null}
         </div>
       </div>
 
       <div className="grid gap-4 xl:grid-cols-[0.8fr_1.2fr]">
-        <section className="rounded-lg border border-white/70 bg-white/80 p-5 shadow-soft">
-          <h2 className="text-lg font-bold">{t(language, "latestSummary")}</h2>
-          <p className="mt-3 text-sm leading-6 text-stone-600">{latest?.story}</p>
-          <div className="mt-4 rounded-md bg-paper/80 p-3 text-sm text-stone-600">{child.guardianSummary}</div>
+        <section className="surface rounded-2xl p-6 shadow-card">
+          <p className="text-xs font-bold uppercase tracking-[0.12em] text-coral-600">最近一次</p>
+          <h2 className="mt-1 font-display text-lg font-extrabold tracking-tightish">{t(language, "latestSummary")}</h2>
+          <p className="mt-3 text-sm leading-6 text-ink-soft">{latest?.story}</p>
+          <div className="mt-4 rounded-xl border border-white/70 bg-paper-warm/70 p-4 text-sm leading-6 text-ink-soft">{child.guardianSummary}</div>
         </section>
 
-        <section className="rounded-lg border border-white/70 bg-white/80 p-5 shadow-soft">
+        <section className="surface rounded-2xl p-6 shadow-card">
           <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-            <h2 className="text-xl font-bold">{t(language, "keyInsights")}</h2>
-            <p className="text-sm text-stone-500">{t(language, "traceableOnly")}</p>
+            <h2 className="font-display text-xl font-extrabold tracking-tightish">{t(language, "keyInsights")}</h2>
+            <p className="text-sm text-ink-muted">{t(language, "traceableOnly")}</p>
           </div>
           <div className="grid gap-3 lg:grid-cols-2">
             {visibleInsights.map((insight) => (

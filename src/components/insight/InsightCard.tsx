@@ -15,13 +15,15 @@ function formatEvidenceLabel(id: string) {
 
 export function InsightCard({ insight }: { insight: LongitudinalInsight }) {
   return (
-    <Card className="p-4">
+    <Card className="soft-rise p-4">
       <div className="flex items-start justify-between gap-3">
-        <h3 className="text-base font-bold">{insight.title}</h3>
-        <Badge tone={insight.claimLevel === "requires_professional_review" ? "coral" : "moss"}>{claimLabels[insight.claimLevel]}</Badge>
+        <h3 className="font-display text-base font-bold">{insight.title}</h3>
+        <Badge tone={insight.claimLevel === "requires_professional_review" ? "coral" : "moss"} dot>
+          {claimLabels[insight.claimLevel]}
+        </Badge>
       </div>
-      <p className="mt-3 text-sm leading-6 text-stone-600">{insight.statement}</p>
-      <p className="mt-3 text-xs font-semibold text-stone-500">观察依据：{insight.evidenceSessionIds.map(formatEvidenceLabel).join(" / ")}</p>
+      <p className="mt-3 text-sm leading-6 text-ink-soft">{insight.statement}</p>
+      <p className="mt-3 text-xs font-semibold text-ink-muted">观察依据：{insight.evidenceSessionIds.map(formatEvidenceLabel).join(" / ")}</p>
     </Card>
   );
 }

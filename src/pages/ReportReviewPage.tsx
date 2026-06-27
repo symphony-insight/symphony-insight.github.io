@@ -30,11 +30,11 @@ export function ReportReviewPage() {
   if (!report) return <div>{language === "zh" ? "报告加载中" : "Loading report"}</div>;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 page-enter">
       <div>
-        <p className="text-sm font-semibold text-coral">{t(language, "report")}</p>
-        <h1 className="mt-1 text-3xl font-bold">{t(language, "reportTitle")}</h1>
-        <p className="mt-2 max-w-3xl text-stone-600">{t(language, "reportIntro")}</p>
+        <p className="text-xs font-bold uppercase tracking-[0.12em] text-coral-600">{t(language, "report")}</p>
+        <h1 className="mt-1 font-display text-3xl font-extrabold tracking-tightish md:text-4xl">{t(language, "reportTitle")}</h1>
+        <p className="mt-2 max-w-3xl text-ink-muted">{t(language, "reportIntro")}</p>
       </div>
       <TeacherReviewPanel report={report} auditLogs={auditLogs} onStatusChange={updateStatus} />
       <ReportDraftPanel report={report} />
