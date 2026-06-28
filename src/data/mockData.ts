@@ -509,6 +509,14 @@ export const reportDrafts: ReportDraft[] = [
       positiveMoments: "With visual waveforms, captions, and a slower pace, he joined more steadily and often returned when the activity stayed predictable.",
       nextObservationFocus: "In the next cycle, keep the captions, waveforms, and softer visuals while continuing to observe which pacing helps him stay comfortable."
     },
+    safetyCheck: {
+      ...reportDraft.safetyCheck,
+      containsMedicalClaim: true,
+      flaggedPhrases: ["恢复正常"],
+      displayStatus: "blocked",
+      plainSummary: "这版草稿暂时不能导出，请先修改标出的表述。",
+      plainSummaryEn: "This draft cannot be exported until the highlighted wording is edited."
+    },
     evidenceTrace: {
       ...reportDraft.evidenceTrace,
       sessionIds: reportDraft.evidenceTrace.sessionIds.map((id) => id.replace("session", "anan-session"))

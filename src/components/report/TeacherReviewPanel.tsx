@@ -72,6 +72,7 @@ export function TeacherReviewPanel({
 }) {
   const content = copy[language];
   const teacherNote = language === "zh" ? report.teacherNote : report.teacherNoteEn;
+  const isSafetyBlocked = report.safetyCheck.displayStatus === "blocked";
 
   return (
     <Card className="p-6">
@@ -96,12 +97,12 @@ export function TeacherReviewPanel({
           {isGenerating ? content.regenerating : content.regenerate}
         </Button>
         <Button onClick={() => onStatusChange("rejected")}>{content.reject}</Button>
-        <Button variant="primary" onClick={() => onStatusChange("approved")}>
+        <Button variant="primary" onClick={() => onStatusChange("approved")} disabled={isSafetyBlocked}>
           {content.approve}
         </Button>
         <Button
           onClick={() => onStatusChange("exported")}
-          disabled={report.status !== "approved" || report.safetyCheck.displayStatus === "blocked"}
+          disabled={report.status !== "approved" || isSafetyBlocked}
         >
           {content.export}
         </Button>

@@ -167,6 +167,21 @@ describe("core pages", () => {
     expect(screen.queryByText("老师已确认这份报告。")).not.toBeInTheDocument();
   });
 
+  it("does not allow approving a blocked report from the review page", async () => {
+    const user = userEvent.setup();
+    useAppStore.getState().setSelectedChildId("anan");
+    render(<ReportReviewPage />);
+
+    expect(await screen.findByText(/老师看的详细版/)).toBeInTheDocument();
+    const approveButton = screen.getByRole("button", { name: "确认通过" });
+
+    expect(approveButton).toBeDisabled();
+    await user.click(approveButton);
+
+    expect(screen.getAllByText(/请老师看一眼/).length).toBeGreaterThan(0);
+    expect(screen.queryByText(/老师已确认/)).not.toBeInTheDocument();
+  });
+
   it("renders the report method page and links back to rubric evidence", async () => {
     const user = userEvent.setup();
     useAppStore.getState().setSelectedChildId("xiaoyu");

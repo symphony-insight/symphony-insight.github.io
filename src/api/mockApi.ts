@@ -1,11 +1,33 @@
 import { allInsights, allSessions, auditLogs, children, evaluationDimensions, reportDrafts } from "../data/mockData";
-import type { AuditLog, Child, LongitudinalInsight, ReportDraft, ReportStatus, SessionSummary } from "../types/domain";
+import type {
+  AuditLog,
+  Child,
+  LongitudinalInsight,
+  ReportDraft,
+  ReportGenerationStatus,
+  ReportStatus,
+  SessionSummary
+} from "../types/domain";
 
 let currentReports: ReportDraft[] = structuredClone(reportDrafts);
 let currentAuditLogs: AuditLog[] = structuredClone(auditLogs);
 
 function delay<T>(value: T): Promise<T> {
   return new Promise((resolve) => window.setTimeout(() => resolve(structuredClone(value)), 80));
+}
+
+function getGenerationStatusForReport(status: ReportStatus): ReportGenerationStatus {
+  switch (status) {
+    case "draft":
+      return "not_started";
+    case "teacher_reviewing":
+    case "rejected":
+      return "needs_teacher_review";
+    case "approved":
+      return "approved";
+    case "exported":
+      return "exported";
+  }
 }
 
 export const mockApi = {
@@ -93,7 +115,17 @@ export const mockApi = {
   updateReportStatus(reportId: string, status: ReportStatus, actor: string): Promise<ReportDraft> {
     const report = currentReports.find((item) => item.id === reportId);
     if (!report) throw new Error(`Unknown report: ${reportId}`);
-    const updatedReport = { ...report, status };
+    if (report.safetyCheck.displayStatus === "blocked" && (status === "approved" || status === "exported")) {
+      return Promise.reject(new Error("Blocked reports cannot be approved or exported."));
+    }
+    const updatedReport = {
+      ...report,
+      status,
+      generation: {
+        ...report.generation,
+        status: getGenerationStatusForReport(status)
+      }
+    };
     const actorEn = actor === "陈老师" ? "Teacher Chen" : actor;
     const summaryEn =
       status === "approved"

@@ -131,10 +131,36 @@ describe("mockApi", () => {
     const auditLogs = await mockApi.getAuditLogs("xiaoyu");
 
     expect(approved.status).toBe("approved");
+    expect(approved.generation.status).toBe("approved");
     expect(auditLogs[0]).toMatchObject({
       actor: "陈老师",
       action: "report.approved",
       targetId: "report-xiaoyu-8"
     });
+  });
+
+  it("keeps generation status synchronized when review status changes", async () => {
+    await mockApi.resetReviewState();
+
+    const approved = await mockApi.updateReportStatus("report-xiaoyu-8", "approved", "陈老师");
+    const exported = await mockApi.updateReportStatus("report-xiaoyu-8", "exported", "陈老师");
+    const rejected = await mockApi.updateReportStatus("report-xiaoyu-8", "rejected", "陈老师");
+    const reviewing = await mockApi.updateReportStatus("report-xiaoyu-8", "teacher_reviewing", "陈老师");
+
+    expect(approved.generation.status).toBe("approved");
+    expect(exported.generation.status).toBe("exported");
+    expect(rejected.generation.status).toBe("needs_teacher_review");
+    expect(reviewing.generation.status).toBe("needs_teacher_review");
+  });
+
+  it("blocks approval and export when the safety review is blocked", async () => {
+    await mockApi.resetReviewState();
+
+    await expect(mockApi.updateReportStatus("report-anan-8", "approved", "陈老师")).rejects.toThrow(
+      "Blocked reports cannot be approved or exported."
+    );
+    await expect(mockApi.updateReportStatus("report-anan-8", "exported", "陈老师")).rejects.toThrow(
+      "Blocked reports cannot be approved or exported."
+    );
   });
 });

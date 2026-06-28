@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import { reportDraft } from "../../data/mockData";
 import { ReportSafetyNotice } from "./ReportSafetyNotice";
 import { ReportSourceSummary } from "./ReportSourceSummary";
+import { TeacherReviewPanel } from "./TeacherReviewPanel";
 import { ReportWorkflowSteps } from "./ReportWorkflowSteps";
 
 describe("report workflow components", () => {
@@ -27,6 +28,47 @@ describe("report workflow components", () => {
     render(<ReportWorkflowSteps report={reportNeedingEdits} isGenerating={false} language="zh" />);
 
     expect(screen.getByText("检查表述").closest('[aria-current="step"]')).toBeInTheDocument();
+  });
+
+  it("keeps the draft step current before a report is ready for review", () => {
+    const draftReport = {
+      ...reportDraft,
+      status: "draft" as const,
+      generation: {
+        ...reportDraft.generation,
+        status: "not_started" as const
+      }
+    };
+
+    render(<ReportWorkflowSteps report={draftReport} isGenerating={false} language="zh" />);
+
+    expect(screen.getByText("整理草稿").closest('[aria-current="step"]')).toBeInTheDocument();
+  });
+
+  it("disables approval when the safety review is blocked", () => {
+    const blockedReport = {
+      ...reportDraft,
+      safetyCheck: {
+        ...reportDraft.safetyCheck,
+        displayStatus: "blocked" as const,
+        containsMedicalClaim: true,
+        plainSummary: "这版草稿暂时不能导出，请先修改标出的表述。",
+        plainSummaryEn: "This draft cannot be exported until the highlighted wording is edited."
+      }
+    };
+
+    render(
+      <TeacherReviewPanel
+        report={blockedReport}
+        auditLogs={[]}
+        isGenerating={false}
+        language="zh"
+        onRegenerateDraft={() => undefined}
+        onStatusChange={() => undefined}
+      />
+    );
+
+    expect(screen.getByRole("button", { name: "确认通过" })).toBeDisabled();
   });
 
   it("renders report sources and links to the scoring guide", () => {

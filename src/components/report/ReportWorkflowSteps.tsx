@@ -20,6 +20,9 @@ function getActiveIndex(report: ReportDraft, isGenerating: boolean) {
   if (isGenerating || report.generation.status === "generating") {
     return 0;
   }
+  if (report.status === "draft" || report.generation.status === "not_started" || report.generation.status === "draft_ready") {
+    return 0;
+  }
   if (
     report.generation.status === "blocked" ||
     report.safetyCheck.displayStatus === "blocked" ||
@@ -33,7 +36,10 @@ function getActiveIndex(report: ReportDraft, isGenerating: boolean) {
   if (report.status === "approved") {
     return 3;
   }
-  return 2;
+  if (report.status === "teacher_reviewing" || report.status === "rejected" || report.generation.status === "needs_teacher_review") {
+    return 2;
+  }
+  return 0;
 }
 
 export function ReportWorkflowSteps({

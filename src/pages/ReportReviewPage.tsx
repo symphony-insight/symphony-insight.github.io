@@ -27,6 +27,9 @@ export function ReportReviewPage() {
 
   const updateStatus = (status: ReportStatus) => {
     if (!report) return;
+    if (report.safetyCheck.displayStatus === "blocked" && (status === "approved" || status === "exported")) {
+      return;
+    }
     mockApi.updateReportStatus(report.id, status, "陈老师").then(refresh);
   };
 
