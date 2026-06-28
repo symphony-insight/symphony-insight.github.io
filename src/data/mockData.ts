@@ -392,7 +392,8 @@ export const reportDraft: ReportDraft = {
     sourceDomainCount: 6,
     generatedAt: "2026-06-27T10:10:00+08:00",
     promptVersion: "report-draft-v1-2026-06",
-    modelLabel: "报告整理助手"
+    modelLabel: "报告整理助手",
+    modelLabelEn: "Report assistant"
   },
   professionalDraft: {
     overview: "本轮一共记录了 8 次音乐共创活动。小宇一开始动作回应较少，后来在熟悉旋律、慢节奏和低亮度画面下，能完成一次完整活动。",
@@ -412,7 +413,8 @@ export const reportDraft: ReportDraft = {
     flaggedPhrases: [],
     checkedAt: "2026-06-27T10:11:00+08:00",
     displayStatus: "passed",
-    plainSummary: "没有发现不适合直接使用的表述。"
+    plainSummary: "没有发现不适合直接使用的表述。",
+    plainSummaryEn: "No wording was found that should be held back from parent-facing use."
   },
   evidenceTrace: {
     sessionIds: ["session-1", "session-2", "session-3", "session-4", "session-5", "session-6", "session-7", "session-8"],
@@ -478,10 +480,12 @@ export const auditLogs: AuditLog[] = [
     id: "audit-1",
     childId: "xiaoyu",
     actor: "陈老师",
+    actorEn: "Teacher Chen",
     action: "report.teacher_reviewing",
     targetType: "report",
     targetId: "report-xiaoyu-8",
     createdAt: "2026-06-27T10:15:00+08:00",
-    summary: "报告草稿等老师确认。"
+    summary: "报告草稿等老师确认。",
+    summaryEn: "The draft report is waiting for teacher review."
   }
 ];

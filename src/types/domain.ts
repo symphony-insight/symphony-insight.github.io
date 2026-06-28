@@ -128,6 +128,7 @@ export type ReportDraft = {
     generatedAt: string;
     promptVersion: string;
     modelLabel: string;
+    modelLabelEn: string;
   };
   professionalDraft: {
     overview: string;
@@ -148,6 +149,7 @@ export type ReportDraft = {
     checkedAt: string;
     displayStatus: ReportSafetyDisplayStatus;
     plainSummary: string;
+    plainSummaryEn: string;
   };
   evidenceTrace: {
     sessionIds: string[];
@@ -162,9 +164,11 @@ export type AuditLog = {
   id: string;
   childId: string;
   actor: string;
+  actorEn?: string;
   action: string;
   targetType: "report" | "session" | "safety";
   targetId: string;
   createdAt: string;
   summary: string;
+  summaryEn?: string;
 };

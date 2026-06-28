@@ -46,14 +46,16 @@ describe("mockApi", () => {
       sourceSessionCount: 8,
       sourceRubricCount: 9,
       sourceDomainCount: 6,
-      modelLabel: "报告整理助手"
+      modelLabel: "报告整理助手",
+      modelLabelEn: "Report assistant"
     });
     expect(report.generation.promptVersion).toBe("report-draft-v1-2026-06");
     expect(report.safetyCheck).toMatchObject({
       containsMedicalClaim: false,
       flaggedPhrases: [],
       displayStatus: "passed",
-      plainSummary: "没有发现不适合直接使用的表述。"
+      plainSummary: "没有发现不适合直接使用的表述。",
+      plainSummaryEn: "No wording was found that should be held back from parent-facing use."
     });
     expect(report.evidenceTrace.sessionIds).toContain("session-8");
     expect(report.evidenceTrace.rubricIds).toContain("join");
@@ -70,10 +72,12 @@ describe("mockApi", () => {
     expect(generated.generation.generatedAt).not.toBe("2026-06-27T10:10:00+08:00");
     expect(auditLogs[0]).toMatchObject({
       actor: "报告整理助手",
+      actorEn: "Report assistant",
       action: "report.generated",
       targetType: "report",
       targetId: "report-xiaoyu-8",
-      summary: "系统整理了一版报告草稿，等老师确认。"
+      summary: "系统整理了一版报告草稿，等老师确认。",
+      summaryEn: "The system prepared a report draft for teacher review."
     });
   });
 
