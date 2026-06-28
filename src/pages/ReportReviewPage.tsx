@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { mockApi } from "../api/mockApi";
+import { getApiClient } from "../api/backendApi";
 import { ReportDraftPanel } from "../components/report/ReportDraftPanel";
 import { ReportSourceSummary } from "../components/report/ReportSourceSummary";
 import { ReportWorkflowSteps } from "../components/report/ReportWorkflowSteps";
@@ -13,9 +13,10 @@ export function ReportReviewPage() {
   const [auditLogs, setAuditLogs] = useState<AuditLog[]>([]);
   const [isGenerating, setIsGenerating] = useState(false);
   const { language, selectedChildId } = useAppStore();
+  const apiClient = getApiClient();
 
   const refresh = () => {
-    Promise.all([mockApi.getReportDraftByChild(selectedChildId), mockApi.getAuditLogs(selectedChildId)]).then(([reportData, auditData]) => {
+    Promise.all([apiClient.getReportDraftByChild(selectedChildId), apiClient.getAuditLogs(selectedChildId)]).then(([reportData, auditData]) => {
       setReport(reportData);
       setAuditLogs(auditData);
     });
@@ -30,16 +31,16 @@ export function ReportReviewPage() {
     if (report.safetyCheck.displayStatus === "blocked" && (status === "approved" || status === "exported")) {
       return;
     }
-    mockApi.updateReportStatus(report.id, status, "陈老师").then(refresh);
+    apiClient.updateReportStatus(report.id, status, "陈老师").then(refresh);
   };
 
   const regenerateDraft = () => {
     setIsGenerating(true);
-    mockApi
+    apiClient
       .generateReportDraft(selectedChildId)
       .then((updatedReport) => {
         setReport(updatedReport);
-        return mockApi.getAuditLogs(selectedChildId).then(setAuditLogs);
+        return apiClient.getAuditLogs(selectedChildId).then(setAuditLogs);
       })
       .finally(() => setIsGenerating(false));
   };

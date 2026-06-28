@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { beforeEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { mockApi } from "../api/mockApi";
 import { Sidebar } from "../components/layout/Sidebar";
 import { ReportDraftPanel } from "../components/report/ReportDraftPanel";
@@ -51,9 +51,16 @@ function expectNoForbiddenCopy(container: HTMLElement) {
 
 describe("core pages", () => {
   beforeEach(async () => {
+    vi.unstubAllEnvs();
+    vi.restoreAllMocks();
     useAppStore.getState().setLanguage("zh");
     useAppStore.getState().setSelectedChildId("xiaoyu");
     await mockApi.resetReviewState();
+  });
+
+  afterEach(() => {
+    vi.unstubAllEnvs();
+    vi.restoreAllMocks();
   });
 
   it("renders the premium overview with readable scores and working search", async () => {
@@ -142,6 +149,45 @@ describe("core pages", () => {
     await waitFor(() => expect(screen.getByText(/系统整理了一版报告草稿/)).toBeInTheDocument());
     expect(screen.getByText(/报告整理助手/)).toBeInTheDocument();
     expect(screen.getByText(/没有发现不适合直接使用的表述/)).toBeInTheDocument();
+  });
+
+  it("uses the backend API client when backend mode is enabled", async () => {
+    const user = userEvent.setup();
+    vi.stubEnv("VITE_API_MODE", "backend");
+    vi.stubEnv("VITE_API_BASE_URL", "http://127.0.0.1:8000/api/v1");
+    const generatedReport = {
+      ...reportDraft,
+      professionalDraft: {
+        ...reportDraft.professionalDraft,
+        overview: "后端整理出的报告草稿。"
+      },
+      generation: {
+        ...reportDraft.generation,
+        status: "draft_ready" as const
+      }
+    };
+    const fetchMock = vi.fn(async (url: string, init?: RequestInit) => {
+      if (url.endsWith("/children/xiaoyu/reports/current")) {
+        return { ok: true, json: async () => reportDraft } as Response;
+      }
+      if (url.endsWith("/children/xiaoyu/audit-logs")) {
+        return { ok: true, json: async () => [] } as Response;
+      }
+      if (url.endsWith("/children/xiaoyu/reports/draft")) {
+        expect(init?.method).toBe("POST");
+        return { ok: true, json: async () => generatedReport } as Response;
+      }
+      throw new Error(`Unexpected fetch ${url}`);
+    });
+    vi.stubGlobal("fetch", fetchMock);
+
+    render(<ReportReviewPage />);
+
+    expect(await screen.findByText(/老师看的详细版/)).toBeInTheDocument();
+    await user.click(screen.getByRole("button", { name: /重新整理草稿/ }));
+
+    await waitFor(() => expect(screen.getByText("后端整理出的报告草稿。")).toBeInTheDocument());
+    expect(fetchMock).toHaveBeenCalledWith("http://127.0.0.1:8000/api/v1/children/xiaoyu/reports/draft", expect.objectContaining({ method: "POST" }));
   });
 
   it("renders English report copy in English mode", async () => {
