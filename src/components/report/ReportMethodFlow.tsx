@@ -12,7 +12,7 @@ const flowCopy = {
   en: [
     { title: "Activity records", body: "Capture participation, responses, pauses, recovery, and teacher prompts.", icon: ClipboardList },
     { title: "Observation signals", body: "Organize activity records into the nine observation questions.", icon: CheckCircle2 },
-    { title: "System-prepared draft", body: "Turn structured records into an editable teacher draft.", icon: FileText },
+    { title: "Report draft", body: "Turn structured records into an editable teacher draft.", icon: FileText },
     { title: "Expression check", body: "Flag wording that is not ready for parent-facing use.", icon: ShieldCheck },
     { title: "Teacher review and export", body: "A summary can be shared only after teacher confirmation.", icon: Upload }
   ]

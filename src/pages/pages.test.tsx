@@ -2,6 +2,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it } from "vitest";
 import { mockApi } from "../api/mockApi";
+import { Sidebar } from "../components/layout/Sidebar";
 import { ReportDraftPanel } from "../components/report/ReportDraftPanel";
 import { reportDraft } from "../data/mockData";
 import { useAppStore } from "../store/useAppStore";
@@ -174,6 +175,29 @@ describe("core pages", () => {
     expect(screen.getByText("更详细的系统说明")).toBeInTheDocument();
     expect(screen.queryByText("康复有效")).not.toBeInTheDocument();
     expect(screen.queryByText("恢复正常")).not.toBeInTheDocument();
+  });
+
+  it("renders the report method page in English mode", () => {
+    useAppStore.getState().setLanguage("en");
+    useAppStore.getState().setSelectedChildId("xiaoyu");
+    render(<ReportMethodPage />);
+
+    expect(screen.getByText("How Reports Work")).toBeInTheDocument();
+    expect(screen.getByText("Activity records")).toBeInTheDocument();
+    expect(screen.getByText("Report draft")).toBeInTheDocument();
+    expect(screen.getByText("Does not read raw audio or video")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "View scoring guide" })).toHaveAttribute("href", "#/child/xiaoyu/rubrics");
+    expect(screen.queryByText("报告怎么来的")).not.toBeInTheDocument();
+  });
+
+  it("shows the report method navigation item in the sidebar", async () => {
+    useAppStore.getState().setLanguage("zh");
+    useAppStore.getState().setSelectedChildId("xiaoyu");
+    window.location.hash = "#/child/xiaoyu";
+    render(<Sidebar />);
+
+    const navLink = await screen.findByRole("link", { name: "报告怎么来的" });
+    expect(navLink).toHaveAttribute("href", "#/child/xiaoyu/report-method");
   });
 
   it("does not show the ready export badge when approval is blocked by safety review", () => {

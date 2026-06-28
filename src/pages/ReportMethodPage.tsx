@@ -31,10 +31,10 @@ const pageCopy = {
     canDoTitle: "What it does",
     canDo: ["Turn structured records into a draft", "Rewrite specialist wording into easier reading", "Check whether any wording should be held back"],
     cannotDoTitle: "What it does not do",
-    cannotDo: ["It does not diagnose", "It does not judge whether a condition improved or worsened", "It does not send anything to parents automatically", "It does not replace teacher judgment", "It does not read raw audio or video"],
+    cannotDo: ["Does not diagnose", "Does not judge whether a condition improved or worsened", "Does not send anything to parents automatically", "Does not replace teacher judgment", "Does not read raw audio or video"],
     sourcesTitle: "What this report uses",
     sourcesBody: "Scoring logic stays on the rubric guide page, where each score remains tied to concrete behavior and data evidence.",
-    sourcesLink: "View rubric guide",
+    sourcesLink: "View scoring guide",
     sources: ["Session count", "Observation questions", "Scoring basis", "Teacher notes", "Draft history", "Review history"],
     detailsTitle: "More detailed system notes",
     details: [
