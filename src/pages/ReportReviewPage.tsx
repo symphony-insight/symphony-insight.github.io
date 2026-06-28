@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import { mockApi } from "../api/mockApi";
+import { getApiClient } from "../api/backendApi";
 import { ReportDraftPanel } from "../components/report/ReportDraftPanel";
+import { ReportSourceSummary } from "../components/report/ReportSourceSummary";
+import { ReportWorkflowSteps } from "../components/report/ReportWorkflowSteps";
 import { TeacherReviewPanel } from "../components/report/TeacherReviewPanel";
 import { t } from "../i18n";
 import { useAppStore } from "../store/useAppStore";
@@ -9,13 +11,21 @@ import type { AuditLog, ReportDraft, ReportStatus } from "../types/domain";
 export function ReportReviewPage() {
   const [report, setReport] = useState<ReportDraft | null>(null);
   const [auditLogs, setAuditLogs] = useState<AuditLog[]>([]);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [loadError, setLoadError] = useState(false);
   const { language, selectedChildId } = useAppStore();
+  const apiClient = getApiClient();
 
   const refresh = () => {
-    Promise.all([mockApi.getReportDraftByChild(selectedChildId), mockApi.getAuditLogs(selectedChildId)]).then(([reportData, auditData]) => {
-      setReport(reportData);
-      setAuditLogs(auditData);
-    });
+    setLoadError(false);
+    Promise.all([apiClient.getReportDraftByChild(selectedChildId), apiClient.getAuditLogs(selectedChildId)])
+      .then(([reportData, auditData]) => {
+        setReport(reportData);
+        setAuditLogs(auditData);
+      })
+      .catch(() => {
+        setLoadError(true);
+      });
   };
 
   useEffect(() => {
@@ -24,8 +34,35 @@ export function ReportReviewPage() {
 
   const updateStatus = (status: ReportStatus) => {
     if (!report) return;
-    mockApi.updateReportStatus(report.id, status, "陈老师").then(refresh);
+    if (report.safetyCheck.displayStatus === "blocked" && (status === "approved" || status === "exported")) {
+      return;
+    }
+    apiClient.updateReportStatus(report.id, status, "陈老师").then(refresh);
   };
+
+  const regenerateDraft = () => {
+    setIsGenerating(true);
+    apiClient
+      .generateReportDraft(selectedChildId)
+      .then((updatedReport) => {
+        setReport(updatedReport);
+        return apiClient.getAuditLogs(selectedChildId).then(setAuditLogs);
+      })
+      .finally(() => setIsGenerating(false));
+  };
+
+  if (!report && loadError) {
+    return (
+      <div className="space-y-2 page-enter">
+        <h1 className="font-display text-2xl font-extrabold tracking-tightish">
+          {language === "zh" ? "报告暂时没加载出来" : "Report could not load"}
+        </h1>
+        <p className="text-ink-muted">
+          {language === "zh" ? "请确认本地服务已经启动，然后刷新页面。" : "Make sure the local service is running, then refresh the page."}
+        </p>
+      </div>
+    );
+  }
 
   if (!report) return <div>{language === "zh" ? "报告加载中" : "Loading report"}</div>;
 
@@ -36,8 +73,17 @@ export function ReportReviewPage() {
         <h1 className="mt-1 font-display text-3xl font-extrabold tracking-tightish md:text-4xl">{t(language, "reportTitle")}</h1>
         <p className="mt-2 max-w-3xl text-ink-muted">{t(language, "reportIntro")}</p>
       </div>
-      <TeacherReviewPanel report={report} auditLogs={auditLogs} onStatusChange={updateStatus} />
-      <ReportDraftPanel report={report} />
+      <ReportWorkflowSteps report={report} isGenerating={isGenerating} language={language} />
+      <ReportSourceSummary report={report} childId={selectedChildId} language={language} />
+      <TeacherReviewPanel
+        report={report}
+        auditLogs={auditLogs}
+        isGenerating={isGenerating}
+        language={language}
+        onRegenerateDraft={regenerateDraft}
+        onStatusChange={updateStatus}
+      />
+      <ReportDraftPanel report={report} language={language} />
     </div>
   );
 }

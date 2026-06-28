@@ -5,8 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:frontend": "vite --host 127.0.0.1 --port 5173",
+    "dev:frontend:backend": "VITE_API_MODE=backend VITE_API_BASE_URL=http://127.0.0.1:8000/api/v1 vite --host 127.0.0.1 --port 5173",
+    "dev:backend": "cd backend && python3 -m app.server",
     "build": "tsc -b && vite build",
-    "test": "vitest"
+    "test": "vitest",
+    "test:backend": "cd backend && python3 -m unittest discover -s tests",
+    "test:all": "npm test && npm run build && npm run test:backend"
   },
   "dependencies": {
     "lucide-react": "^0.468.0",

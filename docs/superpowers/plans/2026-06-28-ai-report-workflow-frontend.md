@@ -23,6 +23,7 @@
 - 报告页必须提供进入 `#/child/:childId/rubrics` 的 `查看评分说明` 入口。
 - 动效只使用 CSS transition、opacity、transform、box-shadow、已有 `page-enter` 和轻微 loading 状态。
 - 所有新增主要文案需要支持中英文。
+- 计划中的中文代码片段是 `zh` 文案示例；实现时必须使用 `language` 参数、`t()`，或组件内明确的双语 copy map 提供中英文分支，不能把新增主流程文案写成中文-only。
 
 ---
 
@@ -399,9 +400,9 @@ git commit -m "feat: add mock report generation contract"
   - `ReportSafetyDisplayStatus`
   - `useAppStore().language`
 - Produces:
-  - `<ReportWorkflowSteps report={report} isGenerating={boolean} />`
-  - `<ReportSourceSummary report={report} childId={selectedChildId} />`
-  - `<ReportSafetyNotice safetyCheck={report.safetyCheck} />`
+  - `<ReportWorkflowSteps report={report} isGenerating={boolean} language={language} />`
+  - `<ReportSourceSummary report={report} childId={selectedChildId} language={language} />`
+  - `<ReportSafetyNotice safetyCheck={report.safetyCheck} language={language} />`
 
 - [ ] **Step 1: Add failing component tests for report workflow elements**
 
@@ -417,7 +418,7 @@ import { ReportWorkflowSteps } from "./ReportWorkflowSteps";
 
 describe("report workflow components", () => {
   it("renders the report workflow steps in teacher-facing language", () => {
-    render(<ReportWorkflowSteps report={reportDraft} isGenerating={false} />);
+    render(<ReportWorkflowSteps report={reportDraft} isGenerating={false} language="zh" />);
 
     expect(screen.getByText("整理草稿")).toBeInTheDocument();
     expect(screen.getByText("检查表述")).toBeInTheDocument();
@@ -426,7 +427,7 @@ describe("report workflow components", () => {
   });
 
   it("renders report sources and links to the scoring guide", () => {
-    render(<ReportSourceSummary report={reportDraft} childId="xiaoyu" />);
+    render(<ReportSourceSummary report={reportDraft} childId="xiaoyu" language="zh" />);
 
     expect(screen.getByText("草稿来自哪里")).toBeInTheDocument();
     expect(screen.getByText("8 次")).toBeInTheDocument();
@@ -436,7 +437,7 @@ describe("report workflow components", () => {
   });
 
   it("renders safety check status without technical wording", () => {
-    render(<ReportSafetyNotice safetyCheck={reportDraft.safetyCheck} />);
+    render(<ReportSafetyNotice safetyCheck={reportDraft.safetyCheck} language="zh" />);
 
     expect(screen.getByText("表述检查通过")).toBeInTheDocument();
     expect(screen.getByText("没有发现不适合直接使用的表述。")).toBeInTheDocument();

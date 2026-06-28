@@ -99,6 +99,32 @@ export type LongitudinalInsight = {
 
 export type ReportStatus = "draft" | "teacher_reviewing" | "approved" | "rejected" | "exported";
 
+export type ReportGenerationStatus =
+  | "not_started"
+  | "generating"
+  | "draft_ready"
+  | "needs_teacher_review"
+  | "approved"
+  | "exported"
+  | "blocked";
+
+export type ReportSafetyDisplayStatus = "passed" | "needs_edit" | "blocked";
+
+export type ProfessionalDraftContent = {
+  overview: string;
+  motionObservation: string;
+  affectObservation: string;
+  participationObservation: string;
+  reviewPoints: string[];
+  limitationNote: string;
+};
+
+export type ParentSummaryContent = {
+  overview: string;
+  positiveMoments: string;
+  nextObservationFocus: string;
+};
+
 export type ReportDraft = {
   id: string;
   childId: string;
@@ -108,33 +134,48 @@ export type ReportDraft = {
     end: string;
     sessionCount: number;
   };
-  professionalDraft: {
-    overview: string;
-    motionObservation: string;
-    affectObservation: string;
-    participationObservation: string;
-    reviewPoints: string[];
-    limitationNote: string;
+  generation: {
+    id: string;
+    status: ReportGenerationStatus;
+    sourceSessionCount: number;
+    sourceRubricCount: number;
+    sourceDomainCount: number;
+    generatedAt: string;
+    promptVersion: string;
+    modelLabel: string;
+    modelLabelEn: string;
   };
-  parentSummary: {
-    overview: string;
-    positiveMoments: string;
-    nextObservationFocus: string;
-  };
+  professionalDraft: ProfessionalDraftContent;
+  professionalDraftEn: ProfessionalDraftContent;
+  parentSummary: ParentSummaryContent;
+  parentSummaryEn: ParentSummaryContent;
   safetyCheck: {
     containsMedicalClaim: boolean;
     flaggedPhrases: string[];
+    checkedAt: string;
+    displayStatus: ReportSafetyDisplayStatus;
+    plainSummary: string;
+    plainSummaryEn: string;
+  };
+  evidenceTrace: {
+    sessionIds: string[];
+    rubricIds: EvaluationDimension["id"][];
+    insightIds: string[];
+    referenceIds: string[];
   };
   teacherNote: string;
+  teacherNoteEn: string;
 };
 
 export type AuditLog = {
   id: string;
   childId: string;
   actor: string;
+  actorEn?: string;
   action: string;
   targetType: "report" | "session" | "safety";
   targetId: string;
   createdAt: string;
   summary: string;
+  summaryEn?: string;
 };

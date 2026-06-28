@@ -47,8 +47,20 @@ const dictionary = {
     sessionsIntro: "按时间看他怎么参加、什么时候停下、什么能帮他回到活动。",
     motionAffectTitle: "哪种设置更适合孩子",
     motionAffectIntro: "把音乐、亮度和帮他的方式放在一起看，方便下次调整。",
+    reportMethod: "报告怎么来的",
+    reportMethodTitle: "报告怎么来的",
+    reportMethodIntro: "系统只整理活动记录，最后怎么看、怎么发，仍然由老师决定。",
     reportTitle: "老师看过后再导出",
-    reportIntro: "这只是草稿，可以改。老师确认前，不会发给家长。"
+    reportIntro: "这只是草稿，可以改。老师确认前，不会发给家长。",
+    reportWorkflowDraft: "整理草稿",
+    reportWorkflowSafety: "检查表述",
+    reportWorkflowReview: "老师确认",
+    reportWorkflowExport: "导出摘要",
+    regenerateDraft: "重新整理草稿",
+    draftSourceTitle: "草稿来自哪里",
+    safetyPassed: "没有发现不适合直接使用的表述。",
+    safetyNeedsEdit: "有几句话建议老师改一下。",
+    safetyBlocked: "这版草稿暂时不能导出，请先修改标出的表述。"
   },
   en: {
     appKicker: "SymPhony Workbench",
@@ -96,8 +108,20 @@ const dictionary = {
     sessionsIntro: "Each session is anchored to concrete co-creation events so teachers can review participation, pauses, recovery, and creative material.",
     motionAffectTitle: "Which motion and settings help this child stay involved",
     motionAffectIntro: "This page only shows associations among motion, stimuli, and affect signals; all interpretation is review material.",
+    reportMethod: "How Reports Work",
+    reportMethodTitle: "How Reports Work",
+    reportMethodIntro: "The system organizes activity records; teachers decide how to review and share them.",
     reportTitle: "Drafts must be reviewed by a teacher before export",
-    reportIntro: "The system turns structured metrics into editable drafts. It does not auto-publish or replace teacher judgment."
+    reportIntro: "The system turns structured metrics into editable drafts. It does not auto-publish or replace teacher judgment.",
+    reportWorkflowDraft: "System-prepared draft",
+    reportWorkflowSafety: "Expression check",
+    reportWorkflowReview: "Teacher review",
+    reportWorkflowExport: "Parent export",
+    regenerateDraft: "Regenerate draft",
+    draftSourceTitle: "Draft sources",
+    safetyPassed: "No wording was found that should be held back from parent-facing use.",
+    safetyNeedsEdit: "A few sentences should be checked by the teacher.",
+    safetyBlocked: "This draft cannot be exported until the highlighted wording is edited."
   }
 } satisfies Record<Language, Record<string, string>>;
 

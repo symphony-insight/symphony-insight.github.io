@@ -36,6 +36,55 @@ describe("mockApi", () => {
     expect(report.id).toBe("report-lele-8");
   });
 
+  it("returns report generation metadata and traceable sources", async () => {
+    await mockApi.resetReviewState();
+    const report = await mockApi.getReportDraftByChild("xiaoyu");
+
+    expect(report.generation).toMatchObject({
+      id: "generation-xiaoyu-8",
+      status: "needs_teacher_review",
+      sourceSessionCount: 8,
+      sourceRubricCount: 9,
+      sourceDomainCount: 6,
+      modelLabel: "报告整理助手",
+      modelLabelEn: "Report assistant"
+    });
+    expect(report.generation.promptVersion).toBe("report-draft-v1-2026-06");
+    expect(report.safetyCheck).toMatchObject({
+      containsMedicalClaim: false,
+      flaggedPhrases: [],
+      displayStatus: "passed",
+      plainSummary: "没有发现不适合直接使用的表述。",
+      plainSummaryEn: "No wording was found that should be held back from parent-facing use."
+    });
+    expect(report.evidenceTrace.sessionIds).toContain("session-8");
+    expect(report.evidenceTrace.rubricIds).toContain("join");
+    expect(report.evidenceTrace.referenceIds).toContain("kim-2008");
+  });
+
+  it("generates a fresh report draft and records a system audit entry", async () => {
+    await mockApi.resetReviewState();
+    const generated = await mockApi.generateReportDraft("xiaoyu");
+    const auditLogs = await mockApi.getAuditLogs("xiaoyu");
+
+    expect(generated.childId).toBe("xiaoyu");
+    expect(generated.generation.status).toBe("draft_ready");
+    expect(generated.generation.generatedAt).not.toBe("2026-06-27T10:10:00+08:00");
+    expect(auditLogs[0]).toMatchObject({
+      actor: "报告整理助手",
+      actorEn: "Report assistant",
+      action: "report.generated",
+      targetType: "report",
+      targetId: "report-xiaoyu-8",
+      summary: "系统整理了一版报告草稿，等老师确认。",
+      summaryEn: "The system prepared a report draft for teacher review."
+    });
+  });
+
+  it("rejects report draft generation for an unknown child", async () => {
+    await expect(mockApi.generateReportDraft("missing-child")).rejects.toThrow("Unknown child: missing-child");
+  });
+
   it("returns nine plain-language child observation rubrics with 1-to-5 scores", async () => {
     const dimensions = await mockApi.getEvaluationDimensions("xiaoyu");
 
@@ -82,10 +131,36 @@ describe("mockApi", () => {
     const auditLogs = await mockApi.getAuditLogs("xiaoyu");
 
     expect(approved.status).toBe("approved");
+    expect(approved.generation.status).toBe("approved");
     expect(auditLogs[0]).toMatchObject({
       actor: "陈老师",
       action: "report.approved",
       targetId: "report-xiaoyu-8"
     });
+  });
+
+  it("keeps generation status synchronized when review status changes", async () => {
+    await mockApi.resetReviewState();
+
+    const approved = await mockApi.updateReportStatus("report-xiaoyu-8", "approved", "陈老师");
+    const exported = await mockApi.updateReportStatus("report-xiaoyu-8", "exported", "陈老师");
+    const rejected = await mockApi.updateReportStatus("report-xiaoyu-8", "rejected", "陈老师");
+    const reviewing = await mockApi.updateReportStatus("report-xiaoyu-8", "teacher_reviewing", "陈老师");
+
+    expect(approved.generation.status).toBe("approved");
+    expect(exported.generation.status).toBe("exported");
+    expect(rejected.generation.status).toBe("needs_teacher_review");
+    expect(reviewing.generation.status).toBe("needs_teacher_review");
+  });
+
+  it("blocks approval and export when the safety review is blocked", async () => {
+    await mockApi.resetReviewState();
+
+    await expect(mockApi.updateReportStatus("report-anan-8", "approved", "陈老师")).rejects.toThrow(
+      "Blocked reports cannot be approved or exported."
+    );
+    await expect(mockApi.updateReportStatus("report-anan-8", "exported", "陈老师")).rejects.toThrow(
+      "Blocked reports cannot be approved or exported."
+    );
   });
 });

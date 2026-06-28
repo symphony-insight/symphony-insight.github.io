@@ -1,4 +1,4 @@
-import { BookOpen, CalendarDays, FileCheck2, Home, Languages, ShieldCheck, SlidersHorizontal } from "lucide-react";
+import { BookOpen, CalendarDays, FileCheck2, HelpCircle, Home, Languages, ShieldCheck, SlidersHorizontal } from "lucide-react";
 import { useEffect, useState } from "react";
 import { mockApi } from "../../api/mockApi";
 import { t } from "../../i18n";
@@ -19,6 +19,7 @@ const navGroups = [
     groupKey: "navGroupManage",
     items: [
       { suffix: "/report", labelKey: "report", icon: FileCheck2 },
+      { suffix: "/report-method", labelKey: "reportMethod", icon: HelpCircle },
       { suffix: "/rubrics", labelKey: "rubricGuide", icon: BookOpen }
     ]
   }
