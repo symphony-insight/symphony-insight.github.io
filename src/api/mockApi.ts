@@ -94,17 +94,28 @@ export const mockApi = {
     const report = currentReports.find((item) => item.id === reportId);
     if (!report) throw new Error(`Unknown report: ${reportId}`);
     const updatedReport = { ...report, status };
+    const actorEn = actor === "陈老师" ? "Teacher Chen" : actor;
+    const summaryEn =
+      status === "approved"
+        ? "Teacher confirmed this report."
+        : status === "rejected"
+          ? "Teacher returned this report for revision."
+          : status === "exported"
+            ? "Teacher exported the parent-facing summary."
+            : "Teacher updated this report.";
     currentReports = currentReports.map((item) => (item.id === reportId ? updatedReport : item));
     currentAuditLogs = [
       {
         id: `audit-${Date.now()}`,
         childId: updatedReport.childId,
         actor,
+        actorEn,
         action: `report.${status}`,
         targetType: "report",
         targetId: reportId,
         createdAt: new Date().toISOString(),
-        summary: status === "approved" ? "老师已确认这份报告。" : "老师更新了报告。"
+        summary: status === "approved" ? "老师已确认这份报告。" : "老师更新了报告。",
+        summaryEn
       },
       ...currentAuditLogs
     ];

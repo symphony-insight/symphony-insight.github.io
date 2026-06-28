@@ -147,6 +147,18 @@ describe("core pages", () => {
     expect(screen.queryByText(/下次建议用低亮度、慢节奏和熟悉旋律开场/)).not.toBeInTheDocument();
   });
 
+  it("shows English audit copy for newly approved reports in English mode", async () => {
+    const user = userEvent.setup();
+    useAppStore.getState().setLanguage("en");
+    render(<ReportReviewPage />);
+
+    expect(await screen.findByText("Teacher-facing draft")).toBeInTheDocument();
+    await user.click(screen.getByRole("button", { name: "Approve" }));
+
+    await waitFor(() => expect(screen.getByText("Teacher Chen · Teacher confirmed this report.")).toBeInTheDocument());
+    expect(screen.queryByText("老师已确认这份报告。")).not.toBeInTheDocument();
+  });
+
   it("does not show the ready export badge when approval is blocked by safety review", () => {
     const blockedApprovedReport = {
       ...reportDraft,
