@@ -152,6 +152,13 @@ class ServerRoutesTest(unittest.TestCase):
         self.assertEqual(headers["Content-Type"], "application/javascript; charset=utf-8")
         self.assertEqual(body, "console.log('ok')")
 
+    def test_ignores_client_disconnect_while_writing_response_body(self):
+        class ResetWriter:
+            def write(self, _body):
+                raise ConnectionResetError("client closed early")
+
+        server.write_response_body_for_test(ResetWriter(), b"payload")
+
 
 if __name__ == "__main__":
     unittest.main()

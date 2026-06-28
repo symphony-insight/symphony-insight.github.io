@@ -55,6 +55,10 @@ def derive_safety_for_test(content: Mapping[str, Any]) -> tuple[str, list[str]]:
     return _derive_safety(content)
 
 
+def write_response_body_for_test(writer: Any, encoded: bytes) -> None:
+    _write_response_body(writer, encoded)
+
+
 def dispatch_request(
     method: str,
     raw_path: str,
@@ -148,7 +152,7 @@ class _RequestHandler(BaseHTTPRequestHandler):
                 self.send_header(key, value)
         self.end_headers()
         if encoded:
-            self.wfile.write(encoded)
+            _write_response_body(self.wfile, encoded)
 
 
 def _health_payload() -> dict[str, Any]:
@@ -394,6 +398,13 @@ def _encode_body(status: int, headers: Mapping[str, str], body: Any) -> bytes:
     if isinstance(body, str) and content_type and "json" not in content_type:
         return body.encode("utf-8")
     return json.dumps(body, ensure_ascii=False).encode("utf-8")
+
+
+def _write_response_body(writer: Any, encoded: bytes) -> None:
+    try:
+        writer.write(encoded)
+    except (BrokenPipeError, ConnectionResetError):
+        return
 
 
 def _generation_status_for_report(status: str) -> str:
