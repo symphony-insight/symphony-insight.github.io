@@ -1,5 +1,7 @@
 import json
+import os
 import unittest
+from unittest.mock import patch
 
 from app import server
 
@@ -51,8 +53,9 @@ class ServerRoutesTest(unittest.TestCase):
                     usage={"total_tokens": 321},
                 )
 
-        server.set_llm_client_factory(lambda: FakeClient())
-        status, _headers, report = server.dispatch_request("POST", "/api/v1/children/xiaoyu/reports/draft", body=b"{}")
+        with patch.dict(os.environ, {"SYMPHONY_AI_PROVIDER_MODE": "real"}):
+            server.set_llm_client_factory(lambda: FakeClient())
+            status, _headers, report = server.dispatch_request("POST", "/api/v1/children/xiaoyu/reports/draft", body=b"{}")
 
         self.assertEqual(status, 200)
         self.assertEqual(report["status"], "teacher_reviewing")
