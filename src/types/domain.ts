@@ -110,6 +110,21 @@ export type ReportGenerationStatus =
 
 export type ReportSafetyDisplayStatus = "passed" | "needs_edit" | "blocked";
 
+export type ProfessionalDraftContent = {
+  overview: string;
+  motionObservation: string;
+  affectObservation: string;
+  participationObservation: string;
+  reviewPoints: string[];
+  limitationNote: string;
+};
+
+export type ParentSummaryContent = {
+  overview: string;
+  positiveMoments: string;
+  nextObservationFocus: string;
+};
+
 export type ReportDraft = {
   id: string;
   childId: string;
@@ -130,19 +145,10 @@ export type ReportDraft = {
     modelLabel: string;
     modelLabelEn: string;
   };
-  professionalDraft: {
-    overview: string;
-    motionObservation: string;
-    affectObservation: string;
-    participationObservation: string;
-    reviewPoints: string[];
-    limitationNote: string;
-  };
-  parentSummary: {
-    overview: string;
-    positiveMoments: string;
-    nextObservationFocus: string;
-  };
+  professionalDraft: ProfessionalDraftContent;
+  professionalDraftEn: ProfessionalDraftContent;
+  parentSummary: ParentSummaryContent;
+  parentSummaryEn: ParentSummaryContent;
   safetyCheck: {
     containsMedicalClaim: boolean;
     flaggedPhrases: string[];
@@ -158,6 +164,7 @@ export type ReportDraft = {
     referenceIds: string[];
   };
   teacherNote: string;
+  teacherNoteEn: string;
 };
 
 export type AuditLog = {

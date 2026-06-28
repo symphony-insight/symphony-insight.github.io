@@ -2,6 +2,8 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it } from "vitest";
 import { mockApi } from "../api/mockApi";
+import { ReportDraftPanel } from "../components/report/ReportDraftPanel";
+import { reportDraft } from "../data/mockData";
 import { useAppStore } from "../store/useAppStore";
 import { MotionAffectPage } from "./MotionAffectPage";
 import { OverviewPage } from "./OverviewPage";
@@ -132,5 +134,35 @@ describe("core pages", () => {
     await waitFor(() => expect(screen.getByText(/系统整理了一版报告草稿/)).toBeInTheDocument());
     expect(screen.getByText(/报告整理助手/)).toBeInTheDocument();
     expect(screen.getByText(/没有发现不适合直接使用的表述/)).toBeInTheDocument();
+  });
+
+  it("renders English report copy in English mode", async () => {
+    useAppStore.getState().setLanguage("en");
+    render(<ReportReviewPage />);
+
+    expect(await screen.findByText("Teacher-facing draft")).toBeInTheDocument();
+    expect(screen.getByText(/This cycle includes eight music co-creation sessions/)).toBeInTheDocument();
+    expect(screen.getByText(/Next time, start with softer visuals, a slower tempo, and a familiar melody/)).toBeInTheDocument();
+    expect(screen.queryByText(/本轮一共记录了 8 次音乐共创活动/)).not.toBeInTheDocument();
+    expect(screen.queryByText(/下次建议用低亮度、慢节奏和熟悉旋律开场/)).not.toBeInTheDocument();
+  });
+
+  it("does not show the ready export badge when approval is blocked by safety review", () => {
+    const blockedApprovedReport = {
+      ...reportDraft,
+      status: "approved" as const,
+      safetyCheck: {
+        ...reportDraft.safetyCheck,
+        displayStatus: "blocked" as const,
+        plainSummary: "这版草稿暂时不能导出，请先修改标出的表述。",
+        plainSummaryEn: "This draft cannot be exported until the highlighted wording is edited."
+      }
+    };
+
+    render(<ReportDraftPanel report={blockedApprovedReport} language="zh" />);
+
+    expect(screen.queryByText("老师确认后可导出")).not.toBeInTheDocument();
+    expect(screen.getByText("确认前不导出")).toBeInTheDocument();
+    expect(screen.getByText("这版草稿里有不适合直接给家长看的表述，需要老师修改后再导出。")).toBeInTheDocument();
   });
 });

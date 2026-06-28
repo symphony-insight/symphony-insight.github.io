@@ -403,10 +403,27 @@ export const reportDraft: ReportDraft = {
     reviewPoints: ["高亮画面是否默认关闭", "慢节奏音乐能不能继续作为开场", "暂停和重新开始的选择要保留"],
     limitationNote: "这份报告只整理活动里的动作、状态和参与记录，需要老师或相关专业人员结合现场情况一起看。"
   },
+  professionalDraftEn: {
+    overview: "This cycle includes eight music co-creation sessions. Xiaoyu began with very limited movement responses and later completed a full activity when the setup used familiar melodies, a slower tempo, and softer visuals.",
+    motionObservation: "Across most sessions, Xiaoyu offered more self-initiated movement and more usable creative material. Session 6 still showed a brief withdrawal after a bright animation, so the screen setup should be reviewed on its own.",
+    affectObservation: "Familiar melodies, softer brightness, and slower pacing were the conditions in which Xiaoyu most often stayed calm or engaged. In Session 6, he showed clear signs that the activity felt demanding.",
+    participationObservation: "Xiaoyu was more willing to repeat his participation during the 'teach the bear to sing' prompt. Session 8 reached a full reveal of the shared piece and is now waiting for teacher confirmation.",
+    reviewPoints: [
+      "Check whether bright visuals should stay off by default",
+      "Keep the slower music opening if it continues to support entry",
+      "Preserve the child's options to pause and restart"
+    ],
+    limitationNote: "This report only organizes observed movement, state, and participation records from the activity. It should be read together with teacher observation and any relevant professional follow-up."
+  },
   parentSummary: {
     overview: "本轮小宇参加了 8 次音乐共创活动，慢慢从尝试回应走到完整作品揭晓。",
     positiveMoments: "熟悉旋律和慢一点的音乐下，他更愿意参与，也多次帮小熊“再学一遍”。",
     nextObservationFocus: "下次可以继续用低亮度画面，看看哪种音乐节奏让他更舒服。"
+  },
+  parentSummaryEn: {
+    overview: "Across eight music co-creation sessions, Xiaoyu gradually moved from tentative responses to taking part in a full shared reveal.",
+    positiveMoments: "With familiar melodies and a slower pace, he joined more willingly and often helped the bear 'learn it again.'",
+    nextObservationFocus: "In the next cycle, it would be useful to keep the softer visuals and keep observing which musical pacing feels most comfortable for him."
   },
   safetyCheck: {
     containsMedicalClaim: false,
@@ -422,7 +439,8 @@ export const reportDraft: ReportDraft = {
     insightIds: ["insight-engagement", "insight-recovery", "insight-setting"],
     referenceIds: ["kim-2008", "geretsegger-2022", "gas-1968", "dream-2020", "baxter-2007"]
   },
-  teacherNote: "下次建议用低亮度、慢节奏和熟悉旋律开场。"
+  teacherNote: "下次建议用低亮度、慢节奏和熟悉旋律开场。",
+  teacherNoteEn: "Next time, start with softer visuals, a slower tempo, and a familiar melody."
 };
 
 export const reportDrafts: ReportDraft[] = [
@@ -440,15 +458,27 @@ export const reportDrafts: ReportDraft[] = [
       overview: reportDraft.professionalDraft.overview.replace("小宇", "乐乐"),
       participationObservation: reportDraft.professionalDraft.participationObservation.replace("小宇", "乐乐")
     },
+    professionalDraftEn: {
+      ...reportDraft.professionalDraftEn,
+      overview: reportDraft.professionalDraftEn.overview.replace("Xiaoyu", "Lele"),
+      participationObservation: reportDraft.professionalDraftEn.participationObservation.replace("Xiaoyu", "Lele")
+    },
     parentSummary: {
       ...reportDraft.parentSummary,
       overview: reportDraft.parentSummary.overview.replace("小宇", "乐乐")
+    },
+    parentSummaryEn: {
+      ...reportDraft.parentSummaryEn,
+      overview: reportDraft.parentSummaryEn.overview.replace("Xiaoyu", "Lele"),
+      positiveMoments: "With steady tactile prompts and a calmer visual pace, he stayed involved longer and often responded when the bear invited another turn.",
+      nextObservationFocus: "For the next cycle, keep observing how gentle tactile cues and softer visuals help him stay comfortable in the activity."
     },
     evidenceTrace: {
       ...reportDraft.evidenceTrace,
       sessionIds: reportDraft.evidenceTrace.sessionIds.map((id) => id.replace("session", "lele-session"))
     },
-    teacherNote: "下次建议先用触觉提示，并把画面提示调柔和。"
+    teacherNote: "下次建议先用触觉提示，并把画面提示调柔和。",
+    teacherNoteEn: "Next time, begin with a tactile cue and keep the visual prompts softer."
   },
   {
     ...reportDraft,
@@ -463,15 +493,28 @@ export const reportDrafts: ReportDraft[] = [
       overview: reportDraft.professionalDraft.overview.replace("小宇", "安安").replace("熟悉旋律", "视觉波形"),
       participationObservation: reportDraft.professionalDraft.participationObservation.replace("小宇", "安安")
     },
+    professionalDraftEn: {
+      ...reportDraft.professionalDraftEn,
+      overview: reportDraft.professionalDraftEn.overview.replace("Xiaoyu", "Anan").replace("familiar melodies", "visual waveforms"),
+      affectObservation: "Visual waveforms, captions, softer brightness, and slower pacing were the conditions in which Anan most often stayed calm or engaged. In Session 6, he still showed clear signs that the activity felt demanding.",
+      participationObservation: reportDraft.professionalDraftEn.participationObservation.replace("Xiaoyu", "Anan")
+    },
     parentSummary: {
       ...reportDraft.parentSummary,
       overview: reportDraft.parentSummary.overview.replace("小宇", "安安")
+    },
+    parentSummaryEn: {
+      ...reportDraft.parentSummaryEn,
+      overview: reportDraft.parentSummaryEn.overview.replace("Xiaoyu", "Anan"),
+      positiveMoments: "With visual waveforms, captions, and a slower pace, he joined more steadily and often returned when the activity stayed predictable.",
+      nextObservationFocus: "In the next cycle, keep the captions, waveforms, and softer visuals while continuing to observe which pacing helps him stay comfortable."
     },
     evidenceTrace: {
       ...reportDraft.evidenceTrace,
       sessionIds: reportDraft.evidenceTrace.sessionIds.map((id) => id.replace("session", "anan-session"))
     },
-    teacherNote: "下次建议继续用字幕、波形和低亮度画面。"
+    teacherNote: "下次建议继续用字幕、波形和低亮度画面。",
+    teacherNoteEn: "Next time, keep the captions, waveform support, and softer visuals in place."
   }
 ];
 

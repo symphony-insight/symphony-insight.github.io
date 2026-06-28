@@ -71,6 +71,7 @@ export function TeacherReviewPanel({
   onStatusChange: (status: ReportStatus) => void;
 }) {
   const content = copy[language];
+  const teacherNote = language === "zh" ? report.teacherNote : report.teacherNoteEn;
 
   return (
     <Card className="p-6">
@@ -83,7 +84,7 @@ export function TeacherReviewPanel({
       </div>
       <div className="mt-4 rounded-xl border border-white/70 bg-paper-warm/70 p-4 text-sm leading-6 text-ink-soft">
         {content.reviewNoteLabel}
-        {report.teacherNote}
+        {teacherNote}
       </div>
       <div className="mt-4">
         <ReportSafetyNotice safetyCheck={report.safetyCheck} language={language} />

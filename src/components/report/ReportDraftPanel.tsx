@@ -35,7 +35,10 @@ export function ReportDraftPanel({
   language: Language;
 }) {
   const content = copy[language];
-  const isReadyToExport = report.status === "approved" || report.status === "exported";
+  const professionalDraft = language === "zh" ? report.professionalDraft : report.professionalDraftEn;
+  const parentSummary = language === "zh" ? report.parentSummary : report.parentSummaryEn;
+  const isReadyToExport =
+    (report.status === "approved" || report.status === "exported") && report.safetyCheck.displayStatus !== "blocked";
 
   return (
     <div className="grid gap-4 xl:grid-cols-2">
@@ -45,19 +48,19 @@ export function ReportDraftPanel({
           <Badge tone="tide">{content.professionalBadge}</Badge>
         </div>
         <div className="mt-4 space-y-4 text-sm leading-6 text-ink-soft">
-          <p>{formatReportCopy(report.professionalDraft.overview)}</p>
-          <p>{formatReportCopy(report.professionalDraft.motionObservation)}</p>
-          <p>{formatReportCopy(report.professionalDraft.affectObservation)}</p>
-          <p>{formatReportCopy(report.professionalDraft.participationObservation)}</p>
+          <p>{formatReportCopy(professionalDraft.overview)}</p>
+          <p>{formatReportCopy(professionalDraft.motionObservation)}</p>
+          <p>{formatReportCopy(professionalDraft.affectObservation)}</p>
+          <p>{formatReportCopy(professionalDraft.participationObservation)}</p>
           <div>
             <p className="font-semibold text-ink">{content.reviewPointsTitle}</p>
             <ul className="mt-2 list-disc space-y-1 pl-5">
-              {report.professionalDraft.reviewPoints.map((point) => (
+              {professionalDraft.reviewPoints.map((point) => (
                 <li key={point}>{formatReportCopy(point)}</li>
               ))}
             </ul>
           </div>
-          <p className="rounded-xl border border-white/70 bg-paper-warm/70 p-4 text-ink-soft">{formatReportCopy(report.professionalDraft.limitationNote)}</p>
+          <p className="rounded-xl border border-white/70 bg-paper-warm/70 p-4 text-ink-soft">{formatReportCopy(professionalDraft.limitationNote)}</p>
         </div>
       </Card>
       <Card className="p-6">
@@ -69,9 +72,9 @@ export function ReportDraftPanel({
           <p className="mt-4 rounded-xl border border-coral/20 bg-coral-50 p-4 text-sm leading-6 text-ink-soft">{content.parentBlockedBody}</p>
         ) : (
           <div className="mt-4 space-y-4 text-sm leading-6 text-ink-soft">
-            <p>{formatReportCopy(report.parentSummary.overview)}</p>
-            <p>{formatReportCopy(report.parentSummary.positiveMoments)}</p>
-            <p>{formatReportCopy(report.parentSummary.nextObservationFocus)}</p>
+            <p>{formatReportCopy(parentSummary.overview)}</p>
+            <p>{formatReportCopy(parentSummary.positiveMoments)}</p>
+            <p>{formatReportCopy(parentSummary.nextObservationFocus)}</p>
           </div>
         )}
       </Card>
