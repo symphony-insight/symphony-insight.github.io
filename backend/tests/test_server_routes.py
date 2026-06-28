@@ -99,11 +99,26 @@ class ServerRoutesTest(unittest.TestCase):
         self.assertEqual(flagged, [])
 
     def test_options_preflight_returns_cors_headers(self):
-        status, headers, body = server.dispatch_request("OPTIONS", "/api/v1/children/xiaoyu/reports/current")
+        status, headers, body = server.dispatch_request(
+            "OPTIONS",
+            "/api/v1/children/xiaoyu/reports/current",
+            request_headers={"Origin": "http://127.0.0.1:5173"},
+        )
 
         self.assertEqual(status, 204)
         self.assertEqual(body, {})
-        self.assertIn("Access-Control-Allow-Origin", headers)
+        self.assertEqual(headers["Access-Control-Allow-Origin"], "http://127.0.0.1:5173")
+
+    def test_get_response_echoes_allowed_request_origin(self):
+        status, headers, body = server.dispatch_request(
+            "GET",
+            "/api/v1/health",
+            request_headers={"Origin": "http://127.0.0.1:5173"},
+        )
+
+        self.assertEqual(status, 200)
+        self.assertEqual(body["status"], "ok")
+        self.assertEqual(headers["Access-Control-Allow-Origin"], "http://127.0.0.1:5173")
 
 
 if __name__ == "__main__":

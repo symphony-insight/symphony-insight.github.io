@@ -190,6 +190,22 @@ describe("core pages", () => {
     expect(fetchMock).toHaveBeenCalledWith("http://127.0.0.1:8000/api/v1/children/xiaoyu/reports/draft", expect.objectContaining({ method: "POST" }));
   });
 
+  it("shows a readable report loading error when backend mode cannot load report data", async () => {
+    vi.stubEnv("VITE_API_MODE", "backend");
+    vi.stubEnv("VITE_API_BASE_URL", "http://127.0.0.1:8000/api/v1");
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () => {
+        throw new Error("Failed to fetch");
+      })
+    );
+
+    render(<ReportReviewPage />);
+
+    expect(await screen.findByText("报告暂时没加载出来")).toBeInTheDocument();
+    expect(screen.getByText("请确认本地服务已经启动，然后刷新页面。")).toBeInTheDocument();
+  });
+
   it("renders English report copy in English mode", async () => {
     useAppStore.getState().setLanguage("en");
     render(<ReportReviewPage />);

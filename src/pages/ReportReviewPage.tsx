@@ -12,14 +12,20 @@ export function ReportReviewPage() {
   const [report, setReport] = useState<ReportDraft | null>(null);
   const [auditLogs, setAuditLogs] = useState<AuditLog[]>([]);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [loadError, setLoadError] = useState(false);
   const { language, selectedChildId } = useAppStore();
   const apiClient = getApiClient();
 
   const refresh = () => {
-    Promise.all([apiClient.getReportDraftByChild(selectedChildId), apiClient.getAuditLogs(selectedChildId)]).then(([reportData, auditData]) => {
-      setReport(reportData);
-      setAuditLogs(auditData);
-    });
+    setLoadError(false);
+    Promise.all([apiClient.getReportDraftByChild(selectedChildId), apiClient.getAuditLogs(selectedChildId)])
+      .then(([reportData, auditData]) => {
+        setReport(reportData);
+        setAuditLogs(auditData);
+      })
+      .catch(() => {
+        setLoadError(true);
+      });
   };
 
   useEffect(() => {
@@ -44,6 +50,19 @@ export function ReportReviewPage() {
       })
       .finally(() => setIsGenerating(false));
   };
+
+  if (!report && loadError) {
+    return (
+      <div className="space-y-2 page-enter">
+        <h1 className="font-display text-2xl font-extrabold tracking-tightish">
+          {language === "zh" ? "报告暂时没加载出来" : "Report could not load"}
+        </h1>
+        <p className="text-ink-muted">
+          {language === "zh" ? "请确认本地服务已经启动，然后刷新页面。" : "Make sure the local service is running, then refresh the page."}
+        </p>
+      </div>
+    );
+  }
 
   if (!report) return <div>{language === "zh" ? "报告加载中" : "Loading report"}</div>;
 

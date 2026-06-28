@@ -55,9 +55,14 @@ def derive_safety_for_test(content: Mapping[str, Any]) -> tuple[str, list[str]]:
     return _derive_safety(content)
 
 
-def dispatch_request(method: str, raw_path: str, body: bytes | None = None) -> tuple[int, dict[str, str], Any]:
+def dispatch_request(
+    method: str,
+    raw_path: str,
+    body: bytes | None = None,
+    request_headers: Mapping[str, str] | None = None,
+) -> tuple[int, dict[str, str], Any]:
     path = urlparse(raw_path).path
-    headers = _cors_headers()
+    headers = _cors_headers(request_headers)
     if method == "OPTIONS":
         return 204, headers, {}
 
@@ -110,16 +115,16 @@ def run(host: str | None = None, port: int | None = None) -> None:
 
 class _RequestHandler(BaseHTTPRequestHandler):
     def do_OPTIONS(self) -> None:
-        self._send_response(*dispatch_request("OPTIONS", self.path))
+        self._send_response(*dispatch_request("OPTIONS", self.path, request_headers=self.headers))
 
     def do_GET(self) -> None:
-        self._send_response(*dispatch_request("GET", self.path))
+        self._send_response(*dispatch_request("GET", self.path, request_headers=self.headers))
 
     def do_POST(self) -> None:
-        self._send_response(*dispatch_request("POST", self.path, self._read_body()))
+        self._send_response(*dispatch_request("POST", self.path, self._read_body(), request_headers=self.headers))
 
     def do_PATCH(self) -> None:
-        self._send_response(*dispatch_request("PATCH", self.path, self._read_body()))
+        self._send_response(*dispatch_request("PATCH", self.path, self._read_body(), request_headers=self.headers))
 
     def log_message(self, format: str, *args: Any) -> None:
         return
@@ -400,11 +405,13 @@ def _json_error(status: int, code: str, message: str, headers: dict[str, str]) -
     return status, headers, {"error": code, "message": message}
 
 
-def _cors_headers() -> dict[str, str]:
+def _cors_headers(request_headers: Mapping[str, str] | None = None) -> dict[str, str]:
     origins = os.environ.get("SYMPHONY_CORS_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173")
-    first_origin = origins.split(",", 1)[0].strip() or "http://localhost:5173"
+    allowed_origins = [origin.strip() for origin in origins.split(",") if origin.strip()]
+    request_origin = request_headers.get("Origin") if request_headers else None
+    selected_origin = request_origin if request_origin in allowed_origins else (allowed_origins[0] if allowed_origins else "http://localhost:5173")
     return {
-        "Access-Control-Allow-Origin": first_origin,
+        "Access-Control-Allow-Origin": selected_origin,
         "Access-Control-Allow-Methods": "GET,POST,PATCH,OPTIONS",
         "Access-Control-Allow-Headers": "Content-Type",
     }
