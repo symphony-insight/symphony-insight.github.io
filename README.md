@@ -70,3 +70,8 @@ npm run test:backend
 This repo includes a GitHub Actions workflow that builds the Vite app and deploys `dist/` to GitHub Pages.
 
 For an organization or user Pages repository such as `symphony-insight.github.io`, keep Vite's `base` as `/`.
+
+For LLM-backed GitHub Pages, do not put the DeepSeek key in the frontend build.
+Deploy the backend separately, then set the repository Actions secret
+`SYMPHONY_API_BASE_URL` to that backend's public `/api/v1` URL. See
+`docs/github-pages-llm-deployment.md`.

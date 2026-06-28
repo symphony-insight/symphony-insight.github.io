@@ -30,10 +30,22 @@ jobs:
         run: npm ci
 
       - name: Run tests
-        run: npm test -- --run
+        run: npm run test:all
 
       - name: Build
-        run: npm run build
+        run: |
+          if [ -n "$VITE_API_BASE_URL" ]; then
+            echo "Building GitHub Pages in backend API mode."
+            export VITE_API_MODE=backend
+          else
+            echo "Building GitHub Pages in mock mode. Set the SYMPHONY_API_BASE_URL repository secret to enable backend mode."
+            export VITE_API_MODE=mock
+          fi
+          npm run build
+        env:
+          # This is the public backend base URL, not the DeepSeek API key.
+          # Example: https://your-backend.example.com/api/v1
+          VITE_API_BASE_URL: ${{ secrets.SYMPHONY_API_BASE_URL }}
 
       - name: Publish dist to gh-pages
         run: |
