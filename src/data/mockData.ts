@@ -384,6 +384,16 @@ export const reportDraft: ReportDraft = {
   childId: "xiaoyu",
   status: "teacher_reviewing",
   period: { start: "2026-06-03", end: "2026-06-27", sessionCount: 8 },
+  generation: {
+    id: "generation-xiaoyu-8",
+    status: "needs_teacher_review",
+    sourceSessionCount: 8,
+    sourceRubricCount: 9,
+    sourceDomainCount: 6,
+    generatedAt: "2026-06-27T10:10:00+08:00",
+    promptVersion: "report-draft-v1-2026-06",
+    modelLabel: "报告整理助手"
+  },
   professionalDraft: {
     overview: "本轮一共记录了 8 次音乐共创活动。小宇一开始动作回应较少，后来在熟悉旋律、慢节奏和低亮度画面下，能完成一次完整活动。",
     motionObservation: "多数活动里，主动动作和创作片段都在增加。第 6 次活动里，高亮动画后出现短暂退出，需要单独看一下画面设置。",
@@ -399,7 +409,16 @@ export const reportDraft: ReportDraft = {
   },
   safetyCheck: {
     containsMedicalClaim: false,
-    flaggedPhrases: []
+    flaggedPhrases: [],
+    checkedAt: "2026-06-27T10:11:00+08:00",
+    displayStatus: "passed",
+    plainSummary: "没有发现不适合直接使用的表述。"
+  },
+  evidenceTrace: {
+    sessionIds: ["session-1", "session-2", "session-3", "session-4", "session-5", "session-6", "session-7", "session-8"],
+    rubricIds: ["join", "choice", "focus", "respond", "create", "recover", "access", "setting", "goal"],
+    insightIds: ["insight-engagement", "insight-recovery", "insight-setting"],
+    referenceIds: ["kim-2008", "geretsegger-2022", "gas-1968", "dream-2020", "baxter-2007"]
   },
   teacherNote: "下次建议用低亮度、慢节奏和熟悉旋律开场。"
 };
@@ -410,6 +429,10 @@ export const reportDrafts: ReportDraft[] = [
     ...reportDraft,
     id: "report-lele-8",
     childId: "lele",
+    generation: {
+      ...reportDraft.generation,
+      id: "generation-lele-8"
+    },
     professionalDraft: {
       ...reportDraft.professionalDraft,
       overview: reportDraft.professionalDraft.overview.replace("小宇", "乐乐"),
@@ -419,12 +442,20 @@ export const reportDrafts: ReportDraft[] = [
       ...reportDraft.parentSummary,
       overview: reportDraft.parentSummary.overview.replace("小宇", "乐乐")
     },
+    evidenceTrace: {
+      ...reportDraft.evidenceTrace,
+      sessionIds: reportDraft.evidenceTrace.sessionIds.map((id) => id.replace("session", "lele-session"))
+    },
     teacherNote: "下次建议先用触觉提示，并把画面提示调柔和。"
   },
   {
     ...reportDraft,
     id: "report-anan-8",
     childId: "anan",
+    generation: {
+      ...reportDraft.generation,
+      id: "generation-anan-8"
+    },
     professionalDraft: {
       ...reportDraft.professionalDraft,
       overview: reportDraft.professionalDraft.overview.replace("小宇", "安安").replace("熟悉旋律", "视觉波形"),
@@ -433,6 +464,10 @@ export const reportDrafts: ReportDraft[] = [
     parentSummary: {
       ...reportDraft.parentSummary,
       overview: reportDraft.parentSummary.overview.replace("小宇", "安安")
+    },
+    evidenceTrace: {
+      ...reportDraft.evidenceTrace,
+      sessionIds: reportDraft.evidenceTrace.sessionIds.map((id) => id.replace("session", "anan-session"))
     },
     teacherNote: "下次建议继续用字幕、波形和低亮度画面。"
   }

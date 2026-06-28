@@ -44,6 +44,47 @@ export const mockApi = {
     return delay(report);
   },
 
+  generateReportDraft(childId: string): Promise<ReportDraft> {
+    const report = currentReports.find((item) => item.childId === childId);
+    if (!report) return Promise.reject(new Error(`Unknown child: ${childId}`));
+
+    const generatedAt = new Date().toISOString();
+    const updatedReport: ReportDraft = {
+      ...report,
+      status: "teacher_reviewing",
+      generation: {
+        ...report.generation,
+        status: "draft_ready",
+        generatedAt
+      },
+      safetyCheck: {
+        ...report.safetyCheck,
+        checkedAt: generatedAt,
+        displayStatus: report.safetyCheck.containsMedicalClaim ? "blocked" : "passed",
+        plainSummary: report.safetyCheck.containsMedicalClaim
+          ? "这版草稿暂时不能导出，请先修改标出的表述。"
+          : "没有发现不适合直接使用的表述。"
+      }
+    };
+
+    currentReports = currentReports.map((item) => (item.id === report.id ? updatedReport : item));
+    currentAuditLogs = [
+      {
+        id: `audit-generated-${Date.now()}`,
+        childId: updatedReport.childId,
+        actor: "报告整理助手",
+        action: "report.generated",
+        targetType: "report",
+        targetId: updatedReport.id,
+        createdAt: generatedAt,
+        summary: "系统整理了一版报告草稿，等老师确认。"
+      },
+      ...currentAuditLogs
+    ];
+
+    return new Promise((resolve) => window.setTimeout(() => resolve(structuredClone(updatedReport)), 700));
+  },
+
   updateReportStatus(reportId: string, status: ReportStatus, actor: string): Promise<ReportDraft> {
     const report = currentReports.find((item) => item.id === reportId);
     if (!report) throw new Error(`Unknown report: ${reportId}`);

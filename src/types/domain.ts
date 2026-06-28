@@ -99,6 +99,17 @@ export type LongitudinalInsight = {
 
 export type ReportStatus = "draft" | "teacher_reviewing" | "approved" | "rejected" | "exported";
 
+export type ReportGenerationStatus =
+  | "not_started"
+  | "generating"
+  | "draft_ready"
+  | "needs_teacher_review"
+  | "approved"
+  | "exported"
+  | "blocked";
+
+export type ReportSafetyDisplayStatus = "passed" | "needs_edit" | "blocked";
+
 export type ReportDraft = {
   id: string;
   childId: string;
@@ -107,6 +118,16 @@ export type ReportDraft = {
     start: string;
     end: string;
     sessionCount: number;
+  };
+  generation: {
+    id: string;
+    status: ReportGenerationStatus;
+    sourceSessionCount: number;
+    sourceRubricCount: number;
+    sourceDomainCount: number;
+    generatedAt: string;
+    promptVersion: string;
+    modelLabel: string;
   };
   professionalDraft: {
     overview: string;
@@ -124,6 +145,15 @@ export type ReportDraft = {
   safetyCheck: {
     containsMedicalClaim: boolean;
     flaggedPhrases: string[];
+    checkedAt: string;
+    displayStatus: ReportSafetyDisplayStatus;
+    plainSummary: string;
+  };
+  evidenceTrace: {
+    sessionIds: string[];
+    rubricIds: EvaluationDimension["id"][];
+    insightIds: string[];
+    referenceIds: string[];
   };
   teacherNote: string;
 };
