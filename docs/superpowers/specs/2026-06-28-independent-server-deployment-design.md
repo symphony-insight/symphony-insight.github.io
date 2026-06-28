@@ -115,21 +115,21 @@ tmux new -ds symphony-insight 'cd /home/data/xuyijie/symphony-insight && npm run
 
 ## Cloudflare Tunnel 设计
 
-如果服务器已有 `construction-rag.yjx.me` 的 cloudflared tunnel，复用同一个 tunnel，并在 ingress 中新增：
+如果服务器已有 `construction-rag.yjx.me` 的 cloudflared tunnel，复用同一个 tunnel。保留原有 `construction-rag.yjx.me` ingress 条目，只新增：
 
 ```yaml
-ingress:
-  - hostname: construction-rag.yjx.me
-    service: http://127.0.0.1:<existing-port>
-  - hostname: symphony.yjx.me
-    service: http://127.0.0.1:8090
-  - service: http_status:404
+- hostname: symphony.yjx.me
+  service: http://127.0.0.1:8090
 ```
 
 如果 `symphony.yjx.me` 还没有 DNS route，需要执行：
 
 ```bash
-cloudflared tunnel route dns <existing-tunnel-name-or-id> symphony.yjx.me
+CONFIG_FILE=$(find ~/.cloudflared /etc/cloudflared -maxdepth 2 -type f \( -name '*.yml' -o -name '*.yaml' -o -name 'config' \) 2>/dev/null | while read -r file; do grep -q 'construction-rag.yjx.me' "$file" && echo "$file" && break; done)
+test -n "$CONFIG_FILE"
+TUNNEL_ID=$(awk '/^tunnel:/{print $2; exit}' "$CONFIG_FILE")
+test -n "$TUNNEL_ID"
+cloudflared tunnel route dns "$TUNNEL_ID" symphony.yjx.me
 ```
 
 如果已有 tunnel 是 systemd 服务，修改配置后重启 cloudflared：
