@@ -11,4 +11,13 @@ describe("route smoke tests", () => {
 
     expect(screen.getByText("报告怎么来的")).toBeInTheDocument();
   });
+
+  it("renders the report review route without blank content", async () => {
+    useAppStore.getState().setLanguage("zh");
+    useAppStore.getState().setSelectedChildId("xiaoyu");
+    render(resolveRoute("#/child/xiaoyu/report"));
+
+    expect(await screen.findByText("活动报告")).toBeInTheDocument();
+    expect(await screen.findByText("整理草稿")).toBeInTheDocument();
+  });
 });

@@ -28,6 +28,12 @@ const forbiddenPhrases = [
   "老师审核单向阀",
   "家长摘要版",
   "动作-情绪关联",
+  "LLM",
+  "API",
+  "provider",
+  "prompt",
+  "payload",
+  "model id",
   "诊断",
   "疗效",
   "病情好转",
@@ -113,9 +119,9 @@ describe("core pages", () => {
     expect(screen.getByText("检查表述")).toBeInTheDocument();
     expect(screen.getByText("老师确认")).toBeInTheDocument();
     expect(screen.getByText("导出摘要")).toBeInTheDocument();
-    expect(screen.getByText("8 次")).toBeInTheDocument();
-    expect(screen.getByText("9 项")).toBeInTheDocument();
-    expect(screen.getByText("6 个")).toBeInTheDocument();
+    expect(screen.getByText("8 次活动记录")).toBeInTheDocument();
+    expect(screen.getByText("9 项观察问题")).toBeInTheDocument();
+    expect(screen.getByText("6 个观察方向")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /查看评分说明/ })).toHaveAttribute("href", "#/child/xiaoyu/rubrics");
     expect(screen.getByText("没有发现不适合直接使用的表述。")).toBeInTheDocument();
     await user.click(screen.getByRole("button", { name: /确认通过/ }));

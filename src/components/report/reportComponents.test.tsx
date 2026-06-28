@@ -33,9 +33,9 @@ describe("report workflow components", () => {
     render(<ReportSourceSummary report={reportDraft} childId="xiaoyu" language="zh" />);
 
     expect(screen.getByText("草稿来自哪里")).toBeInTheDocument();
-    expect(screen.getByText("8 次")).toBeInTheDocument();
-    expect(screen.getByText("9 项")).toBeInTheDocument();
-    expect(screen.getByText("6 个")).toBeInTheDocument();
+    expect(screen.getByText("8 次活动记录")).toBeInTheDocument();
+    expect(screen.getByText("9 项观察问题")).toBeInTheDocument();
+    expect(screen.getByText("6 个观察方向")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /查看评分说明/ })).toHaveAttribute("href", "#/child/xiaoyu/rubrics");
   });
 

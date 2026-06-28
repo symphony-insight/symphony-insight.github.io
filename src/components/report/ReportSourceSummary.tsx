@@ -8,9 +8,9 @@ const copy = {
     body: "这份草稿来自活动里的记录和老师可复核的评分，不会自动判断孩子情况。",
     guideLabel: "查看评分说明",
     cards: [
-      { key: "sessions", icon: FileText, title: "活动记录", value: (report: ReportDraft) => `${report.generation.sourceSessionCount} 次` },
-      { key: "rubrics", icon: ClipboardCheck, title: "观察问题", value: (report: ReportDraft) => `${report.generation.sourceRubricCount} 项` },
-      { key: "domains", icon: Layers, title: "观察方向", value: (report: ReportDraft) => `${report.generation.sourceDomainCount} 个` },
+      { key: "sessions", icon: FileText, title: "活动记录", value: (report: ReportDraft) => `${report.generation.sourceSessionCount} 次活动记录` },
+      { key: "rubrics", icon: ClipboardCheck, title: "观察问题", value: (report: ReportDraft) => `${report.generation.sourceRubricCount} 项观察问题` },
+      { key: "domains", icon: Layers, title: "观察方向", value: (report: ReportDraft) => `${report.generation.sourceDomainCount} 个观察方向` },
       { key: "notes", icon: BookOpen, title: "老师备注", value: () => "已纳入" }
     ]
   },
