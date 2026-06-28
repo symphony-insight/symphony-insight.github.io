@@ -1,6 +1,8 @@
 import { ArrowDownRight, ArrowUpRight, Minus } from "lucide-react";
+import { getDomainForRubric, getDomainName } from "../../lib/assessmentDomains";
 import type { DisplayRubric } from "../../lib/displayRubrics";
 import type { MetricTrend, RubricEvidence } from "../../lib/rubricEvidence";
+import { useAppStore } from "../../store/useAppStore";
 
 const toneChip: Record<DisplayRubric["tone"], string> = {
   low: "bg-coral text-white",
@@ -38,6 +40,8 @@ export function RubricChip({
   evidence?: RubricEvidence;
   teacherName?: string;
 }) {
+  const language = useAppStore((state) => state.language);
+  const domain = getDomainForRubric(rubric.id);
   return (
     <details className="rubric-card group rounded-xl border border-white/70 bg-white/85 shadow-card backdrop-blur">
       <summary className="flex cursor-pointer items-center gap-3 px-4 py-3 marker:content-['']">
@@ -84,6 +88,11 @@ export function RubricChip({
                 <span className={`h-1.5 w-1.5 rounded-full ${evidence.teacherConfirmed ? "bg-moss" : "bg-coral"}`} aria-hidden="true" />
                 {evidence.teacherConfirmed ? `${teacherName ?? "老师"}已看` : "待确认"}
               </span>
+              {domain ? (
+                <span className="text-ink-muted">
+                  方向 <span className="rounded-md bg-tide-50 px-1.5 py-0.5 font-medium text-tide-600">{getDomainName(domain, language)}</span>
+                </span>
+              ) : null}
               <span className="text-ink-muted">
                 参照 <span className="rounded-md bg-paper-warm/80 px-1.5 py-0.5 font-medium text-ink-soft">{evidence.frameworkLabel}</span>
               </span>
