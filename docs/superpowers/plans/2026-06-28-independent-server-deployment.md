@@ -32,7 +32,7 @@
 - Produces npm script `start:server`.
 - `getApiClient({ mode: "backend", baseUrl: "/api/v1" })` must call relative URLs such as `/api/v1/children/xiaoyu/reports/current`.
 
-- [ ] **Step 1: Add a backend API test for relative API base**
+- [x] **Step 1: Add a backend API test for relative API base**
 
 Add this test to `src/api/backendApi.test.ts`:
 
@@ -60,7 +60,7 @@ it("supports a same-origin relative backend base URL for server deployment", asy
 });
 ```
 
-- [ ] **Step 2: Run the targeted test and verify it passes**
+- [x] **Step 2: Run the targeted test and verify it passes**
 
 Run:
 
@@ -70,7 +70,7 @@ npm test -- src/api/backendApi.test.ts
 
 Expected: all `backendApi` tests pass.
 
-- [ ] **Step 3: Add production scripts**
+- [x] **Step 3: Add production scripts**
 
 Update `package.json` scripts to include:
 
@@ -81,7 +81,7 @@ Update `package.json` scripts to include:
 }
 ```
 
-- [ ] **Step 4: Verify production build command**
+- [x] **Step 4: Verify production build command**
 
 Run:
 
@@ -91,7 +91,7 @@ npm run build:server
 
 Expected: `tsc -b && vite build` succeeds and `dist/index.html` exists.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 Run:
 

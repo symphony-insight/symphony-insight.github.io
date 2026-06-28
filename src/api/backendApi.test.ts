@@ -59,4 +59,26 @@ describe("backendApi", () => {
     expect(getApiClient({ mode: "mock" })).toBe(mockApi);
     expect(getApiClient({ mode: "backend", baseUrl: "http://127.0.0.1:8000/api/v1" })).not.toBe(mockApi);
   });
+
+  it("supports a same-origin relative backend base URL for server deployment", async () => {
+    const calls: Array<{ url: string; init?: RequestInit }> = [];
+    const fetcher = vi.fn(async (url: string, init?: RequestInit) => {
+      calls.push({ url, init });
+      return {
+        ok: true,
+        json: async () => ({
+          id: "report-xiaoyu-8",
+          childId: "xiaoyu",
+          status: "teacher_reviewing",
+          generation: { status: "draft_ready" },
+          safetyCheck: { displayStatus: "passed" }
+        })
+      } as Response;
+    });
+    const api = createBackendApi({ baseUrl: "/api/v1", fetcher });
+
+    await api.getReportDraftByChild("xiaoyu");
+
+    expect(calls[0].url).toBe("/api/v1/children/xiaoyu/reports/current");
+  });
 });

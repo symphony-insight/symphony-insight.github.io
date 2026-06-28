@@ -8,6 +8,8 @@
     "dev:frontend": "vite --host 127.0.0.1 --port 5173",
     "dev:frontend:backend": "VITE_API_MODE=backend VITE_API_BASE_URL=http://127.0.0.1:8000/api/v1 vite --host 127.0.0.1 --port 5173",
     "dev:backend": "cd backend && python3 -m app.server",
+    "build:server": "VITE_API_MODE=backend VITE_API_BASE_URL=/api/v1 npm run build",
+    "start:server": "cd backend && python3 -m app.server",
     "build": "tsc -b && vite build",
     "test": "vitest",
     "test:backend": "cd backend && python3 -m unittest discover -s tests",
