@@ -167,7 +167,8 @@ describe("core pages", () => {
     expect(screen.queryByText("老师已确认这份报告。")).not.toBeInTheDocument();
   });
 
-  it("renders the report method page and links back to rubric evidence", () => {
+  it("renders the report method page and links back to rubric evidence", async () => {
+    const user = userEvent.setup();
     useAppStore.getState().setSelectedChildId("xiaoyu");
     render(<ReportMethodPage />);
 
@@ -179,8 +180,13 @@ describe("core pages", () => {
     expect(screen.getByText("不读取原始音视频")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /查看评分说明/ })).toHaveAttribute("href", "#/child/xiaoyu/rubrics");
     expect(screen.getByText("更详细的系统说明")).toBeInTheDocument();
-    expect(screen.queryByText("康复有效")).not.toBeInTheDocument();
-    expect(screen.queryByText("恢复正常")).not.toBeInTheDocument();
+    expect(screen.getByText("AI 网关统一管理报告草稿服务。")).not.toBeVisible();
+    expect(screen.getByText("当前前端使用 mock 服务模拟生成过程。")).not.toBeVisible();
+
+    await user.click(screen.getByText("更详细的系统说明"));
+
+    expect(screen.getByText("AI 网关统一管理报告草稿服务。")).toBeInTheDocument();
+    expect(screen.getByText("当前前端使用 mock 服务模拟生成过程。")).toBeInTheDocument();
   });
 
   it("renders the report method page in English mode", () => {
