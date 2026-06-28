@@ -113,7 +113,7 @@ git commit -m "chore: add same-origin server build scripts"
 - Produces static responses for `GET /`, `GET /assets/*`, and SPA fallback routes.
 - Keeps `GET /api/v1/health` unchanged.
 
-- [ ] **Step 1: Add static route tests**
+- [x] **Step 1: Add static route tests**
 
 Add imports to `backend/tests/test_server_routes.py`:
 
@@ -157,7 +157,7 @@ def test_serves_static_asset_with_content_type(self):
     self.assertEqual(body, "console.log('ok')")
 ```
 
-- [ ] **Step 2: Run tests and verify the new tests fail**
+- [x] **Step 2: Run tests and verify the new tests fail**
 
 Run:
 
@@ -167,7 +167,7 @@ cd backend && python3 -m unittest tests.test_server_routes.ServerRoutesTest.test
 
 Expected: both tests fail because static serving is not implemented yet.
 
-- [ ] **Step 3: Implement static dispatch**
+- [x] **Step 3: Implement static dispatch**
 
 In `backend/app/server.py`, add static handling after API route checks and before the final JSON 404:
 
@@ -235,7 +235,7 @@ for key, value in headers.items():
         self.send_header(key, value)
 ```
 
-- [ ] **Step 4: Run backend tests**
+- [x] **Step 4: Run backend tests**
 
 Run:
 
@@ -245,7 +245,7 @@ cd backend && python3 -m unittest discover -s tests
 
 Expected: 16 backend tests pass.
 
-- [ ] **Step 5: Run full verification**
+- [x] **Step 5: Run full verification**
 
 Run:
 
@@ -255,7 +255,7 @@ npm run test:all
 
 Expected: frontend tests, build, and backend tests pass.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 Run:
 

@@ -94,6 +94,11 @@ def dispatch_request(
             payload = _read_json_body(body)
             return _update_report_status(report_id, payload, headers)
 
+        if method == "GET":
+            static_response = _static_response(path, headers)
+            if static_response is not None:
+                return static_response
+
         return _json_error(404, "not_found", "暂时没找到这个本地接口。", headers)
     except DeepSeekAPIError as error:
         return _json_error(error.status_code, "llm_api_error", "报告整理服务暂时不可用，请稍后再试。", headers)
@@ -134,12 +139,13 @@ class _RequestHandler(BaseHTTPRequestHandler):
         return self.rfile.read(content_length) if content_length else b""
 
     def _send_response(self, status: int, headers: Mapping[str, str], body: Any) -> None:
-        encoded = b"" if status == 204 else json.dumps(body, ensure_ascii=False).encode("utf-8")
+        encoded = _encode_body(status, headers, body)
         self.send_response(status)
-        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.send_header("Content-Type", headers.get("Content-Type", "application/json; charset=utf-8"))
         self.send_header("Content-Length", str(len(encoded)))
         for key, value in headers.items():
-            self.send_header(key, value)
+            if key.lower() != "content-type":
+                self.send_header(key, value)
         self.end_headers()
         if encoded:
             self.wfile.write(encoded)
@@ -321,6 +327,73 @@ def _update_report_status(report_id: str, payload: Mapping[str, Any], headers: d
         }
     )
     return 200, headers, deepcopy(report)
+
+
+def _static_response(path: str, headers: dict[str, str]) -> tuple[int, dict[str, str], str | bytes] | None:
+    static_root = os.environ.get("SYMPHONY_STATIC_DIR")
+    if not static_root:
+        return None
+
+    root = Path(static_root).resolve()
+    index_path = root / "index.html"
+    if path == "/" or (not path.startswith(f"{API_PREFIX}/") and "." not in Path(path).name):
+        return _read_static_file(index_path, headers)
+
+    requested = (root / path.lstrip("/")).resolve()
+    if root not in requested.parents and requested != root:
+        return 403, _static_headers(headers, "text/plain; charset=utf-8"), "Forbidden"
+    return _read_static_file(requested, headers)
+
+
+def _read_static_file(file_path: Path, headers: dict[str, str]) -> tuple[int, dict[str, str], str | bytes]:
+    if not file_path.is_file():
+        return 404, _static_headers(headers, "text/plain; charset=utf-8"), "Not found"
+    content_type = _content_type(file_path)
+    raw = file_path.read_bytes()
+    if _is_text_content(content_type):
+        return 200, _static_headers(headers, content_type), raw.decode("utf-8")
+    return 200, _static_headers(headers, content_type), raw
+
+
+def _static_headers(headers: dict[str, str], content_type: str) -> dict[str, str]:
+    return {**headers, "Content-Type": content_type}
+
+
+def _content_type(file_path: Path) -> str:
+    suffix = file_path.suffix.lower()
+    return {
+        ".html": "text/html; charset=utf-8",
+        ".css": "text/css; charset=utf-8",
+        ".js": "application/javascript; charset=utf-8",
+        ".mjs": "application/javascript; charset=utf-8",
+        ".json": "application/json; charset=utf-8",
+        ".svg": "image/svg+xml; charset=utf-8",
+        ".png": "image/png",
+        ".jpg": "image/jpeg",
+        ".jpeg": "image/jpeg",
+        ".webp": "image/webp",
+        ".woff2": "font/woff2",
+    }.get(suffix, "application/octet-stream")
+
+
+def _is_text_content(content_type: str) -> bool:
+    return (
+        content_type.startswith("text/")
+        or "javascript" in content_type
+        or "json" in content_type
+        or content_type.startswith("image/svg+xml")
+    )
+
+
+def _encode_body(status: int, headers: Mapping[str, str], body: Any) -> bytes:
+    if status == 204:
+        return b""
+    if isinstance(body, bytes):
+        return body
+    content_type = headers.get("Content-Type", "")
+    if isinstance(body, str) and content_type and "json" not in content_type:
+        return body.encode("utf-8")
+    return json.dumps(body, ensure_ascii=False).encode("utf-8")
 
 
 def _generation_status_for_report(status: str) -> str:

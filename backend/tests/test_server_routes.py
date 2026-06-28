@@ -1,6 +1,8 @@
 import json
 import os
+import tempfile
 import unittest
+from pathlib import Path
 from unittest.mock import patch
 
 from app import server
@@ -122,6 +124,33 @@ class ServerRoutesTest(unittest.TestCase):
         self.assertEqual(status, 200)
         self.assertEqual(body["status"], "ok")
         self.assertEqual(headers["Access-Control-Allow-Origin"], "http://127.0.0.1:5173")
+
+    def test_serves_static_index_and_spa_fallback(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            (root / "index.html").write_text('<div id="root"></div>', encoding="utf-8")
+            with patch.dict(os.environ, {"SYMPHONY_STATIC_DIR": str(root)}):
+                index_status, index_headers, index_body = server.dispatch_request("GET", "/")
+                route_status, route_headers, route_body = server.dispatch_request("GET", "/child/xiaoyu/report")
+
+        self.assertEqual(index_status, 200)
+        self.assertEqual(index_headers["Content-Type"], "text/html; charset=utf-8")
+        self.assertEqual(index_body, '<div id="root"></div>')
+        self.assertEqual(route_status, 200)
+        self.assertEqual(route_headers["Content-Type"], "text/html; charset=utf-8")
+        self.assertEqual(route_body, '<div id="root"></div>')
+
+    def test_serves_static_asset_with_content_type(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            (root / "assets").mkdir()
+            (root / "assets" / "app.js").write_text("console.log('ok')", encoding="utf-8")
+            with patch.dict(os.environ, {"SYMPHONY_STATIC_DIR": str(root)}):
+                status, headers, body = server.dispatch_request("GET", "/assets/app.js")
+
+        self.assertEqual(status, 200)
+        self.assertEqual(headers["Content-Type"], "application/javascript; charset=utf-8")
+        self.assertEqual(body, "console.log('ok')")
 
 
 if __name__ == "__main__":
