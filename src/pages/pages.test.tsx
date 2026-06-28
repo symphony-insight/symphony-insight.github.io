@@ -105,11 +105,32 @@ describe("core pages", () => {
     expect(await screen.findByText(/老师看的详细版/)).toBeInTheDocument();
     expect(screen.getAllByText(/老师看过后再导出/).length).toBeGreaterThan(0);
     expect(screen.getByText(/给家长看的摘要/)).toBeInTheDocument();
+    expect(screen.getByText("整理草稿")).toBeInTheDocument();
+    expect(screen.getByText("检查表述")).toBeInTheDocument();
+    expect(screen.getByText("老师确认")).toBeInTheDocument();
+    expect(screen.getByText("导出摘要")).toBeInTheDocument();
+    expect(screen.getByText("8 次")).toBeInTheDocument();
+    expect(screen.getByText("9 项")).toBeInTheDocument();
+    expect(screen.getByText("6 个")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /查看评分说明/ })).toHaveAttribute("href", "#/child/xiaoyu/rubrics");
+    expect(screen.getByText("没有发现不适合直接使用的表述。")).toBeInTheDocument();
     await user.click(screen.getByRole("button", { name: /确认通过/ }));
 
     await waitFor(() => expect(screen.getAllByText(/老师看过了/).length).toBeGreaterThan(0));
     expect(screen.getAllByText(/老师已确认/).length).toBeGreaterThan(0);
     expect(screen.queryByText(/report.approved/)).not.toBeInTheDocument();
     expectNoForbiddenCopy(container);
+  });
+
+  it("regenerates the report draft and shows a user-facing system audit entry", async () => {
+    const user = userEvent.setup();
+    render(<ReportReviewPage />);
+
+    expect(await screen.findByText(/老师看的详细版/)).toBeInTheDocument();
+    await user.click(screen.getByRole("button", { name: /重新整理草稿/ }));
+
+    await waitFor(() => expect(screen.getByText(/系统整理了一版报告草稿/)).toBeInTheDocument());
+    expect(screen.getByText(/报告整理助手/)).toBeInTheDocument();
+    expect(screen.getByText(/没有发现不适合直接使用的表述/)).toBeInTheDocument();
   });
 });
