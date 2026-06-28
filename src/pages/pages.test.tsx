@@ -7,6 +7,7 @@ import { reportDraft } from "../data/mockData";
 import { useAppStore } from "../store/useAppStore";
 import { MotionAffectPage } from "./MotionAffectPage";
 import { OverviewPage } from "./OverviewPage";
+import { ReportMethodPage } from "./ReportMethodPage";
 import { ReportReviewPage } from "./ReportReviewPage";
 import { SessionTimelinePage } from "./SessionTimelinePage";
 
@@ -157,6 +158,22 @@ describe("core pages", () => {
 
     await waitFor(() => expect(screen.getByText("Teacher Chen · Teacher confirmed this report.")).toBeInTheDocument());
     expect(screen.queryByText("老师已确认这份报告。")).not.toBeInTheDocument();
+  });
+
+  it("renders the report method page and links back to rubric evidence", () => {
+    useAppStore.getState().setSelectedChildId("xiaoyu");
+    render(<ReportMethodPage />);
+
+    expect(screen.getByText("报告怎么来的")).toBeInTheDocument();
+    expect(screen.getByText("活动中留下记录")).toBeInTheDocument();
+    expect(screen.getByText("生成报告草稿")).toBeInTheDocument();
+    expect(screen.getByText("把结构化记录写成草稿")).toBeInTheDocument();
+    expect(screen.getByText("不诊断")).toBeInTheDocument();
+    expect(screen.getByText("不读取原始音视频")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /查看评分说明/ })).toHaveAttribute("href", "#/child/xiaoyu/rubrics");
+    expect(screen.getByText("更详细的系统说明")).toBeInTheDocument();
+    expect(screen.queryByText("康复有效")).not.toBeInTheDocument();
+    expect(screen.queryByText("恢复正常")).not.toBeInTheDocument();
   });
 
   it("does not show the ready export badge when approval is blocked by safety review", () => {
