@@ -75,6 +75,19 @@ export const references: Reference[] = [
     caveatZh: "这是行为数据集，不是评分量表；我们只借鉴它「该记录哪些行为」的思路，不照搬其数值。"
   },
   {
+    id: "daisee2016",
+    authors: "Gupta, A., D'Cunha, A., Awasthi, K., & Balasubramanian, V.",
+    year: "2016",
+    title: "DAiSEE: Towards User Engagement Recognition in the Wild",
+    source: "arXiv:1609.01885（项目主页：IIT Hyderabad）",
+    url: "https://people.iith.ac.in/vineethnb/resources/daisee/index.html",
+    contributionZh:
+      "包含 9068 段视频、112 名用户的多标签视频数据集，标注了参与（engagement）、无聊、困惑、挫败四种状态，为「如何用可观察信号刻画参与度」提供参照。",
+    supportsDomains: ["attention"],
+    caveatZh:
+      "重要：DAiSEE 采集自成人在线学习场景，不能直接迁移到儿童音乐治疗评分。我们只把它作为「参与度可以分级观察」的背景参照，不照搬其类别或数值。"
+  },
+  {
     id: "imtap2007",
     authors: "Baxter, H. T., Berghofer, J. A., MacEwan, L., et al.",
     year: "2007",
