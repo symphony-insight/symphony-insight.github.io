@@ -15,6 +15,20 @@ describe("report workflow components", () => {
     expect(screen.getByText("导出摘要")).toBeInTheDocument();
   });
 
+  it("keeps the expression check step current when safety review needs edits", () => {
+    const reportNeedingEdits = {
+      ...reportDraft,
+      safetyCheck: {
+        ...reportDraft.safetyCheck,
+        displayStatus: "needs_edit" as const
+      }
+    };
+
+    render(<ReportWorkflowSteps report={reportNeedingEdits} isGenerating={false} language="zh" />);
+
+    expect(screen.getByText("检查表述").closest('[aria-current="step"]')).toBeInTheDocument();
+  });
+
   it("renders report sources and links to the scoring guide", () => {
     render(<ReportSourceSummary report={reportDraft} childId="xiaoyu" language="zh" />);
 

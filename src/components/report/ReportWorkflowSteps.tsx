@@ -20,7 +20,11 @@ function getActiveIndex(report: ReportDraft, isGenerating: boolean) {
   if (isGenerating || report.generation.status === "generating") {
     return 0;
   }
-  if (report.generation.status === "blocked" || report.safetyCheck.displayStatus === "blocked") {
+  if (
+    report.generation.status === "blocked" ||
+    report.safetyCheck.displayStatus === "blocked" ||
+    report.safetyCheck.displayStatus === "needs_edit"
+  ) {
     return 1;
   }
   if (report.status === "exported") {
@@ -54,6 +58,7 @@ export function ReportWorkflowSteps({
         return (
           <div
             key={step.key}
+            aria-current={isActive ? "step" : undefined}
             className={`rounded-2xl border p-4 ${
               isActive
                 ? "border-tide/30 bg-tide-50 shadow-card"
