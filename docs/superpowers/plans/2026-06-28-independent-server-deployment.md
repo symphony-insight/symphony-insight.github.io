@@ -471,6 +471,8 @@ git commit -m "docs: add server deployment artifacts"
 - Remote path: `/home/data/xuyijie/symphony-insight`
 - Remote env: `/home/data/xuyijie/symphony-insight/backend/.env.local`
 - Remote cloudflared config: existing `construction-rag.yjx.me` tunnel config on `3090x8`
+- Script: `/home/data/xuyijie/symphony-insight/scripts/deploy-remote-server.sh`
+- Script: `/home/data/xuyijie/symphony-insight/scripts/configure-cloudflared-symphony.sh`
 
 **Interfaces:**
 - Consumes GitHub remote `https://github.com/symphony-insight/symphony-insight.github.io.git`.
@@ -507,6 +509,15 @@ fi
 ```
 
 Expected: `/home/data/xuyijie/symphony-insight` contains the latest `main`.
+
+Shortcut after the repo exists:
+
+```bash
+cd /home/data/xuyijie/symphony-insight
+bash scripts/deploy-remote-server.sh
+```
+
+This script performs steps 2 through 6: update repo, ensure env, install, test, build, start service, and verify local URLs.
 
 - [ ] **Step 3: Configure backend secrets**
 
@@ -631,6 +642,15 @@ cloudflared tunnel route dns "$TUNNEL_ID" symphony.yjx.me
 ```
 
 Restart cloudflared using whichever service currently runs the `construction-rag.yjx.me` tunnel.
+
+Shortcut after the repo exists:
+
+```bash
+cd /home/data/xuyijie/symphony-insight
+bash scripts/configure-cloudflared-symphony.sh
+```
+
+This script finds the existing `construction-rag.yjx.me` tunnel config, adds `symphony.yjx.me`, routes DNS, restarts cloudflared when possible, and runs public smoke checks.
 
 - [ ] **Step 8: Verify public domain**
 

@@ -22,6 +22,16 @@ Never commit `backend/.env.local`.
 
 ## Deploy
 
+On the `3090x8` server, the preferred path is:
+
+```bash
+cd /home/data/xuyijie/symphony-insight
+bash scripts/deploy-remote-server.sh
+bash scripts/configure-cloudflared-symphony.sh
+```
+
+If the repository is not cloned yet, use the manual bootstrap below.
+
 ```bash
 cd /home/data/xuyijie
 git clone https://github.com/symphony-insight/symphony-insight.github.io.git symphony-insight
