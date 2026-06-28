@@ -280,7 +280,7 @@ git commit -m "feat: serve frontend from backend"
 - Produces exact cloudflared ingress addition for `symphony.yjx.me`.
 - Produces smoke check script that verifies local and public URLs without printing page bodies.
 
-- [ ] **Step 1: Create systemd user service template**
+- [x] **Step 1: Create systemd user service template**
 
 Create `deploy/symphony-insight.service`:
 
@@ -301,7 +301,7 @@ RestartSec=5
 WantedBy=default.target
 ```
 
-- [ ] **Step 2: Create cloudflared ingress addition**
+- [x] **Step 2: Create cloudflared ingress addition**
 
 Create `deploy/cloudflared-symphony-ingress.yml`:
 
@@ -310,7 +310,7 @@ Create `deploy/cloudflared-symphony-ingress.yml`:
   service: http://127.0.0.1:8090
 ```
 
-- [ ] **Step 3: Create smoke check script**
+- [x] **Step 3: Create smoke check script**
 
 Create `scripts/server-smoke-check.py`:
 
@@ -354,7 +354,7 @@ if __name__ == "__main__":
     raise SystemExit(main())
 ```
 
-- [ ] **Step 4: Create deployment documentation**
+- [x] **Step 4: Create deployment documentation**
 
 Create `docs/server-deployment.md` with:
 
@@ -436,7 +436,7 @@ python3 scripts/server-smoke-check.py
 ```
 ```
 
-- [ ] **Step 5: Link the server deployment doc from README**
+- [x] **Step 5: Link the server deployment doc from README**
 
 Add one sentence to `README.md`:
 
@@ -444,7 +444,7 @@ Add one sentence to `README.md`:
 For production, deploy the same-origin server version at `symphony.yjx.me`; see `docs/server-deployment.md`.
 ```
 
-- [ ] **Step 6: Run documentation and script checks**
+- [x] **Step 6: Run documentation and script checks**
 
 Run:
 
@@ -454,7 +454,7 @@ python3 scripts/server-smoke-check.py http://127.0.0.1:9/
 
 Expected: command exits non-zero because the smoke checker reports connection failure for a closed port.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 Run:
 

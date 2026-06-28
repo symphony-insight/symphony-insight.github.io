@@ -1,0 +1,14 @@
+[Unit]
+Description=SymPhony Insight web app
+After=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/data/xuyijie/symphony-insight
+EnvironmentFile=/home/data/xuyijie/symphony-insight/backend/.env.local
+ExecStart=/usr/bin/env bash -lc 'npm run build:server && npm run start:server'
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

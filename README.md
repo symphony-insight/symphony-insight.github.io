@@ -75,3 +75,6 @@ For LLM-backed GitHub Pages, do not put the DeepSeek key in the frontend build.
 Deploy the backend separately, then set the repository Actions secret
 `SYMPHONY_API_BASE_URL` to that backend's public `/api/v1` URL. See
 `docs/github-pages-llm-deployment.md`.
+
+For production, deploy the same-origin server version at `symphony.yjx.me`; see
+`docs/server-deployment.md`.
