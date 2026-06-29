@@ -319,7 +319,7 @@ describe("core pages", () => {
     useAppStore.getState().setSelectedChildId("xiaoyu");
     render(<ReportMethodPage />);
 
-    expect(screen.getByText("报告依据说明")).toBeInTheDocument();
+    expect(screen.getByText("报告依据")).toBeInTheDocument();
     expect(screen.getByText("活动中留下记录")).toBeInTheDocument();
     expect(screen.getByText("写成报告草稿")).toBeInTheDocument();
     expect(screen.getByText("把记录写成老师可修改的草稿。")).toBeInTheDocument();
@@ -343,14 +343,14 @@ describe("core pages", () => {
     useAppStore.getState().setSelectedChildId("xiaoyu");
     render(<ReportMethodPage />);
 
-    expect(screen.getByText("How the report is prepared")).toBeInTheDocument();
+    expect(screen.getByText("Report Basis")).toBeInTheDocument();
     expect(screen.getByText("Activity records")).toBeInTheDocument();
     expect(screen.getByText("Write the draft")).toBeInTheDocument();
     expect(screen.getByText("Does not label the child")).toBeInTheDocument();
     expect(screen.getByText("Does not decide whether things got better or worse")).toBeInTheDocument();
     expect(screen.getByText("Does not read raw audio or video")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "View scoring guide" })).toHaveAttribute("href", "#/child/xiaoyu/rubrics");
-    expect(screen.queryByText("报告依据说明")).not.toBeInTheDocument();
+    expect(screen.queryByText("报告依据")).not.toBeInTheDocument();
     expect(screen.getByText("Drafts use session records, scoring basis, and teacher notes.")).not.toBeVisible();
 
     await user.click(screen.getByText("Processing rules"));
@@ -366,7 +366,7 @@ describe("core pages", () => {
     window.location.hash = "#/child/xiaoyu";
     render(<Sidebar />);
 
-    const navLink = await screen.findByRole("link", { name: "报告依据说明" });
+    const navLink = await screen.findByRole("link", { name: "报告依据" });
     expect(navLink).toHaveAttribute("href", "#/child/xiaoyu/report-method");
   });
 

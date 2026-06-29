@@ -344,7 +344,7 @@ export const insights: LongitudinalInsight[] = [
     title: "熟悉旋律下更愿意参加",
     titleEn: "Joins more readily with familiar melodies",
     statement: "最近 8 次活动里，小宇听到熟悉旋律和慢一点的音乐时，更容易留在活动里。",
-    statementEn: "Across the last eight sessions, Xiaoyu was more likely to stay with the activity when the music used familiar melodies and a slower pace.",
+    statementEn: "Xiaoyu stayed longer with familiar melodies and slower pacing.",
     evidenceSessionIds: ["session-2", "session-4", "session-5", "session-8"],
     confidence: "high",
     claimLevel: "trend"
@@ -357,7 +357,7 @@ export const insights: LongitudinalInsight[] = [
     title: "高亮画面要再看一下",
     titleEn: "Bright visuals need teacher review",
     statement: "第 6 次活动里，高亮动画出现后小宇退出了活动。建议老师再看看亮度和动画速度。",
-    statementEn: "In Session 6, Xiaoyu withdrew after the bright animation appeared. The brightness and animation speed should be reviewed before the next session.",
+    statementEn: "Session 6 showed withdrawal after bright animation. Review brightness and speed before reusing it.",
     evidenceSessionIds: ["session-6"],
     confidence: "medium",
     claimLevel: "requires_professional_review"
@@ -370,7 +370,7 @@ export const insights: LongitudinalInsight[] = [
     title: "画面柔和时更容易回来",
     titleEn: "Softer visuals supported return",
     statement: "最近几次低亮度或慢节奏活动里，小宇不舒服后回来得更快。还要结合老师现场记录一起看。",
-    statementEn: "In recent low-brightness or slower-paced sessions, Xiaoyu returned more quickly after discomfort. This still needs to be read with the teacher's notes.",
+    statementEn: "Low brightness and slower pacing helped Xiaoyu return faster after discomfort.",
     evidenceSessionIds: ["session-5", "session-7", "session-8"],
     confidence: "medium",
     claimLevel: "trend"
@@ -383,7 +383,7 @@ export const insights: LongitudinalInsight[] = [
     title: "主动动作变多了",
     titleEn: "More self-started movement",
     statement: "从第 1 次到第 8 次活动，主动动作和创作片段都变多了，后面可以看的活动细节也更多。",
-    statementEn: "From Session 1 to Session 8, self-started movement and creative clips increased, giving the teacher more activity detail to review.",
+    statementEn: "Self-started movement and creative clips increased from Session 1 to Session 8.",
     evidenceSessionIds: ["session-1", "session-8"],
     confidence: "high",
     claimLevel: "observation"
@@ -396,7 +396,7 @@ export const insights: LongitudinalInsight[] = [
     title: "教小熊时回应更多",
     titleEn: "More response when teaching the bear",
     statement: "小熊请小宇再教一次时，他更愿意重复参与，也给出更多创作片段。下次可以继续保留这个环节。",
-    statementEn: "When the bear asked Xiaoyu to teach it again, he was more willing to repeat the activity and offered more creative clips. This routine is worth keeping.",
+    statementEn: "The teach-the-bear routine brought more responses and creative clips.",
     evidenceSessionIds: ["session-3", "session-5", "session-8"],
     confidence: "medium",
     claimLevel: "observation"

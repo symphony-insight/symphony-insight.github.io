@@ -29,9 +29,9 @@ export function MotionAffectPage() {
   const highBrightness = sessions.find((session) => session.stimulus === "high_brightness");
   const lowSupport = sessions.find((session) => session.stimulus === "low_brightness");
   const slowTempo = sessions.find((session) => session.stimulus === "slow_tempo");
-  const highBrightnessStory = formatObservationText(highBrightness, language, "高亮动画后出现退出。", "Withdrawal appeared after a bright animation.");
-  const slowTempoStory = formatObservationText(slowTempo, language, "慢节奏活动中，孩子更容易停留在活动里。", "With slower pacing, the child was more likely to stay with the activity.");
-  const lowSupportStory = formatObservationText(lowSupport, language, "降低负担后更容易回到活动。", "After the activity load was lowered, returning to the activity became easier.");
+  const highBrightnessStory = formatObservationText(highBrightness, language, "高亮动画后出现退出。", "Bright animation was followed by withdrawal.");
+  const slowTempoStory = formatObservationText(slowTempo, language, "慢节奏活动中，孩子更容易停留在活动里。", "Slower pacing helped the child stay longer.");
+  const lowSupportStory = formatObservationText(lowSupport, language, "降低负担后更容易回到活动。", "Lower load made it easier to return.");
 
   return (
     <div className="space-y-6 page-enter">
@@ -53,7 +53,7 @@ export function MotionAffectPage() {
         <SettingFitPanel
           title={language === "zh" ? "画面亮度" : "Visual brightness"}
           fitLabel={language === "zh" ? "建议先调低：高亮动画" : "Lower first: bright animation"}
-          evidence={`${highBrightnessStory} ${language === "zh" ? "这类画面建议先请老师看一下。" : "This visual setting should be reviewed by the teacher first."}`}
+          evidence={`${highBrightnessStory} ${language === "zh" ? "这类画面建议先请老师看一下。" : "Review brightness and animation speed before reusing it."}`}
           nextStep={language === "zh" ? "默认用低亮度画面。确实需要更明显的提示时，再短时间试一下。" : "Use softer visuals by default. If a stronger cue is needed, try it briefly and review the response."}
           score={62}
           tone="coral"
@@ -80,7 +80,7 @@ export function MotionAffectPage() {
             {highBrightnessStory}{" "}
             {language === "zh"
               ? "这次活动里，画面变亮后孩子更容易退出。下一次建议先降低亮度，并保留暂停选择。这只是给老师看的活动记录。"
-              : "In this session, brighter visuals made withdrawal more likely. Start with lower brightness next time and keep the pause option. This is an activity note for teacher review."}
+              : "Start next time with lower brightness and keep the pause option. This note is for teacher review."}
           </p>
           <div className="mt-4 grid gap-3 md:grid-cols-3">
             <div className="rounded-xl bg-coral-50 p-4">

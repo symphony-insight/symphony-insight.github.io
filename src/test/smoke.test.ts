@@ -9,7 +9,7 @@ describe("route smoke tests", () => {
     useAppStore.getState().setSelectedChildId("xiaoyu");
     render(resolveRoute("#/child/xiaoyu/report-method"));
 
-    expect(screen.getByText("报告依据说明")).toBeInTheDocument();
+    expect(screen.getByText("报告依据")).toBeInTheDocument();
   });
 
   it("renders the report review route without blank content", async () => {

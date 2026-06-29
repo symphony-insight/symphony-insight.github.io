@@ -24,9 +24,9 @@ const items = [
     bodyEn: "Session 6 included a withdrawal after bright animation. Start with lower brightness next time."
   },
   {
-    title: "下次从哪里开始",
+    title: "下次起点",
     titleEn: "Where to begin next",
-    status: "下次试试",
+    status: "下次尝试",
     statusEn: "Try next",
     tone: "tide" as const,
     icon: Lightbulb,
