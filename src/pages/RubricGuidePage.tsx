@@ -10,28 +10,34 @@ import { useAppStore } from "../store/useAppStore";
 import type { EvaluationDimension } from "../types/domain";
 
 const scaleLevels = [
-  { score: "1", label: "暂时还难", tone: "bg-coral", desc: "很少出现，或孩子明显不舒服。" },
-  { score: "2", label: "需要多一点帮助", tone: "bg-coral/70", desc: "需要较多提示或陪伴才能做到一点。" },
-  { score: "3", label: "需要一点提醒", tone: "bg-sun", desc: "有人轻轻提醒时，能做到一部分。" },
-  { score: "4", label: "比较稳", tone: "bg-tide", desc: "多数时候能做到，偶尔需要轻提示。" },
-  { score: "5", label: "很稳", tone: "bg-moss", desc: "能主动做到，换个活动也能继续用。" }
+  { score: "1", label: "暂时还难", labelEn: "Difficult for now", tone: "bg-coral", desc: "很少出现，或孩子明显不舒服。", descEn: "Rarely appears, or the child clearly feels uncomfortable." },
+  { score: "2", label: "需要多一点帮助", labelEn: "Needs strong support", tone: "bg-coral/70", desc: "需要较多提示或陪伴才能做到一点。", descEn: "Appears only with substantial prompting or support." },
+  { score: "3", label: "需要一点提醒", labelEn: "Needs light support", tone: "bg-sun", desc: "有人轻轻提醒时，能做到一部分。", descEn: "Appears partly when someone gives a light reminder." },
+  { score: "4", label: "比较稳", labelEn: "Fairly steady", tone: "bg-tide", desc: "多数时候能做到，偶尔需要轻提示。", descEn: "Appears most of the time, with only occasional light prompts." },
+  { score: "5", label: "很稳", labelEn: "Very steady", tone: "bg-moss", desc: "能主动做到，换个活动也能继续用。", descEn: "Appears independently and carries over into another activity." }
 ];
 
 const principles = [
   {
     icon: Compass,
     title: "只看观察，不下结论",
-    body: "9 项问题描述的是孩子在活动里做了什么，帮老师决定下次怎么支持，而不是给孩子贴标签或下判断。"
+    titleEn: "Observation, not labels",
+    body: "9 项问题描述的是孩子在活动里做了什么，帮老师决定下次怎么支持，而不是给孩子贴标签或下判断。",
+    bodyEn: "The nine questions describe what the child did during activities, so teachers can plan support without labeling or judging the child."
   },
   {
     icon: ListChecks,
     title: "每项都来自可记录的行为",
-    body: "分数不是凭感觉打的，而是把每次活动里记录到的动作、参与、回应、恢复等信号整理出来。"
+    titleEn: "Based on recorded behavior",
+    body: "分数不是凭感觉打的，而是把每次活动里记录到的动作、参与、回应、恢复等信号整理出来。",
+    bodyEn: "Scores are not impressions. They organize recorded signals such as movement, participation, response, and return after discomfort."
   },
   {
     icon: CheckCircle2,
     title: "只和孩子自己比",
-    body: "参考目标达成（GAS）的思路：先为孩子定下自己的小目标，再看有没有往前走，不和别的孩子比。"
+    titleEn: "Self-referenced progress",
+    body: "参考目标达成（GAS）的思路：先为孩子定下自己的小目标，再看有没有往前走，不和别的孩子比。",
+    bodyEn: "The guide follows a goal-attainment mindset: define the child's own small goal first, then check whether they moved forward."
   }
 ];
 
@@ -54,10 +60,14 @@ export function RubricGuidePage() {
   return (
     <div className="space-y-6 page-enter">
       <div>
-        <p className="text-xs font-bold uppercase tracking-[0.12em] text-coral-600">评分说明</p>
-        <h1 className="mt-1 font-display text-3xl font-extrabold tracking-tightish md:text-4xl">9 项观察问题是怎么设计的</h1>
+        <p className="text-xs font-bold uppercase tracking-[0.12em] text-coral-600">{language === "zh" ? "评分说明" : "Scoring guide"}</p>
+        <h1 className="mt-1 font-display text-3xl font-extrabold tracking-tightish md:text-4xl">
+          {language === "zh" ? "9 项观察问题是怎么设计的" : "How the nine observation questions work"}
+        </h1>
         <p className="mt-2 max-w-3xl text-ink-muted">
-          这一页讲清楚：每一项在看孩子的什么、看哪些行为、分数怎么定，以及我们参考了哪些方向。给老师做底，也方便和家长解释。
+          {language === "zh"
+            ? "这一页讲清楚：每一项在看孩子的什么、看哪些行为、分数怎么定，以及我们参考了哪些方向。给老师做底，也方便和家长解释。"
+            : "This page explains what each item observes, which behaviors count as evidence, how scores are described, and which reference areas informed the guide."}
         </p>
       </div>
 
@@ -70,8 +80,8 @@ export function RubricGuidePage() {
               <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-tide-50 text-tide-600">
                 <Icon className="h-5 w-5" aria-hidden="true" />
               </span>
-              <h2 className="mt-3 font-display text-base font-extrabold tracking-tightish">{item.title}</h2>
-              <p className="mt-2 text-sm leading-6 text-ink-soft">{item.body}</p>
+              <h2 className="mt-3 font-display text-base font-extrabold tracking-tightish">{language === "zh" ? item.title : item.titleEn}</h2>
+              <p className="mt-2 text-sm leading-6 text-ink-soft">{language === "zh" ? item.body : item.bodyEn}</p>
             </Card>
           );
         })}
@@ -83,9 +93,13 @@ export function RubricGuidePage() {
           <span className="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-sun-50 text-[#a9802f]">
             <Gauge className="h-4 w-4" aria-hidden="true" />
           </span>
-          <h2 className="font-display text-lg font-extrabold tracking-tightish">1 到 5 分代表什么</h2>
+          <h2 className="font-display text-lg font-extrabold tracking-tightish">{language === "zh" ? "1 到 5 分代表什么" : "What scores 1 to 5 mean"}</h2>
         </div>
-        <p className="mt-2 text-sm text-ink-muted">同一把尺子用在 9 项上。分数越高，说明这件事孩子越能自己稳定地做到。</p>
+        <p className="mt-2 text-sm text-ink-muted">
+          {language === "zh"
+            ? "同一把尺子用在 9 项上。分数越高，说明这件事孩子越能自己稳定地做到。"
+            : "The same scale applies across all nine items. A higher score means the child can do it more steadily and independently."}
+        </p>
         <div className="mt-4 grid gap-2.5 sm:grid-cols-2 xl:grid-cols-5">
           {scaleLevels.map((level) => (
             <div key={level.score} className="rounded-xl border border-white/70 bg-paper-warm/60 p-3">
@@ -93,9 +107,9 @@ export function RubricGuidePage() {
                 <span className={`inline-flex h-7 w-7 items-center justify-center rounded-lg text-sm font-extrabold text-white ${level.tone}`}>
                   {level.score}
                 </span>
-                <span className="text-sm font-bold">{level.label}</span>
+                <span className="text-sm font-bold">{language === "zh" ? level.label : level.labelEn}</span>
               </div>
-              <p className="mt-2 text-xs leading-5 text-ink-muted">{level.desc}</p>
+              <p className="mt-2 text-xs leading-5 text-ink-muted">{language === "zh" ? level.desc : level.descEn}</p>
             </div>
           ))}
         </div>
@@ -107,10 +121,12 @@ export function RubricGuidePage() {
           <span className="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-tide-50 text-tide-600">
             <Layers className="h-4 w-4" aria-hidden="true" />
           </span>
-          <h2 className="font-display text-xl font-extrabold tracking-tightish">按 6 个观察方向来看</h2>
+          <h2 className="font-display text-xl font-extrabold tracking-tightish">{language === "zh" ? "按 6 个观察方向来看" : "Grouped into six observation areas"}</h2>
         </div>
         <p className="mt-2 max-w-3xl text-sm leading-6 text-ink-muted">
-          特殊儿童的观察通常分成几个大方向。我们把 9 项观察按这些方向归好类，方便老师看清楚每一项在看孩子的哪一面。
+          {language === "zh"
+            ? "特殊儿童的观察通常分成几个大方向。我们把 9 项观察按这些方向归好类，方便老师看清楚每一项在看孩子的哪一面。"
+            : "The nine questions are grouped into broader observation areas, so teachers can quickly see what each item is looking at."}
         </p>
 
         <div className="mt-5 space-y-5">
@@ -126,17 +142,19 @@ export function RubricGuidePage() {
                   <span className="text-sm text-ink-muted">{language === "zh" ? domain.plainZh : ""}</span>
                   {domain.covered ? (
                     <span className="ml-auto rounded-full bg-tide-50 px-2.5 py-0.5 text-xs font-semibold text-tide-600">
-                      {rubrics.length} 项
+                      {language === "zh" ? `${rubrics.length} 项` : `${rubrics.length} item${rubrics.length === 1 ? "" : "s"}`}
                     </span>
                   ) : (
-                    <span className="ml-auto rounded-full bg-stone-100 px-2.5 py-0.5 text-xs font-semibold text-ink-muted">本工具不单独观察</span>
+                    <span className="ml-auto rounded-full bg-stone-100 px-2.5 py-0.5 text-xs font-semibold text-ink-muted">
+                      {language === "zh" ? "本工具不单独观察" : "Not scored separately"}
+                    </span>
                   )}
                 </div>
                 <p className="mt-1.5 text-sm leading-6 text-ink-soft">{getDomainNote(domain, language)}</p>
 
                 {domain.covered ? (
                   <div className="mt-3 flex flex-wrap items-center gap-1.5 text-xs">
-                    <span className="font-semibold text-ink-muted">支撑文献：</span>
+                    <span className="font-semibold text-ink-muted">{language === "zh" ? "支撑文献：" : "References: "}</span>
                     {getReferencesForDomain(domain.id).map((reference) => (
                       <a
                         key={reference.id}
@@ -171,7 +189,7 @@ export function RubricGuidePage() {
                           <p className="mt-1 text-sm leading-6 text-ink-soft">{summary}</p>
 
                           <div className="mt-3 rounded-lg border border-white/70 bg-paper-warm/60 p-3">
-                            <p className="text-xs font-bold text-ink-muted">主要看这些行为</p>
+                            <p className="text-xs font-bold text-ink-muted">{language === "zh" ? "主要看这些行为" : "Behaviors reviewed"}</p>
                             <ul className="mt-2 space-y-1.5">
                               {criteria.map((item) => (
                                 <li key={item} className="flex gap-2 text-sm text-ink-soft">
@@ -184,7 +202,7 @@ export function RubricGuidePage() {
 
                           {anchor ? (
                             <div className="mt-3 rounded-lg border border-white/70 bg-white/70 p-3">
-                              <p className="text-xs font-bold text-ink-muted">1–5 分分别代表什么</p>
+                              <p className="text-xs font-bold text-ink-muted">{language === "zh" ? "1–5 分分别代表什么" : "How the 1-5 levels are described"}</p>
                               <ul className="mt-2 space-y-1">
                                 {([1, 2, 3, 4, 5] as const).map((level) => {
                                   const isCurrent = level === currentScore;
@@ -199,27 +217,28 @@ export function RubricGuidePage() {
                                         {level}
                                       </span>
                                       <span>
-                                        {anchor.levels[level]}
-                                        {isCurrent ? <span className="ml-1 text-tide-600">· 本轮在这一档</span> : null}
+                                        {(language === "zh" ? anchor.levels : anchor.levelsEn)[level]}
+                                        {isCurrent ? <span className="ml-1 text-tide-600">{language === "zh" ? "· 本轮在这一档" : " · current cycle"}</span> : null}
                                       </span>
                                     </li>
                                   );
                                 })}
                               </ul>
                               <p className="mt-2 rounded-md bg-paper-warm/70 px-2 py-1.5 text-xs leading-5 text-ink-soft">
-                                <span className="font-bold">为什么是这个分：</span>
-                                {anchor.currentRationaleZh}
+                                <span className="font-bold">{language === "zh" ? "为什么是这个分：" : "Why this score: "}</span>
+                                {language === "zh" ? anchor.currentRationaleZh : anchor.currentRationaleEn}
                               </p>
                             </div>
                           ) : null}
 
                           <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs">
                             <span className="text-ink-muted">
-                              用到的记录：
-                              <span className="font-semibold text-ink-soft">{getMetricLabels(dimension.id, language).join("、")}</span>
+                              {language === "zh" ? "用到的记录：" : "Records used: "}
+                              <span className="font-semibold text-ink-soft">{getMetricLabels(dimension.id, language).join(language === "zh" ? "、" : ", ")}</span>
                             </span>
                             <span className="inline-flex items-center gap-1.5 rounded-full bg-tide-50 px-2 py-0.5 font-semibold text-tide-600">
-                              参照 · {getFrameworkLabel(dimension.id, language)}
+                              {language === "zh" ? "参照 · " : "Reference · "}
+                              {getFrameworkLabel(dimension.id, language)}
                             </span>
                           </div>
                         </div>
@@ -235,31 +254,33 @@ export function RubricGuidePage() {
 
       {/* 参考依据 */}
       <Card className="p-6">
-        <h2 className="font-display text-lg font-extrabold tracking-tightish">参考文献与依据</h2>
+        <h2 className="font-display text-lg font-extrabold tracking-tightish">{language === "zh" ? "参考文献与依据" : "References and rationale"}</h2>
         <p className="mt-2 text-sm leading-6 text-ink-muted">
-          下面这些研究和工具，是帮我们决定“该看哪些行为、怎么分级描述”的设计参照，不是给孩子做评估或诊断的标准。每条都可点击查看原文。
+          {language === "zh"
+            ? "下面这些研究和工具，是帮我们决定“该看哪些行为、怎么分级描述”的设计参照，不是给孩子做评估或诊断的标准。每条都可点击查看原文。"
+            : "These studies and tools inform what behavior to observe and how to describe levels. They are design references, not standards for assessment or diagnosis."}
         </p>
         <ol className="mt-4 space-y-3">
           {references.map((ref) => (
             <li key={ref.id} className="rounded-xl border border-white/70 bg-white/80 p-4">
               <p className="text-sm leading-6">
                 <span className="font-semibold">{ref.authors}</span> ({ref.year}).{" "}
-                <span className="italic">{ref.title}</span>. {ref.source}.{" "}
+                <span className="italic">{ref.title}</span>. {language === "zh" ? ref.source : ref.sourceEn ?? ref.source}.{" "}
                 <a
                   href={ref.url}
                   target="_blank"
                   rel="noreferrer"
                   className="inline-flex items-center gap-1 font-semibold text-tide-600 hover:underline"
                 >
-                  原文链接
+                  {language === "zh" ? "原文链接" : "Source"}
                   <ExternalLink className="h-3 w-3" aria-hidden="true" />
                 </a>
               </p>
-              <p className="mt-2 text-xs leading-5 text-ink-soft">{ref.contributionZh}</p>
+              <p className="mt-2 text-xs leading-5 text-ink-soft">{language === "zh" ? ref.contributionZh : ref.contributionEn}</p>
               {ref.caveatZh ? (
                 <p className="mt-2 flex items-start gap-1.5 rounded-md bg-coral-50 px-2 py-1.5 text-xs leading-5 text-coral-600">
-                  <span className="font-bold">边界：</span>
-                  <span className="text-ink-soft">{ref.caveatZh}</span>
+                  <span className="font-bold">{language === "zh" ? "边界：" : "Boundary: "}</span>
+                  <span className="text-ink-soft">{language === "zh" ? ref.caveatZh : ref.caveatEn}</span>
                 </p>
               ) : null}
             </li>
@@ -271,7 +292,9 @@ export function RubricGuidePage() {
       <p className="flex items-start gap-2.5 rounded-2xl border border-moss/20 bg-moss-50 p-5 text-moss-600">
         <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0" aria-hidden="true" />
         <span className="text-sm leading-6 text-ink-soft">
-          这些只是给老师看的观察材料，不是给孩子下结论，也不替代老师、治疗师或医生的判断。相关研究也提醒：这类信号能帮我们更懂孩子，但仍要结合现场情况一起看。
+          {language === "zh"
+            ? "这些只是给老师看的观察材料，不是给孩子下结论，也不替代老师、治疗师或医生的判断。相关研究也提醒：这类信号能帮我们更懂孩子，但仍要结合现场情况一起看。"
+            : "These are teacher-facing observation materials. They do not draw conclusions about the child or replace teacher, therapist, or medical judgment. The signals should always be read with the live activity context."}
         </span>
       </p>
     </div>

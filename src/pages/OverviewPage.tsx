@@ -41,7 +41,8 @@ export function OverviewPage() {
   const visibleInsights = insights.filter((insight) => {
     const query = searchQuery.trim();
     if (!query) return true;
-    return `${insight.title} ${insight.statement}`.includes(query);
+    const searchable = language === "zh" ? `${insight.title} ${insight.statement}` : `${insight.titleEn} ${insight.statementEn}`;
+    return searchable.toLocaleLowerCase().includes(query.toLocaleLowerCase());
   });
 
   if (!child) return <div>{language === "zh" ? "总览加载中" : "Loading overview"}</div>;
@@ -49,6 +50,7 @@ export function OverviewPage() {
   const latest = sessions[sessions.length - 1];
   const totalCreativeMoments = sessions.reduce((sum, session) => sum + session.participation.seedCount, 0);
   const childName = language === "zh" ? child.displayName : child.displayNameEn;
+  const teacherName = language === "zh" ? child.teacher : child.teacherEn;
   const summary = [
     {
       label: t(language, "activityCount"),
@@ -67,7 +69,7 @@ export function OverviewPage() {
     },
     {
       label: t(language, "teacher"),
-      value: child.teacher,
+      value: teacherName,
       caption: t(language, "teacherCaption")
     }
   ];
@@ -81,6 +83,10 @@ export function OverviewPage() {
         summary={summary}
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
+        kicker={language === "zh" ? "共鸣 · 活动观察" : "SymPhony · Activity observation"}
+        searchLabel={language === "zh" ? "搜索活动记录" : "Search activity records"}
+        searchPlaceholder={language === "zh" ? "搜参加、亮度、暂停" : "Search joining, brightness, pause"}
+        filterLabel={language === "zh" ? "即时筛选" : "Live filter"}
       />
 
       <ReviewFocusPanel />
@@ -90,9 +96,15 @@ export function OverviewPage() {
         <div className="surface rounded-2xl p-6 shadow-card">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.12em] text-tide-600">逐项查看</p>
+              <p className="text-xs font-bold uppercase tracking-[0.12em] text-tide-600">{language === "zh" ? "逐项查看" : "Score details"}</p>
               <h2 className="mt-1 font-display text-xl font-extrabold tracking-tightish">{language === "zh" ? "每项怎么看" : "Detailed Scores"}</h2>
-              <p className="mt-1 max-w-2xl text-sm leading-6 text-ink-muted">点开任意一项看证据；完整说明见 <a href={`#/child/${selectedChildId}/rubrics`} className="font-semibold text-tide-600 hover:underline">评分说明</a>。</p>
+              <p className="mt-1 max-w-2xl text-sm leading-6 text-ink-muted">
+                {language === "zh" ? "点开任意一项看证据；完整说明见 " : "Open any item to review the evidence. Full details are in the "}
+                <a href={`#/child/${selectedChildId}/rubrics`} className="font-semibold text-tide-600 hover:underline">
+                  {language === "zh" ? "评分说明" : "scoring guide"}
+                </a>
+                {language === "zh" ? "。" : "."}
+              </p>
             </div>
             <StatusPill status={t(language, "needsReview")} />
           </div>
@@ -102,11 +114,15 @@ export function OverviewPage() {
                 key={rubric.id}
                 rubric={rubric}
                 evidence={sessions.length > 0 ? getRubricEvidence(rubric.id, sessions, language) : undefined}
-                teacherName={child.teacher}
+                teacherName={teacherName}
               />
             ))}
           </div>
-          {visibleRubrics.length === 0 ? <p className="mt-4 rounded-xl bg-paper-warm/80 p-4 text-sm text-ink-muted">没找到相关内容。可以试试搜“参加”或“亮度”。</p> : null}
+          {visibleRubrics.length === 0 ? (
+            <p className="mt-4 rounded-xl bg-paper-warm/80 p-4 text-sm text-ink-muted">
+              {language === "zh" ? "没找到相关内容。可以试试搜“参加”或“亮度”。" : "No matching item found. Try searching for \"join\" or \"brightness.\""}
+            </p>
+          ) : null}
         </div>
       </div>
 
@@ -114,10 +130,12 @@ export function OverviewPage() {
 
       <div className="grid gap-4 xl:grid-cols-[0.8fr_1.2fr]">
         <section className="surface rounded-2xl p-6 shadow-card">
-          <p className="text-xs font-bold uppercase tracking-[0.12em] text-coral-600">最近一次</p>
+          <p className="text-xs font-bold uppercase tracking-[0.12em] text-coral-600">{language === "zh" ? "最近一次" : "Latest session"}</p>
           <h2 className="mt-1 font-display text-lg font-extrabold tracking-tightish">{t(language, "latestSummary")}</h2>
-          <p className="mt-3 text-sm leading-6 text-ink-soft">{latest?.story}</p>
-          <div className="mt-4 rounded-xl border border-white/70 bg-paper-warm/70 p-4 text-sm leading-6 text-ink-soft">{child.guardianSummary}</div>
+          <p className="mt-3 text-sm leading-6 text-ink-soft">{latest ? (language === "zh" ? latest.story : latest.storyEn) : ""}</p>
+          <div className="mt-4 rounded-xl border border-white/70 bg-paper-warm/70 p-4 text-sm leading-6 text-ink-soft">
+            {language === "zh" ? child.guardianSummary : child.guardianSummaryEn}
+          </div>
         </section>
 
         <section className="surface rounded-2xl p-6 shadow-card">

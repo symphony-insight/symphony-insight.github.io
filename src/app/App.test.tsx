@@ -45,8 +45,8 @@ describe("App shell", () => {
     await user.click(await screen.findByRole("button", { name: "EN" }));
 
     expect(screen.getByRole("link", { name: /Overview/ })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /Session Timeline/ })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /Motion-Affect/ })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /Activity Records/ })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /Settings Fit/ })).toBeInTheDocument();
     expect(screen.getByText(/Baseline ready/)).toBeInTheDocument();
     expect(screen.getByText(/These are activity notes/)).toBeInTheDocument();
   });

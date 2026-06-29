@@ -62,7 +62,7 @@ export function RubricChip({
         {evidence ? (
           <>
             <div>
-              <p className="text-xs font-bold text-ink-muted">关键变化</p>
+              <p className="text-xs font-bold text-ink-muted">{language === "zh" ? "关键变化" : "Key changes"}</p>
               <ul className="mt-1.5 space-y-1">
                 {evidence.metricChanges.map((change) => (
                   <li key={change.label} className="flex items-center gap-2 text-xs text-ink-soft">
@@ -78,7 +78,10 @@ export function RubricChip({
 
             <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs">
               <span className="text-ink-muted">
-                来自 <span className="font-semibold text-ink-soft">{evidence.evidenceSessions.map((n) => `第 ${n} 次`).join(" / ")}</span>
+                {language === "zh" ? "来自 " : "From "}
+                <span className="font-semibold text-ink-soft">
+                  {evidence.evidenceSessions.map((n) => (language === "zh" ? `第 ${n} 次` : `Session ${n}`)).join(" / ")}
+                </span>
               </span>
               <span
                 className={`inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 font-semibold ${
@@ -86,15 +89,23 @@ export function RubricChip({
                 }`}
               >
                 <span className={`h-1.5 w-1.5 rounded-full ${evidence.teacherConfirmed ? "bg-moss" : "bg-coral"}`} aria-hidden="true" />
-                {evidence.teacherConfirmed ? `${teacherName ?? "老师"}已看` : "待确认"}
+                {evidence.teacherConfirmed
+                  ? language === "zh"
+                    ? `${teacherName ?? "老师"}已看`
+                    : `Reviewed by ${teacherName ?? "teacher"}`
+                  : language === "zh"
+                    ? "待确认"
+                    : "Needs review"}
               </span>
               {domain ? (
                 <span className="text-ink-muted">
-                  方向 <span className="rounded-md bg-tide-50 px-1.5 py-0.5 font-medium text-tide-600">{getDomainName(domain, language)}</span>
+                  {language === "zh" ? "方向 " : "Area "}
+                  <span className="rounded-md bg-tide-50 px-1.5 py-0.5 font-medium text-tide-600">{getDomainName(domain, language)}</span>
                 </span>
               ) : null}
               <span className="text-ink-muted">
-                参照 <span className="rounded-md bg-paper-warm/80 px-1.5 py-0.5 font-medium text-ink-soft">{evidence.frameworkLabel}</span>
+                {language === "zh" ? "参照 " : "Reference "}
+                <span className="rounded-md bg-paper-warm/80 px-1.5 py-0.5 font-medium text-ink-soft">{evidence.frameworkLabel}</span>
               </span>
             </div>
           </>

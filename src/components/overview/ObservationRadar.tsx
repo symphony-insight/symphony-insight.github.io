@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadarChart, ResponsiveContainer } from "recharts";
 import type { DisplayRubric } from "../../lib/displayRubrics";
+import { useAppStore } from "../../store/useAppStore";
 
 const toneColors: Record<DisplayRubric["tone"], string> = {
   low: "#d97c65",
@@ -29,6 +30,18 @@ const shortLabels: Record<string, string> = {
   goal: "小目标"
 };
 
+const shortLabelsEn: Record<string, string> = {
+  join: "Joining",
+  choice: "Choice",
+  focus: "Interest",
+  respond: "Response",
+  create: "Expression",
+  recover: "Return",
+  access: "Input",
+  setting: "Comfort",
+  goal: "Goal"
+};
+
 function AxisTick({ payload, x, y, cx, cy, activeLabel }: any) {
   const isActive = payload.value === activeLabel;
   const dx = x - cx;
@@ -48,6 +61,7 @@ function AxisTick({ payload, x, y, cx, cy, activeLabel }: any) {
 }
 
 export function ObservationRadar({ rubrics, sessionCount = 0 }: { rubrics: DisplayRubric[]; sessionCount?: number }) {
+  const language = useAppStore((state) => state.language);
   const [activeId, setActiveId] = useState(rubrics[0]?.id);
   const active = rubrics.find((rubric) => rubric.id === activeId) ?? rubrics[0];
 
@@ -57,23 +71,37 @@ export function ObservationRadar({ rubrics, sessionCount = 0 }: { rubrics: Displ
   }, [rubrics]);
 
   const needSupport = rubrics.filter((rubric) => rubric.score < 3.5).length;
-  const conclusion = average >= 4 ? "比较稳" : average >= 3 ? "整体平稳" : "还需多帮一点";
+  const conclusion =
+    language === "zh"
+      ? average >= 4
+        ? "比较稳"
+        : average >= 3
+          ? "整体平稳"
+          : "还需多帮一点"
+      : average >= 4
+        ? "fairly steady"
+        : average >= 3
+          ? "generally steady"
+          : "needs more support";
+  const labels = language === "zh" ? shortLabels : shortLabelsEn;
 
   const data = rubrics.map((rubric) => ({
     id: rubric.id,
-    label: shortLabels[rubric.id] ?? rubric.title,
+    label: labels[rubric.id] ?? rubric.title,
     score: rubric.score
   }));
 
-  const activeLabel = active ? shortLabels[active.id] ?? active.title : "";
+  const activeLabel = active ? labels[active.id] ?? active.title : "";
 
   return (
     <section className="surface rounded-2xl p-6 shadow-float">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <p className="text-xs font-bold uppercase tracking-[0.12em] text-tide-600">整体观察</p>
-          <h2 className="mt-1 font-display text-xl font-extrabold tracking-tightish">9 项观察总览</h2>
-          <p className="mt-1 text-sm leading-6 text-ink-muted">一眼看出哪些地方已经比较稳，哪些下次还要多帮一点。</p>
+          <p className="text-xs font-bold uppercase tracking-[0.12em] text-tide-600">{language === "zh" ? "整体观察" : "Overall view"}</p>
+          <h2 className="mt-1 font-display text-xl font-extrabold tracking-tightish">{language === "zh" ? "9 项观察总览" : "Nine-question overview"}</h2>
+          <p className="mt-1 text-sm leading-6 text-ink-muted">
+            {language === "zh" ? "一眼看出哪些地方已经比较稳，哪些下次还要多帮一点。" : "A quick view of what is steady and what may need more support next time."}
+          </p>
         </div>
         <span className="shrink-0 rounded-full bg-tide-50 px-3 py-1 text-sm font-extrabold text-tide-600">
           {average.toFixed(1)}<span className="text-xs font-bold text-ink-muted">/5</span>
@@ -103,8 +131,8 @@ export function ObservationRadar({ rubrics, sessionCount = 0 }: { rubrics: Displ
           </ResponsiveContainer>
           <div className="pointer-events-none absolute inset-x-0 bottom-1 flex justify-center">
             <span className="rounded-full bg-white/70 px-3 py-1 text-xs font-semibold text-ink-muted backdrop-blur">
-              本轮观察 · {conclusion}
-              {needSupport > 0 ? ` · ${needSupport} 项需支持` : ""}
+              {language === "zh" ? "本轮观察" : "Current cycle"} · {conclusion}
+              {needSupport > 0 ? (language === "zh" ? ` · ${needSupport} 项需支持` : ` · ${needSupport} need support`) : ""}
             </span>
           </div>
         </div>
@@ -124,7 +152,7 @@ export function ObservationRadar({ rubrics, sessionCount = 0 }: { rubrics: Displ
                     isActive ? "bg-ink text-white" : "bg-paper-warm/70 text-ink-muted hover:bg-paper-warm"
                   }`}
                 >
-                  {shortLabels[rubric.id] ?? rubric.title}
+                  {labels[rubric.id] ?? rubric.title}
                 </button>
               );
             })}

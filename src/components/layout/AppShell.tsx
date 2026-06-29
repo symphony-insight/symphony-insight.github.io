@@ -1,10 +1,12 @@
 import { Menu, X } from "lucide-react";
 import type { PropsWithChildren } from "react";
 import { useState } from "react";
+import { useAppStore } from "../../store/useAppStore";
 import { Sidebar } from "./Sidebar";
 
 export function AppShell({ children }: PropsWithChildren) {
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const language = useAppStore((state) => state.language);
 
   return (
     <div className="premium-app-shell min-h-screen font-sans text-ink lg:flex">
@@ -26,7 +28,7 @@ export function AppShell({ children }: PropsWithChildren) {
         <button
           type="button"
           onClick={() => setDrawerOpen(true)}
-          aria-label="打开导航"
+          aria-label={language === "zh" ? "打开导航" : "Open navigation"}
           className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/70 bg-white/80 text-ink-soft"
         >
           <Menu className="h-5 w-5" aria-hidden="true" />
@@ -41,7 +43,7 @@ export function AppShell({ children }: PropsWithChildren) {
             <button
               type="button"
               onClick={() => setDrawerOpen(false)}
-              aria-label="关闭导航"
+              aria-label={language === "zh" ? "关闭导航" : "Close navigation"}
               className="absolute right-3 top-3 z-10 inline-flex h-9 w-9 items-center justify-center rounded-lg text-ink-muted transition hover:bg-white hover:text-ink"
             >
               <X className="h-5 w-5" aria-hidden="true" />

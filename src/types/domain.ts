@@ -16,7 +16,9 @@ export type Child = {
   consentStatus: ConsentStatus;
   reviewStatus: ReviewStatus;
   teacher: string;
+  teacherEn: string;
   guardianSummary: string;
+  guardianSummaryEn: string;
 };
 
 export type Language = "zh" | "en";
@@ -53,6 +55,7 @@ export type SessionSummary = {
   durationSec: number;
   completedPhase: SessionPhase;
   story: string;
+  storyEn: string;
   stimulus: "familiar_melody" | "low_brightness" | "high_brightness" | "slow_tempo" | "free_play";
   motion: {
     activeTimeRatio: number;
@@ -75,6 +78,7 @@ export type SessionSummary = {
     teachBearCount: number;
   };
   notes: string[];
+  notesEn: string[];
 };
 
 export type ClaimLevel = "observation" | "trend" | "requires_professional_review";
@@ -91,7 +95,9 @@ export type LongitudinalInsight = {
     | "stimulus_preference"
     | "needs_human_review";
   title: string;
+  titleEn: string;
   statement: string;
+  statementEn: string;
   evidenceSessionIds: string[];
   confidence: "low" | "medium" | "high";
   claimLevel: ClaimLevel;

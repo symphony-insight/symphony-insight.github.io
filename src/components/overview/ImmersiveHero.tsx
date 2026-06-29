@@ -20,7 +20,11 @@ export function ImmersiveHero({
   intro,
   summary,
   searchQuery,
-  onSearchChange
+  onSearchChange,
+  kicker,
+  searchLabel,
+  searchPlaceholder,
+  filterLabel
 }: {
   childName: string;
   titleSuffix: string;
@@ -28,6 +32,10 @@ export function ImmersiveHero({
   summary: SummaryItem[];
   searchQuery: string;
   onSearchChange: (value: string) => void;
+  kicker: string;
+  searchLabel: string;
+  searchPlaceholder: string;
+  filterLabel: string;
 }) {
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => onSearchChange(event.target.value);
 
@@ -38,7 +46,7 @@ export function ImmersiveHero({
           <div>
             <span className="inline-flex items-center gap-2 rounded-full bg-white/70 px-3 py-1 text-xs font-bold uppercase tracking-[0.1em] text-coral-600 ring-1 ring-inset ring-white/80 backdrop-blur">
               <span className="h-1.5 w-1.5 rounded-full bg-coral" aria-hidden="true" />
-              共鸣 · 活动观察
+              {kicker}
             </span>
             <h1 className="mt-5 max-w-3xl font-display text-[2.6rem] font-extrabold leading-[1.08] tracking-tightish md:text-6xl">
               {childName}
@@ -49,20 +57,20 @@ export function ImmersiveHero({
 
           <label
             className="search-pill mt-8 flex max-w-2xl items-center gap-3 rounded-2xl border border-white/80 bg-white/92 px-4 py-3 shadow-card transition-all duration-200"
-            aria-label="搜索活动记录"
+            aria-label={searchLabel}
           >
             <Search className="h-5 w-5 text-tide" aria-hidden="true" />
             <input
               type="search"
               role="searchbox"
-              aria-label="搜索活动记录"
+              aria-label={searchLabel}
               value={searchQuery}
               onChange={handleChange}
-              placeholder="搜参加、亮度、暂停"
+              placeholder={searchPlaceholder}
               className="min-w-0 flex-1 bg-transparent text-base font-medium outline-none placeholder:text-stone-400"
             />
             <span className="hidden shrink-0 rounded-lg bg-paper px-2.5 py-1 text-xs font-semibold text-ink-muted sm:inline">
-              即时筛选
+              {filterLabel}
             </span>
           </label>
         </div>

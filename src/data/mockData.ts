@@ -12,7 +12,9 @@ export const child: Child = {
   consentStatus: "active",
   reviewStatus: "needs_review",
   teacher: "陈老师",
-  guardianSummary: "家长同意保存本轮活动记录，以及老师看过后的报告。"
+  teacherEn: "Teacher Chen",
+  guardianSummary: "家长同意保存本轮活动记录，以及老师看过后的报告。",
+  guardianSummaryEn: "The family has agreed to keep this cycle's activity records and the teacher-reviewed report."
 };
 
 export const children: Child[] = [
@@ -24,8 +26,10 @@ export const children: Child[] = [
     displayNameEn: "Lele",
     profileType: "CP",
     teacher: "林老师",
+    teacherEn: "Teacher Lin",
     reviewStatus: "normal",
-    guardianSummary: "家长同意保存活动记录和作品确认记录。"
+    guardianSummary: "家长同意保存活动记录和作品确认记录。",
+    guardianSummaryEn: "The family has agreed to keep activity records and work-confirmation notes."
   },
   {
     ...child,
@@ -34,8 +38,10 @@ export const children: Child[] = [
     displayNameEn: "Anan",
     profileType: "HEARING",
     teacher: "王老师",
+    teacherEn: "Teacher Wang",
     reviewStatus: "needs_review",
-    guardianSummary: "家长同意保存触觉和画面反馈相关的活动记录。"
+    guardianSummary: "家长同意保存触觉和画面反馈相关的活动记录。",
+    guardianSummaryEn: "The family has agreed to keep activity records related to tactile and visual feedback."
   }
 ];
 
@@ -48,11 +54,13 @@ export const sessions: SessionSummary[] = [
     durationSec: 640,
     completedPhase: "explore",
     story: "第一次活动，动作不多，回到活动需要更久。",
+    storyEn: "In the first session, movement responses were limited and returning to the activity took longer.",
     stimulus: "free_play",
     motion: { activeTimeRatio: 0.18, averageAmplitude: 22, movementSmoothness: 0.42, responseLatencyMs: 1800, fatigueSlope: -0.32 },
     affect: { dominantState: "unknown", confidence: 0.52, overloadCount: 1, recoveryMedianSec: 180, teacherInterventionCount: 3 },
     participation: { seedCount: 1, voluntaryActionCount: 4, refusalCount: 2, teachBearCount: 0 },
-    notes: ["开始前需要说清楚接下来做什么", "遇到突然变化会比较谨慎"]
+    notes: ["开始前需要说清楚接下来做什么", "遇到突然变化会比较谨慎"],
+    notesEn: ["Preview the next step before starting", "Sudden changes may need extra support"]
   },
   {
     id: "session-2",
@@ -62,11 +70,13 @@ export const sessions: SessionSummary[] = [
     durationSec: 690,
     completedPhase: "capture_seed",
     story: "参与时间偏短，中途暂停了两次，但熟悉旋律能帮他继续。",
+    storyEn: "Participation was still brief, with two pauses, but a familiar melody helped him continue.",
     stimulus: "familiar_melody",
     motion: { activeTimeRatio: 0.24, averageAmplitude: 28, movementSmoothness: 0.48, responseLatencyMs: 1540, fatigueSlope: -0.28 },
     affect: { dominantState: "calm", confidence: 0.62, overloadCount: 1, recoveryMedianSec: 160, teacherInterventionCount: 2 },
     participation: { seedCount: 1, voluntaryActionCount: 7, refusalCount: 2, teachBearCount: 1 },
-    notes: ["熟悉旋律能帮他稳住", "要保留随时暂停的选择"]
+    notes: ["熟悉旋律能帮他稳住", "要保留随时暂停的选择"],
+    notesEn: ["Familiar melody helped him settle", "Keep the option to pause at any time"]
   },
   {
     id: "session-3",
@@ -76,11 +86,13 @@ export const sessions: SessionSummary[] = [
     durationSec: 720,
     completedPhase: "capture_seed",
     story: "开始主动挥手，这个动作可以放进作品里。",
+    storyEn: "He began waving on his own, and that gesture can become part of the shared piece.",
     stimulus: "familiar_melody",
     motion: { activeTimeRatio: 0.36, averageAmplitude: 36, movementSmoothness: 0.56, responseLatencyMs: 1320, fatigueSlope: -0.22 },
     affect: { dominantState: "curious", confidence: 0.68, overloadCount: 0, recoveryMedianSec: 118, teacherInterventionCount: 1 },
     participation: { seedCount: 2, voluntaryActionCount: 12, refusalCount: 1, teachBearCount: 1 },
-    notes: ["主动挥手可以继续观察", "小熊请他教一遍时，回应变多了"]
+    notes: ["主动挥手可以继续观察", "小熊请他教一遍时，回应变多了"],
+    notesEn: ["Continue observing the self-started wave", "Responses increased when the bear asked to learn it again"]
   },
   {
     id: "session-4",
@@ -90,11 +102,13 @@ export const sessions: SessionSummary[] = [
     durationSec: 780,
     completedPhase: "compose",
     story: "听到熟悉旋律时，他参与得更多，主动动作也更稳。",
+    storyEn: "With a familiar melody, he joined more often and his self-started movements were steadier.",
     stimulus: "familiar_melody",
     motion: { activeTimeRatio: 0.44, averageAmplitude: 40, movementSmoothness: 0.64, responseLatencyMs: 1080, fatigueSlope: -0.18 },
     affect: { dominantState: "engaged", confidence: 0.74, overloadCount: 0, recoveryMedianSec: 100, teacherInterventionCount: 1 },
     participation: { seedCount: 3, voluntaryActionCount: 18, refusalCount: 1, teachBearCount: 2 },
-    notes: ["可以试试把片段接成一小段歌", "跟着熟悉旋律做动作时更顺"]
+    notes: ["可以试试把片段接成一小段歌", "跟着熟悉旋律做动作时更顺"],
+    notesEn: ["Try connecting the clips into a short song", "Movement was smoother with the familiar melody"]
   },
   {
     id: "session-5",
@@ -104,11 +118,13 @@ export const sessions: SessionSummary[] = [
     durationSec: 820,
     completedPhase: "compose",
     story: "主动给出的创作片段变多了，还会要求小熊再学一次。",
+    storyEn: "He offered more creative clips on his own and asked the bear to learn them again.",
     stimulus: "slow_tempo",
     motion: { activeTimeRatio: 0.52, averageAmplitude: 45, movementSmoothness: 0.67, responseLatencyMs: 960, fatigueSlope: -0.15 },
     affect: { dominantState: "engaged", confidence: 0.78, overloadCount: 0, recoveryMedianSec: 92, teacherInterventionCount: 1 },
     participation: { seedCount: 4, voluntaryActionCount: 24, refusalCount: 0, teachBearCount: 3 },
-    notes: ["让他教小熊时，回应更多", "慢一点的节奏能让他多待一会儿"]
+    notes: ["让他教小熊时，回应更多", "慢一点的节奏能让他多待一会儿"],
+    notesEn: ["Responses increased when he taught the bear", "A slower tempo helped him stay longer"]
   },
   {
     id: "session-6",
@@ -118,11 +134,13 @@ export const sessions: SessionSummary[] = [
     durationSec: 610,
     completedPhase: "explore",
     story: "高亮动画出现后，他退出了活动，老师需要帮忙的次数变多。",
+    storyEn: "After the bright animation appeared, he withdrew from the activity and needed more teacher support.",
     stimulus: "high_brightness",
     motion: { activeTimeRatio: 0.31, averageAmplitude: 34, movementSmoothness: 0.46, responseLatencyMs: 1680, fatigueSlope: -0.38 },
     affect: { dominantState: "overloaded", confidence: 0.71, overloadCount: 3, recoveryMedianSec: 210, teacherInterventionCount: 4 },
     participation: { seedCount: 1, voluntaryActionCount: 8, refusalCount: 3, teachBearCount: 0 },
-    notes: ["高亮动画前后差别很明显", "下次先降低亮度，并保留熟悉旋律"]
+    notes: ["高亮动画前后差别很明显", "下次先降低亮度，并保留熟悉旋律"],
+    notesEn: ["The shift before and after the bright animation was clear", "Lower brightness first next time and keep the familiar melody"]
   },
   {
     id: "session-7",
@@ -132,11 +150,13 @@ export const sessions: SessionSummary[] = [
     durationSec: 830,
     completedPhase: "compose",
     story: "画面变柔和后，他回来得更快，也能继续一起创作。",
+    storyEn: "With softer visuals, he returned faster and could continue co-creating.",
     stimulus: "low_brightness",
     motion: { activeTimeRatio: 0.54, averageAmplitude: 43, movementSmoothness: 0.69, responseLatencyMs: 910, fatigueSlope: -0.12 },
     affect: { dominantState: "calm", confidence: 0.76, overloadCount: 1, recoveryMedianSec: 82, teacherInterventionCount: 1 },
     participation: { seedCount: 3, voluntaryActionCount: 22, refusalCount: 0, teachBearCount: 2 },
-    notes: ["低亮度画面更容易让他稳住", "回到活动的时间比第 6 次明显短"]
+    notes: ["低亮度画面更容易让他稳住", "回到活动的时间比第 6 次明显短"],
+    notesEn: ["Lower brightness helped him settle", "Return time was clearly shorter than in Session 6"]
   },
   {
     id: "session-8",
@@ -146,11 +166,13 @@ export const sessions: SessionSummary[] = [
     durationSec: 900,
     completedPhase: "reveal",
     story: "完成了一次完整的共创活动，作品等老师确认。",
+    storyEn: "He completed a full co-creation session, with the final piece waiting for teacher confirmation.",
     stimulus: "slow_tempo",
     motion: { activeTimeRatio: 0.61, averageAmplitude: 48, movementSmoothness: 0.73, responseLatencyMs: 820, fatigueSlope: -0.1 },
     affect: { dominantState: "engaged", confidence: 0.81, overloadCount: 0, recoveryMedianSec: 76, teacherInterventionCount: 1 },
     participation: { seedCount: 5, voluntaryActionCount: 30, refusalCount: 0, teachBearCount: 4 },
-    notes: ["能看到作品揭晓", "作品署名前还需要老师看一遍"]
+    notes: ["能看到作品揭晓", "作品署名前还需要老师看一遍"],
+    notesEn: ["He stayed through the piece reveal", "Teacher review is still needed before the work is named"]
   }
 ];
 
@@ -168,7 +190,11 @@ export const allSessions: SessionSummary[] = [
     story:
       session.index === 6
         ? "强画面提示后短暂停顿，老师改成触觉提示后，他继续参与。"
-        : session.story.replace("小宇", "乐乐").replace("高亮动画", "强视觉提示")
+        : session.story.replace("小宇", "乐乐").replace("高亮动画", "强视觉提示"),
+    storyEn:
+      session.index === 6
+        ? "After a strong visual cue, he paused briefly. When the teacher switched to tactile support, he continued participating."
+        : session.storyEn.replace("bright animation", "strong visual cue").replace("bright visuals", "strong visual cues")
   })),
   ...sessions.map((session) => ({
     ...session,
@@ -178,7 +204,11 @@ export const allSessions: SessionSummary[] = [
     story:
       session.index === 8
         ? "完成视觉波形和字幕版揭晓，作品等老师确认。"
-        : session.story.replace("小宇", "安安").replace("熟悉旋律", "视觉波形")
+        : session.story.replace("小宇", "安安").replace("熟悉旋律", "视觉波形"),
+    storyEn:
+      session.index === 8
+        ? "Anan completed the reveal with visual waveforms and captions, and the final piece is waiting for teacher confirmation."
+        : session.storyEn.replace("familiar melody", "visual waveform").replace("familiar melodies", "visual waveforms")
   }))
 ];
 
@@ -312,7 +342,9 @@ export const insights: LongitudinalInsight[] = [
     window: "last_8_sessions",
     type: "engagement",
     title: "熟悉旋律下更愿意参加",
+    titleEn: "Joins more readily with familiar melodies",
     statement: "最近 8 次活动里，小宇听到熟悉旋律和慢一点的音乐时，更容易留在活动里。",
+    statementEn: "Across the last eight sessions, Xiaoyu was more likely to stay with the activity when the music used familiar melodies and a slower pace.",
     evidenceSessionIds: ["session-2", "session-4", "session-5", "session-8"],
     confidence: "high",
     claimLevel: "trend"
@@ -323,7 +355,9 @@ export const insights: LongitudinalInsight[] = [
     window: "last_8_sessions",
     type: "needs_human_review",
     title: "高亮画面要再看一下",
+    titleEn: "Bright visuals need teacher review",
     statement: "第 6 次活动里，高亮动画出现后小宇退出了活动。建议老师再看看亮度和动画速度。",
+    statementEn: "In Session 6, Xiaoyu withdrew after the bright animation appeared. The brightness and animation speed should be reviewed before the next session.",
     evidenceSessionIds: ["session-6"],
     confidence: "medium",
     claimLevel: "requires_professional_review"
@@ -334,7 +368,9 @@ export const insights: LongitudinalInsight[] = [
     window: "last_4_sessions",
     type: "affect_recovery",
     title: "画面柔和时更容易回来",
+    titleEn: "Softer visuals supported return",
     statement: "最近几次低亮度或慢节奏活动里，小宇不舒服后回来得更快。还要结合老师现场记录一起看。",
+    statementEn: "In recent low-brightness or slower-paced sessions, Xiaoyu returned more quickly after discomfort. This still needs to be read with the teacher's notes.",
     evidenceSessionIds: ["session-5", "session-7", "session-8"],
     confidence: "medium",
     claimLevel: "trend"
@@ -345,7 +381,9 @@ export const insights: LongitudinalInsight[] = [
     window: "last_8_sessions",
     type: "motion_stability",
     title: "主动动作变多了",
+    titleEn: "More self-started movement",
     statement: "从第 1 次到第 8 次活动，主动动作和创作片段都变多了，后面可以看的活动细节也更多。",
+    statementEn: "From Session 1 to Session 8, self-started movement and creative clips increased, giving the teacher more activity detail to review.",
     evidenceSessionIds: ["session-1", "session-8"],
     confidence: "high",
     claimLevel: "observation"
@@ -356,7 +394,9 @@ export const insights: LongitudinalInsight[] = [
     window: "last_8_sessions",
     type: "engagement",
     title: "教小熊时回应更多",
+    titleEn: "More response when teaching the bear",
     statement: "小熊请小宇再教一次时，他更愿意重复参与，也给出更多创作片段。下次可以继续保留这个环节。",
+    statementEn: "When the bear asked Xiaoyu to teach it again, he was more willing to repeat the activity and offered more creative clips. This routine is worth keeping.",
     evidenceSessionIds: ["session-3", "session-5", "session-8"],
     confidence: "medium",
     claimLevel: "observation"
@@ -369,13 +409,15 @@ export const allInsights: LongitudinalInsight[] = [
     ...insight,
     id: insight.id.replace("insight", "lele-insight"),
     childId: "lele",
-    statement: insight.statement.replace("小宇", "乐乐").replace("高亮动画", "强视觉提示")
+    statement: insight.statement.replace("小宇", "乐乐").replace("高亮动画", "强视觉提示"),
+    statementEn: insight.statementEn.replace("Xiaoyu", "Lele").replace("bright animation", "strong visual cue").replace("bright visuals", "strong visual cues")
   })),
   ...insights.map((insight) => ({
     ...insight,
     id: insight.id.replace("insight", "anan-insight"),
     childId: "anan",
-    statement: insight.statement.replace("小宇", "安安").replace("熟悉旋律", "视觉波形")
+    statement: insight.statement.replace("小宇", "安安").replace("熟悉旋律", "视觉波形"),
+    statementEn: insight.statementEn.replace("Xiaoyu", "Anan").replace("familiar melodies", "visual waveforms")
   }))
 ];
 

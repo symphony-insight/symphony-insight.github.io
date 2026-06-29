@@ -41,6 +41,7 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
   const { language, selectedChildId, setLanguage, setSelectedChildId } = useAppStore();
   const selectedChild = childrenList.find((item) => item.id === selectedChildId);
   const selectedName = language === "zh" ? selectedChild?.displayName : selectedChild?.displayNameEn;
+  const selectedTeacher = language === "zh" ? selectedChild?.teacher : selectedChild?.teacherEn;
 
   useEffect(() => {
     mockApi.getChildren().then(setChildrenList);
@@ -129,11 +130,11 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
         {/* User card */}
         <div className="flex items-center gap-3 rounded-xl border border-white/70 bg-white/70 p-2.5">
           <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-coral to-coral-600 text-sm font-extrabold text-white">
-            {(selectedChild?.teacher ?? "陈").slice(0, 1)}
+            {(selectedTeacher ?? (language === "zh" ? "陈" : "T")).slice(0, 1)}
           </span>
           <span className="min-w-0 flex-1">
-            <span className="block truncate text-sm font-bold">{selectedChild?.teacher ?? "陈老师"}</span>
-            <span className="block truncate text-xs text-ink-muted">{selectedName ?? "小宇"} · {t(language, "profileSuffix")}</span>
+            <span className="block truncate text-sm font-bold">{selectedTeacher ?? (language === "zh" ? "陈老师" : "Teacher")}</span>
+            <span className="block truncate text-xs text-ink-muted">{selectedName ?? (language === "zh" ? "小宇" : "Xiaoyu")} · {t(language, "profileSuffix")}</span>
           </span>
           <button
             type="button"

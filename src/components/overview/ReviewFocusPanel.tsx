@@ -1,27 +1,37 @@
 import { CheckCircle2, Eye, Lightbulb } from "lucide-react";
+import { useAppStore } from "../../store/useAppStore";
 import { Badge } from "../ui/Badge";
 
 const items = [
   {
     title: "参与和表达更稳了",
+    titleEn: "Participation and expression are steadier",
     status: "已看过",
+    statusEn: "Reviewed",
     tone: "moss" as const,
     icon: CheckCircle2,
-    body: "熟悉旋律和慢节奏下，主动动作和创作片段更多。"
+    body: "熟悉旋律和慢节奏下，主动动作和创作片段更多。",
+    bodyEn: "Familiar melodies and slower pacing brought more self-started movement and creative clips."
   },
   {
     title: "高亮动画要再看",
+    titleEn: "Review bright animation",
     status: "待确认",
+    statusEn: "Needs check",
     tone: "coral" as const,
     icon: Eye,
-    body: "第 6 次活动里出现退出，下一次建议先降低亮度。"
+    body: "第 6 次活动里出现退出，下一次建议先降低亮度。",
+    bodyEn: "Session 6 included a withdrawal after bright animation. Start with lower brightness next time."
   },
   {
     title: "下次从哪里开始",
+    titleEn: "Where to begin next",
     status: "下次试试",
+    statusEn: "Try next",
     tone: "tide" as const,
     icon: Lightbulb,
-    body: "保留暂停选择，用低亮度、慢节奏和熟悉旋律开场。"
+    body: "保留暂停选择，用低亮度、慢节奏和熟悉旋律开场。",
+    bodyEn: "Keep the pause option and open with lower brightness, slower pacing, and a familiar melody."
   }
 ];
 
@@ -38,12 +48,13 @@ const edge: Record<"moss" | "coral" | "tide", string> = {
 };
 
 export function ReviewFocusPanel() {
+  const language = useAppStore((state) => state.language);
   return (
     <section className="surface rounded-2xl p-6 shadow-card">
       <div className="flex items-center justify-between gap-3">
         <div>
-          <p className="text-xs font-bold uppercase tracking-[0.12em] text-coral-600">今天的重点</p>
-          <h2 className="mt-1 font-display text-xl font-extrabold tracking-tightish">今天先看这 3 件事</h2>
+          <p className="text-xs font-bold uppercase tracking-[0.12em] text-coral-600">{language === "zh" ? "今天的重点" : "Today's focus"}</p>
+          <h2 className="mt-1 font-display text-xl font-extrabold tracking-tightish">{language === "zh" ? "今天先看这 3 件事" : "Three items to review first"}</h2>
         </div>
       </div>
       <div className="mt-5 grid gap-3 stagger lg:grid-cols-3">
@@ -59,11 +70,11 @@ export function ReviewFocusPanel() {
                   <Icon className="h-5 w-5" aria-hidden="true" />
                 </span>
                 <Badge tone={item.tone} dot>
-                  {item.status}
+                  {language === "zh" ? item.status : item.statusEn}
                 </Badge>
               </div>
-              <h3 className="mt-4 font-display font-bold">{item.title}</h3>
-              <p className="mt-2 text-sm leading-6 text-ink-soft">{item.body}</p>
+              <h3 className="mt-4 font-display font-bold">{language === "zh" ? item.title : item.titleEn}</h3>
+              <p className="mt-2 text-sm leading-6 text-ink-soft">{language === "zh" ? item.body : item.bodyEn}</p>
             </article>
           );
         })}

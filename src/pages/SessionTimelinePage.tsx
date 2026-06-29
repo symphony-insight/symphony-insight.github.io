@@ -17,10 +17,10 @@ export function SessionTimelinePage() {
   if (sessions.length === 0) return <div>{language === "zh" ? "活动记录加载中" : "Loading sessions"}</div>;
 
   const stats = [
-    { label: "一共玩了", value: `${sessions.length} 次`, tone: "text-tide-600" },
-    { label: "这次重点看", value: "第 6 次活动", tone: "text-coral-600" },
-    { label: "完成作品", value: "第 8 次活动", tone: "text-moss-600" },
-    { label: "报告进度", value: "等老师看一遍", tone: "text-ink-soft" }
+    { label: language === "zh" ? "一共玩了" : "Sessions", value: language === "zh" ? `${sessions.length} 次` : `${sessions.length}`, tone: "text-tide-600" },
+    { label: language === "zh" ? "这次重点看" : "Review focus", value: language === "zh" ? "第 6 次活动" : "Session 6", tone: "text-coral-600" },
+    { label: language === "zh" ? "完成作品" : "Completed work", value: language === "zh" ? "第 8 次活动" : "Session 8", tone: "text-moss-600" },
+    { label: language === "zh" ? "报告进度" : "Report status", value: language === "zh" ? "等老师看一遍" : "Teacher review", tone: "text-ink-soft" }
   ];
 
   return (

@@ -1,4 +1,5 @@
 import { Eye, Sparkles } from "lucide-react";
+import { useAppStore } from "../../store/useAppStore";
 
 type SettingFitPanelProps = {
   title: string;
@@ -28,6 +29,7 @@ const toneChip: Record<"moss" | "coral" | "tide", string> = {
 };
 
 export function SettingFitPanel({ title, fitLabel, evidence, nextStep, score, tone = "tide" }: SettingFitPanelProps) {
+  const language = useAppStore((state) => state.language);
   return (
     <article className="soft-rise rounded-2xl border border-white/70 bg-white/85 p-6 shadow-card backdrop-blur">
       <div className="flex items-start justify-between gap-4">
@@ -40,7 +42,7 @@ export function SettingFitPanel({ title, fitLabel, evidence, nextStep, score, to
         </div>
         <span className={`rounded-2xl px-4 py-2 text-center ${toneChip[tone]}`}>
           <span className="block font-display text-2xl font-extrabold leading-none">{score}</span>
-          <span className="text-[10px] font-bold uppercase tracking-wide opacity-70">适配度</span>
+          <span className="text-[10px] font-bold uppercase tracking-wide opacity-70">{language === "zh" ? "适配度" : "Fit"}</span>
         </span>
       </div>
 
@@ -52,14 +54,14 @@ export function SettingFitPanel({ title, fitLabel, evidence, nextStep, score, to
         <div className="rounded-xl border border-white/70 bg-paper-warm/70 p-4">
           <p className="flex items-center gap-1.5 text-xs font-bold text-ink-muted">
             <Eye className="h-3.5 w-3.5" aria-hidden="true" />
-            这次看到
+            {language === "zh" ? "这次看到" : "Observed"}
           </p>
           <p className="mt-2 text-sm leading-6 text-ink-soft">{evidence}</p>
         </div>
         <div className="rounded-xl border border-white/70 bg-paper-warm/70 p-4">
           <p className="flex items-center gap-1.5 text-xs font-bold text-ink-muted">
             <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
-            下次可以这样试
+            {language === "zh" ? "下次可以这样试" : "Try next"}
           </p>
           <p className="mt-2 text-sm leading-6 text-ink-soft">{nextStep}</p>
         </div>

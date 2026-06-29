@@ -7,8 +7,9 @@ import { t } from "../i18n";
 import { useAppStore } from "../store/useAppStore";
 import type { LongitudinalInsight, SessionSummary } from "../types/domain";
 
-function formatObservationText(text: string) {
-  return text;
+function formatObservationText(session: SessionSummary | undefined, language: "zh" | "en", fallbackZh: string, fallbackEn: string) {
+  if (!session) return language === "zh" ? fallbackZh : fallbackEn;
+  return language === "zh" ? session.story : session.storyEn;
 }
 
 export function MotionAffectPage() {
@@ -28,6 +29,9 @@ export function MotionAffectPage() {
   const highBrightness = sessions.find((session) => session.stimulus === "high_brightness");
   const lowSupport = sessions.find((session) => session.stimulus === "low_brightness");
   const slowTempo = sessions.find((session) => session.stimulus === "slow_tempo");
+  const highBrightnessStory = formatObservationText(highBrightness, language, "高亮动画后出现退出。", "Withdrawal appeared after a bright animation.");
+  const slowTempoStory = formatObservationText(slowTempo, language, "慢节奏活动中，孩子更容易停留在活动里。", "With slower pacing, the child was more likely to stay with the activity.");
+  const lowSupportStory = formatObservationText(lowSupport, language, "降低负担后更容易回到活动。", "After the activity load was lowered, returning to the activity became easier.");
 
   return (
     <div className="space-y-6 page-enter">
@@ -39,26 +43,26 @@ export function MotionAffectPage() {
 
       <div className="grid gap-4">
         <SettingFitPanel
-          title="音乐和节奏"
-          fitLabel="更适合：熟悉旋律、慢节奏"
-          evidence={`${formatObservationText(slowTempo?.story ?? "慢节奏活动中，孩子更容易停留在活动里。")} 主动动作和创作片段更稳定。`}
-          nextStep="下次先用慢节奏开场，再慢慢加入新的声音变化。"
+          title={language === "zh" ? "音乐和节奏" : "Music and pacing"}
+          fitLabel={language === "zh" ? "更适合：熟悉旋律、慢节奏" : "Better fit: familiar melody and slower tempo"}
+          evidence={`${slowTempoStory} ${language === "zh" ? "主动动作和创作片段更稳定。" : "Self-started movement and creative clips were steadier."}`}
+          nextStep={language === "zh" ? "下次先用慢节奏开场，再慢慢加入新的声音变化。" : "Start with slower pacing next time, then introduce new sound changes gradually."}
           score={86}
           tone="moss"
         />
         <SettingFitPanel
-          title="画面亮度"
-          fitLabel="建议先调低：高亮动画"
-          evidence={`${formatObservationText(highBrightness?.story ?? "高亮动画后出现退出。")} 这类画面建议先请老师看一下。`}
-          nextStep="默认用低亮度画面。确实需要更明显的提示时，再短时间试一下。"
+          title={language === "zh" ? "画面亮度" : "Visual brightness"}
+          fitLabel={language === "zh" ? "建议先调低：高亮动画" : "Lower first: bright animation"}
+          evidence={`${highBrightnessStory} ${language === "zh" ? "这类画面建议先请老师看一下。" : "This visual setting should be reviewed by the teacher first."}`}
+          nextStep={language === "zh" ? "默认用低亮度画面。确实需要更明显的提示时，再短时间试一下。" : "Use softer visuals by default. If a stronger cue is needed, try it briefly and review the response."}
           score={62}
           tone="coral"
         />
         <SettingFitPanel
-          title="老师怎么帮"
-          fitLabel="更适合：可以暂停，也可以重新开始"
-          evidence={`${formatObservationText(lowSupport?.story ?? "降低负担后更容易回到活动。")} 清楚预告和暂停选择能降低活动压力。`}
-          nextStep="每次活动开始前先说明可以暂停，结束前保留一次再试机会。"
+          title={language === "zh" ? "老师怎么帮" : "Teacher support"}
+          fitLabel={language === "zh" ? "更适合：可以暂停，也可以重新开始" : "Better fit: pause and restart options"}
+          evidence={`${lowSupportStory} ${language === "zh" ? "清楚预告和暂停选择能降低活动压力。" : "Clear previews and pause choices lowered the activity load."}`}
+          nextStep={language === "zh" ? "每次活动开始前先说明可以暂停，结束前保留一次再试机会。" : "Before each session, name the pause option and keep one chance to try again near the end."}
           score={78}
           tone="tide"
         />
@@ -70,33 +74,42 @@ export function MotionAffectPage() {
             <span className="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-coral-50 text-coral-600">
               <Eye className="h-4 w-4" aria-hidden="true" />
             </span>
-            <h2 className="font-display text-lg font-extrabold tracking-tightish">高亮动画要再看</h2>
+            <h2 className="font-display text-lg font-extrabold tracking-tightish">{language === "zh" ? "高亮动画要再看" : "Review bright animation"}</h2>
           </div>
           <p className="mt-3 text-sm leading-6 text-ink-soft">
-            {formatObservationText(highBrightness?.story ?? "")} 这次活动里，画面变亮后孩子更容易退出。下一次建议先降低亮度，并保留暂停选择。这只是给老师看的活动记录。
+            {highBrightnessStory}{" "}
+            {language === "zh"
+              ? "这次活动里，画面变亮后孩子更容易退出。下一次建议先降低亮度，并保留暂停选择。这只是给老师看的活动记录。"
+              : "In this session, brighter visuals made withdrawal more likely. Start with lower brightness next time and keep the pause option. This is an activity note for teacher review."}
           </p>
           <div className="mt-4 grid gap-3 md:grid-cols-3">
             <div className="rounded-xl bg-coral-50 p-4">
-              <p className="text-sm text-ink-muted">等待更久</p>
+              <p className="text-sm text-ink-muted">{language === "zh" ? "等待更久" : "Longer wait"}</p>
               <p className="mt-1 font-display text-2xl font-extrabold text-coral-600">{highBrightness?.motion.responseLatencyMs}ms</p>
             </div>
             <div className="rounded-xl bg-tide-50 p-4">
-              <p className="text-sm text-ink-muted">需要提示</p>
-              <p className="mt-1 font-display text-2xl font-extrabold text-tide-600">{highBrightness?.affect.teacherInterventionCount} 次</p>
+              <p className="text-sm text-ink-muted">{language === "zh" ? "需要提示" : "Prompts needed"}</p>
+              <p className="mt-1 font-display text-2xl font-extrabold text-tide-600">
+                {highBrightness?.affect.teacherInterventionCount}
+                {language === "zh" ? " 次" : ""}
+              </p>
             </div>
             <div className="rounded-xl bg-sun-50 p-4">
-              <p className="text-sm text-ink-muted">退出次数</p>
-              <p className="mt-1 font-display text-2xl font-extrabold text-[#a9802f]">{highBrightness?.participation.refusalCount} 次</p>
+              <p className="text-sm text-ink-muted">{language === "zh" ? "退出次数" : "Withdrawals"}</p>
+              <p className="mt-1 font-display text-2xl font-extrabold text-[#a9802f]">
+                {highBrightness?.participation.refusalCount}
+                {language === "zh" ? " 次" : ""}
+              </p>
             </div>
           </div>
         </Card>
         <Card className="p-6">
-          <h2 className="font-display text-lg font-extrabold tracking-tightish">需要留意</h2>
+          <h2 className="font-display text-lg font-extrabold tracking-tightish">{language === "zh" ? "需要留意" : "Needs attention"}</h2>
           <div className="mt-3 space-y-3 text-sm leading-6 text-ink-soft">
             {insights
               .filter((insight) => insight.claimLevel === "requires_professional_review")
               .map((insight) => (
-                <p key={insight.id}>{formatObservationText(insight.statement)}</p>
+                <p key={insight.id}>{language === "zh" ? insight.statement : insight.statementEn}</p>
               ))}
           </div>
         </Card>
