@@ -46,7 +46,7 @@ describe("App shell", () => {
 
     expect(screen.getByRole("link", { name: /Overview/ })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /Activity Records/ })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /Settings Fit/ })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /Settings & Support/ })).toBeInTheDocument();
     expect(screen.getByText(/Baseline ready/)).toBeInTheDocument();
     expect(screen.getByText(/These are activity notes/)).toBeInTheDocument();
   });

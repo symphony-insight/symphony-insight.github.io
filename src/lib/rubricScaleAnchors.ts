@@ -23,16 +23,15 @@ export const rubricScaleAnchors: Record<EvaluationDimension["id"], ScaleAnchor> 
       5: "稳定主动参加并停留，换个活动也能继续。"
     },
     levelsEn: {
-      1: "Rarely starts on their own, with repeated refusal or withdrawal.",
-      2: "Needs substantial support to enter; self-started actions are limited.",
-      3: "Can join after prompting, with a moderate number of self-started actions.",
-      4: "Usually joins on their own, with only light prompts and few withdrawals.",
-      5: "Joins and stays reliably, and can carry the pattern into another activity."
+      1: "Rarely starts; often refuses or withdraws.",
+      2: "Enters with substantial support.",
+      3: "Joins after prompting.",
+      4: "Usually joins with only light prompts.",
+      5: "Joins and stays independently."
     },
     currentRationaleZh:
       "本轮落在 4 档：主动参加从第 1 次的 4 次增加到第 8 次的 30 次，后几次几乎不再退出。",
-    currentRationaleEn:
-      "This cycle sits at level 4: self-started participation increased from 4 times in Session 1 to 30 times in Session 8, with very few withdrawals in later sessions."
+    currentRationaleEn: "Level 4. Self-started participation rose from 4 times in Session 1 to 30 times in Session 8."
   },
   choice: {
     levels: {
@@ -43,16 +42,15 @@ export const rubricScaleAnchors: Record<EvaluationDimension["id"], ScaleAnchor> 
       5: "稳定主动表达选择，并能坚持一小会儿。"
     },
     levelsEn: {
-      1: "Rarely expresses wanting or not wanting something.",
-      2: "Occasionally makes a choice with strong prompting.",
-      3: "Can choose between two options with a reminder.",
-      4: "Often expresses continue, pause, or try again on their own.",
-      5: "Expresses choices reliably and stays with them for a short while."
+      1: "Rarely shows yes, no, continue, or stop.",
+      2: "Chooses with strong prompting.",
+      3: "Chooses between two options with a reminder.",
+      4: "Often shows continue, pause, or try again.",
+      5: "Chooses reliably and stays with the choice."
     },
     currentRationaleZh:
       "本轮落在 4 档：在「教小熊」环节多次主动发起，主动动作整体上升。",
-    currentRationaleEn:
-      "This cycle sits at level 4: the child initiated several turns during the teach-the-bear routine, and self-started actions increased overall."
+    currentRationaleEn: "Level 4. The child initiated several teach-the-bear turns, and self-started actions increased overall."
   },
   focus: {
     levels: {
@@ -63,16 +61,15 @@ export const rubricScaleAnchors: Record<EvaluationDimension["id"], ScaleAnchor> 
       5: "能持续投入，遇到变化也愿意继续。"
     },
     levelsEn: {
-      1: "Has difficulty staying with the activity and often stops.",
-      2: "Stays only briefly and is often distracted or withdrawn.",
-      3: "Can stay for a short stretch and return with reminders.",
-      4: "Usually stays engaged, with a higher active-time ratio.",
-      5: "Stays engaged consistently and continues through small changes."
+      1: "Stops often and has difficulty staying.",
+      2: "Stays briefly, with frequent distraction or withdrawal.",
+      3: "Stays for a short stretch and returns with reminders.",
+      4: "Usually stays engaged.",
+      5: "Stays engaged through small changes."
     },
     currentRationaleZh:
       "本轮落在 3 档：参与时间占比有提升，但第 6 次高亮动画后出现退出，仍需老师支持。",
-    currentRationaleEn:
-      "This cycle sits at level 3: active-time ratio improved, but Session 6 still showed withdrawal after bright animation and teacher support was needed."
+    currentRationaleEn: "Level 3. Active time improved, but Session 6 still showed withdrawal after bright animation."
   },
   respond: {
     levels: {
@@ -84,15 +81,14 @@ export const rubricScaleAnchors: Record<EvaluationDimension["id"], ScaleAnchor> 
     },
     levelsEn: {
       1: "Rarely responds to others.",
-      2: "Responds occasionally after repeated invitations.",
-      3: "Responds when invited and completes a small number of turns.",
-      4: "Usually responds and completes one turn-taking exchange.",
-      5: "Starts interaction independently and takes turns steadily."
+      2: "Responds after repeated invitations.",
+      3: "Responds when invited and completes a few turns.",
+      4: "Usually responds and takes a turn.",
+      5: "Starts interaction and takes turns steadily."
     },
     currentRationaleZh:
       "本轮落在 3 档：和小熊的互动次数增加，但仍较依赖老师提示，主动发起还不稳。",
-    currentRationaleEn:
-      "This cycle sits at level 3: interaction with the bear increased, but the child still relied on teacher prompts and independent initiation was not yet steady."
+    currentRationaleEn: "Level 3. Bear interactions increased, but the child still relied on teacher prompts."
   },
   create: {
     levels: {
@@ -103,16 +99,15 @@ export const rubricScaleAnchors: Record<EvaluationDimension["id"], ScaleAnchor> 
       5: "稳定产生原创表达，并会主动改作品的一小部分。"
     },
     levelsEn: {
-      1: "Shows little personal expression and mainly follows along.",
-      2: "Occasionally offers a small personal sound or movement.",
-      3: "Offers some original material, but it is hard to repeat or build on.",
-      4: "Often offers original expression that can be noticed and repeated.",
-      5: "Produces personal expression steadily and changes a small part of the work."
+      1: "Mainly follows along.",
+      2: "Occasionally offers a personal sound or movement.",
+      3: "Offers some original material.",
+      4: "Often offers expression that can be repeated.",
+      5: "Creates steadily and changes part of the work."
     },
     currentRationaleZh:
       "本轮落在 4 档：创作片段从第 1 次的 1 个增加到第 8 次的 5 个。",
-    currentRationaleEn:
-      "This cycle sits at level 4: creative clips increased from 1 in Session 1 to 5 in Session 8."
+    currentRationaleEn: "Level 4. Creative clips increased from 1 in Session 1 to 5 in Session 8."
   },
   recover: {
     levels: {
@@ -124,15 +119,14 @@ export const rubricScaleAnchors: Record<EvaluationDimension["id"], ScaleAnchor> 
     },
     levelsEn: {
       1: "Has difficulty returning after discomfort.",
-      2: "Needs a long time and substantial support to return.",
-      3: "Can return when the load is lowered and support is given.",
-      4: "Returns more quickly and needs fewer prompts.",
-      5: "Adjusts quickly back into a comfortable activity rhythm."
+      2: "Returns only with substantial time and support.",
+      3: "Returns when the load is lowered.",
+      4: "Returns faster with fewer prompts.",
+      5: "Returns quickly to a comfortable rhythm."
     },
     currentRationaleZh:
       "本轮落在 3 档：回到活动用时从第 1 次的约 180 秒缩短到第 8 次的约 76 秒，但仍需老师提示，待确认。",
-    currentRationaleEn:
-      "This cycle sits at level 3: return time shortened from about 180 seconds in Session 1 to about 76 seconds in Session 8, but teacher prompts are still needed."
+    currentRationaleEn: "Level 3. Return time shortened from about 180 seconds to about 76 seconds, with prompts still needed."
   },
   access: {
     levels: {
@@ -143,16 +137,15 @@ export const rubricScaleAnchors: Record<EvaluationDimension["id"], ScaleAnchor> 
       5: "操作稳定省力，几乎不需帮助。"
     },
     levelsEn: {
-      1: "The input method is hard to trigger reliably.",
-      2: "Mistaps or frustration are frequent, and substantial help is needed.",
-      3: "The child can trigger the input, but responses are slow or help is sometimes needed.",
-      4: "The input is usually clear and low-effort, with quicker responses.",
-      5: "The input is stable and low-effort, with almost no help needed."
+      1: "Input is hard to trigger reliably.",
+      2: "Mistaps or frustration are frequent.",
+      3: "Input works, but responses are slow or support is needed.",
+      4: "Input is usually clear and low-effort.",
+      5: "Input is stable, easy, and nearly independent."
     },
     currentRationaleZh:
       "本轮落在 3 档：回应用时较前期缩短，但仍偶尔需要老师帮忙，操作方式可继续优化。",
-    currentRationaleEn:
-      "This cycle sits at level 3: response latency improved, but occasional teacher help is still needed and the input method can be refined."
+    currentRationaleEn: "Level 3. Response latency improved, but occasional teacher help is still needed."
   },
   setting: {
     levels: {
@@ -163,16 +156,15 @@ export const rubricScaleAnchors: Record<EvaluationDimension["id"], ScaleAnchor> 
       5: "设置稳定贴合孩子，几乎不引起吃力。"
     },
     levelsEn: {
-      1: "Current settings often feel clearly demanding for the child.",
-      2: "Several settings feel demanding and require frequent adjustment.",
-      3: "Some settings fit, while others may lead to withdrawal.",
-      4: "Most settings fit, with fewer overload moments.",
-      5: "Settings are consistently well matched and rarely raise the activity load."
+      1: "Settings often feel too demanding.",
+      2: "Several settings need frequent adjustment.",
+      3: "Some settings fit; others may lead to withdrawal.",
+      4: "Most settings fit with fewer overload moments.",
+      5: "Settings are consistently well matched."
     },
     currentRationaleZh:
       "本轮落在 4 档：低亮度、慢节奏、熟悉旋律下吃力次数少；但高亮动画仍需复核，待确认。",
-    currentRationaleEn:
-      "This cycle sits at level 4: low brightness, slower pacing, and familiar melodies showed fewer overload moments, while bright animation still needs review."
+    currentRationaleEn: "Level 4. Low brightness, slower pacing, and familiar melodies showed fewer overload moments."
   },
   goal: {
     levels: {
@@ -183,15 +175,14 @@ export const rubricScaleAnchors: Record<EvaluationDimension["id"], ScaleAnchor> 
       5: "达到或超过本周小目标。"
     },
     levelsEn: {
-      1: "This week's small goal shows little progress.",
-      2: "There is a slight move toward the goal, but it remains far away.",
-      3: "The child moved one small step toward the goal.",
-      4: "The child moved clearly closer to this week's goal.",
-      5: "The child reached or exceeded this week's goal."
+      1: "Little progress toward this week's goal.",
+      2: "A small move, but still far from the goal.",
+      3: "One clear step toward the goal.",
+      4: "Clearly closer to the goal.",
+      5: "Reached or exceeded the goal."
     },
     currentRationaleZh:
       "本轮落在 3 档：和自己第 1 次比，主动参加与创作片段都在增加，向小目标前进了一步。",
-    currentRationaleEn:
-      "This cycle sits at level 3: compared with Session 1, self-started participation and creative clips increased, marking one step toward the small goal."
+    currentRationaleEn: "Level 3. Self-started participation and creative clips increased from Session 1."
   }
 };
