@@ -406,8 +406,8 @@ export const reportDraft: ReportDraft = {
   professionalDraftEn: {
     overview: "This cycle includes eight music co-creation sessions. Xiaoyu began with very limited movement responses and later completed a full activity when the setup used familiar melodies, a slower tempo, and softer visuals.",
     motionObservation: "Across most sessions, Xiaoyu offered more self-initiated movement and more usable creative material. Session 6 still showed a brief withdrawal after a bright animation, so the screen setup should be reviewed on its own.",
-    affectObservation: "Familiar melodies, softer brightness, and slower pacing were the conditions in which Xiaoyu most often stayed calm or engaged. In Session 6, he showed clear signs that the activity felt demanding.",
-    participationObservation: "Xiaoyu was more willing to repeat his participation during the 'teach the bear to sing' prompt. Session 8 reached a full reveal of the shared piece and is now waiting for teacher confirmation.",
+    affectObservation: "Xiaoyu most often stayed calm or engaged with familiar melodies, softer brightness, and slower pacing. In Session 6, he showed clear signs that the activity felt demanding.",
+    participationObservation: "Xiaoyu was more willing to repeat his participation during the 'teach the bear to sing' activity. Session 8 reached a full reveal of the shared piece and is now waiting for teacher confirmation.",
     reviewPoints: [
       "Check whether bright visuals should stay off by default",
       "Keep the slower music opening if it continues to support entry",
@@ -430,8 +430,8 @@ export const reportDraft: ReportDraft = {
     flaggedPhrases: [],
     checkedAt: "2026-06-27T10:11:00+08:00",
     displayStatus: "passed",
-    plainSummary: "没有发现不适合直接使用的表述。",
-    plainSummaryEn: "No wording was found that should be held back from parent-facing use."
+    plainSummary: "没有需要暂缓分享的表述。",
+    plainSummaryEn: "No wording needs to be held back before sharing."
   },
   evidenceTrace: {
     sessionIds: ["session-1", "session-2", "session-3", "session-4", "session-5", "session-6", "session-7", "session-8"],
@@ -470,7 +470,7 @@ export const reportDrafts: ReportDraft[] = [
     parentSummaryEn: {
       ...reportDraft.parentSummaryEn,
       overview: reportDraft.parentSummaryEn.overview.replace("Xiaoyu", "Lele"),
-      positiveMoments: "With steady tactile prompts and a calmer visual pace, he stayed involved longer and often responded when the bear invited another turn.",
+      positiveMoments: "With steady tactile cues and a calmer visual pace, he stayed involved longer and often responded when the bear invited another turn.",
       nextObservationFocus: "For the next cycle, keep observing how gentle tactile cues and softer visuals help him stay comfortable in the activity."
     },
     evidenceTrace: {
@@ -478,7 +478,7 @@ export const reportDrafts: ReportDraft[] = [
       sessionIds: reportDraft.evidenceTrace.sessionIds.map((id) => id.replace("session", "lele-session"))
     },
     teacherNote: "下次建议先用触觉提示，并把画面提示调柔和。",
-    teacherNoteEn: "Next time, begin with a tactile cue and keep the visual prompts softer."
+    teacherNoteEn: "Next time, begin with a tactile cue and keep the visual settings softer."
   },
   {
     ...reportDraft,
@@ -496,7 +496,7 @@ export const reportDrafts: ReportDraft[] = [
     professionalDraftEn: {
       ...reportDraft.professionalDraftEn,
       overview: reportDraft.professionalDraftEn.overview.replace("Xiaoyu", "Anan").replace("familiar melodies", "visual waveforms"),
-      affectObservation: "Visual waveforms, captions, softer brightness, and slower pacing were the conditions in which Anan most often stayed calm or engaged. In Session 6, he still showed clear signs that the activity felt demanding.",
+      affectObservation: "Anan most often stayed calm or engaged with visual waveforms, captions, softer brightness, and slower pacing. In Session 6, he still showed clear signs that the activity felt demanding.",
       participationObservation: reportDraft.professionalDraftEn.participationObservation.replace("Xiaoyu", "Anan")
     },
     parentSummary: {
@@ -537,6 +537,6 @@ export const auditLogs: AuditLog[] = [
     targetId: "report-xiaoyu-8",
     createdAt: "2026-06-27T10:15:00+08:00",
     summary: "报告草稿等老师确认。",
-    summaryEn: "The draft report is waiting for teacher review."
+    summaryEn: "The draft is waiting for teacher review."
   }
 ];

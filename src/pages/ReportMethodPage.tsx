@@ -9,41 +9,39 @@ const pageCopy = {
   zh: {
     kicker: "报告说明",
     canDoTitle: "会做什么",
-    canDo: ["把结构化记录写成草稿", "把专业表述改得更容易读", "检查有没有不该直接使用的话"],
+    canDo: ["把活动记录写成草稿", "把专业表述改得更好读", "提示哪些话需要老师再看"],
     cannotDoTitle: "不会做什么",
-    cannotDo: ["不诊断", "不判断病情变好或变坏", "不自动给家长发送", "不替代老师判断", "不读取原始音视频"],
+    cannotDo: ["不替孩子下结论", "不判断状态变好或变坏", "不自动给家长发送", "不替代老师判断", "不读取原始音视频"],
     sourcesTitle: "这份报告用了哪些资料",
     sourcesBody: "评分依据来自现有评分说明页，那里保留每项分数、行为和数据依据。",
     sourcesLink: "查看评分说明",
     sources: ["活动次数", "观察问题", "评分依据", "老师备注", "生成记录", "审核记录"],
-    detailsTitle: "更详细的系统说明",
+    detailsTitle: "处理规则",
     details: [
-      "AI 网关统一管理报告草稿服务。",
-      "密钥只在后端保存，前端不会直接调用模型。",
-      "生成结果会保存版本、检查结果和操作记录。",
-      "当前前端使用 mock 服务模拟生成过程。",
-      "后端接入真实模型服务时，页面结构不需要重做。",
-      "9 项观察问题的评分不会调用 AI。"
+      "草稿只来自活动记录、评分依据和老师备注。",
+      "每次改动都会保留版本、表述检查结果和操作记录。",
+      "本地预览也使用同一套页面和审核流程。",
+      "接入正式生成能力后，老师复核流程保持不变。",
+      "9 项观察问题按评分说明整理，老师仍可逐项复核。"
     ]
   },
   en: {
     kicker: "Report method",
     canDoTitle: "What it does",
-    canDo: ["Turn structured records into a draft", "Rewrite specialist wording into easier reading", "Check whether any wording should be held back"],
+    canDo: ["Turn session records into a draft", "Make specialist wording easier to read", "Flag lines that need another teacher look"],
     cannotDoTitle: "What it does not do",
-    cannotDo: ["Does not diagnose", "Does not judge whether a condition improved or worsened", "Does not send anything to parents automatically", "Does not replace teacher judgment", "Does not read raw audio or video"],
+    cannotDo: ["Does not label the child", "Does not decide whether things got better or worse", "Does not send anything to parents automatically", "Does not replace teacher judgment", "Does not read raw audio or video"],
     sourcesTitle: "What this report uses",
-    sourcesBody: "Scoring logic stays on the rubric guide page, where each score remains tied to concrete behavior and data evidence.",
+    sourcesBody: "Scoring logic stays on the scoring guide page, where each score remains tied to concrete behavior and data evidence.",
     sourcesLink: "View scoring guide",
     sources: ["Session count", "Observation questions", "Scoring basis", "Teacher notes", "Draft history", "Review history"],
-    detailsTitle: "More detailed system notes",
+    detailsTitle: "Processing rules",
     details: [
-      "The AI gateway manages the draft-generation service.",
-      "Keys stay on the backend; the frontend does not call the model directly.",
-      "Generated drafts keep versions, checks, and action logs.",
-      "The current frontend uses a mock service to simulate generation.",
-      "When a real model service is connected, the page structure does not need to change.",
-      "The nine observation-question scores are not produced by AI."
+      "Drafts use session records, scoring basis, and teacher notes.",
+      "Each draft keeps its version, wording check, and review history.",
+      "Local previews use the same page and review flow.",
+      "When live drafting is turned on, teachers keep the same review steps.",
+      "The nine observation-question scores stay tied to the scoring guide."
     ]
   }
 } as const;

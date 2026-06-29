@@ -3,16 +3,16 @@ import type { Language, ReportDraft } from "../../types/domain";
 
 const stepCopy = {
   zh: [
-    { key: "draft", title: "整理草稿", description: "来自活动记录和观察问题", icon: FileText },
-    { key: "safety", title: "检查表述", description: "标出不适合直接使用的话", icon: ShieldCheck },
-    { key: "review", title: "老师确认", description: "老师可以修改、退回或通过", icon: CheckCircle2 },
-    { key: "export", title: "导出摘要", description: "通过后才能给家长", icon: Upload }
+    { key: "draft", title: "写草稿", description: "来自活动记录和观察问题", icon: FileText },
+    { key: "safety", title: "查表述", description: "先标出需要修改的话", icon: ShieldCheck },
+    { key: "review", title: "老师确认", description: "可修改、退回或通过", icon: CheckCircle2 },
+    { key: "export", title: "分享摘要", description: "通过后再给家长", icon: Upload }
   ],
   en: [
-    { key: "draft", title: "Draft report", description: "From session notes and rubric evidence", icon: FileText },
-    { key: "safety", title: "Check wording", description: "Flag wording not ready to share", icon: ShieldCheck },
-    { key: "review", title: "Teacher review", description: "Edit, send back, or approve", icon: CheckCircle2 },
-    { key: "export", title: "Export summary", description: "Share only after approval", icon: Upload }
+    { key: "draft", title: "Draft", description: "From session notes and rubric evidence", icon: FileText },
+    { key: "safety", title: "Word check", description: "Flag wording not ready to share", icon: ShieldCheck },
+    { key: "review", title: "Review", description: "Edit, return, or approve", icon: CheckCircle2 },
+    { key: "export", title: "Share", description: "Share only after approval", icon: Upload }
   ]
 } as const;
 

@@ -7,32 +7,32 @@ import { ReportSafetyNotice } from "./ReportSafetyNotice";
 
 const copy = {
   zh: {
-    title: "老师看过后再导出",
-    intro: "报告不会自动发给家长。老师看过后，才能导出摘要。",
-    reviewNoteLabel: "复核备注：",
+    title: "老师确认后再分享",
+    intro: "先改草稿，再决定是否给家长。摘要不会自动发送。",
+    reviewNoteLabel: "老师备注：",
     statusReady: "老师看过了",
     statusPending: "请老师看一眼",
-    continueEditing: "继续编辑",
-    regenerate: "重新整理草稿",
-    regenerating: "正在整理草稿",
+    continueEditing: "继续改",
+    regenerate: "重写草稿",
+    regenerating: "正在重写",
     reject: "退回修改",
     approve: "确认通过",
-    export: "导出给家长",
+    export: "分享摘要",
     auditTitle: "操作记录",
     auditFallback: "更新了记录"
   },
   en: {
     title: "Review before sharing",
-    intro: "The summary is never sent automatically. Export stays available only after teacher approval.",
+    intro: "Edit the draft first, then decide what is ready for parents. Nothing is sent automatically.",
     reviewNoteLabel: "Review note:",
     statusReady: "Teacher approved",
     statusPending: "Needs teacher review",
-    continueEditing: "Keep editing",
-    regenerate: "Regenerate draft",
-    regenerating: "Regenerating draft",
-    reject: "Send back",
+    continueEditing: "Review draft",
+    regenerate: "Rewrite draft",
+    regenerating: "Rewriting",
+    reject: "Return",
     approve: "Approve",
-    export: "Export summary",
+    export: "Share summary",
     auditTitle: "Activity log",
     auditFallback: "Updated the record"
   }
@@ -44,7 +44,7 @@ const actionLabels: Record<Language, Record<string, string>> = {
     "report.approved": "老师已确认",
     "report.rejected": "已退回修改",
     "report.exported": "已导出",
-    "report.generated": "系统整理了草稿"
+    "report.generated": "已更新草稿"
   },
   en: {
     "report.teacher_reviewing": "Still editing",
@@ -84,7 +84,7 @@ export function TeacherReviewPanel({
         <StatusPill status={report.status === "approved" ? content.statusReady : content.statusPending} />
       </div>
       <div className="mt-4 rounded-xl border border-white/70 bg-paper-warm/70 p-4 text-sm leading-6 text-ink-soft">
-        {content.reviewNoteLabel}
+        {content.reviewNoteLabel}{" "}
         {teacherNote}
       </div>
       <div className="mt-4">

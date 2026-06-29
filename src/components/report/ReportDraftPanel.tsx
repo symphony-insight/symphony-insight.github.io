@@ -9,20 +9,20 @@ function formatReportCopy(text: string) {
 const copy = {
   zh: {
     professionalTitle: "老师看的详细版",
-    professionalBadge: "系统整理的草稿",
+    professionalBadge: "待老师确认",
     reviewPointsTitle: "需要注意的点",
     parentTitle: "给家长看的摘要",
     parentReady: "老师确认后可导出",
-    parentBlocked: "确认前不导出",
+    parentBlocked: "先别分享",
     parentBlockedBody: "这版草稿里有不适合直接给家长看的表述，需要老师修改后再导出。"
   },
   en: {
-    professionalTitle: "Teacher-facing draft",
-    professionalBadge: "System-prepared draft",
+    professionalTitle: "Teacher draft",
+    professionalBadge: "Needs review",
     reviewPointsTitle: "Review points",
     parentTitle: "Parent summary",
-    parentReady: "Ready after teacher approval",
-    parentBlocked: "Hold before approval",
+    parentReady: "Ready to share",
+    parentBlocked: "Hold for review",
     parentBlockedBody: "This draft still has wording that should be edited before exporting a parent-facing summary."
   }
 } as const;

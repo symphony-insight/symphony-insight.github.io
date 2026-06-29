@@ -5,16 +5,16 @@ const flowCopy = {
   zh: [
     { title: "活动中留下记录", body: "记录参与、回应、暂停、恢复和老师提示。", icon: ClipboardList },
     { title: "整理成观察指标", body: "把活动记录汇总到 9 项观察问题。", icon: CheckCircle2 },
-    { title: "生成报告草稿", body: "把结构化记录写成老师可改的草稿。", icon: FileText },
-    { title: "检查不合适表述", body: "标出不适合直接给家长看的话。", icon: ShieldCheck },
-    { title: "老师确认后导出", body: "老师确认后，摘要才可以给家长。", icon: Upload }
+    { title: "写成报告草稿", body: "把记录写成老师可修改的草稿。", icon: FileText },
+    { title: "检查分享表述", body: "先标出不适合直接给家长看的话。", icon: ShieldCheck },
+    { title: "老师确认后分享", body: "老师确认后，摘要才可以给家长。", icon: Upload }
   ],
   en: [
-    { title: "Activity records", body: "Capture participation, responses, pauses, recovery, and teacher prompts.", icon: ClipboardList },
+    { title: "Activity records", body: "Capture participation, responses, pauses, recovery, and teacher cues.", icon: ClipboardList },
     { title: "Observation signals", body: "Organize activity records into the nine observation questions.", icon: CheckCircle2 },
-    { title: "Report draft", body: "Turn structured records into an editable teacher draft.", icon: FileText },
-    { title: "Expression check", body: "Flag wording that is not ready for parent-facing use.", icon: ShieldCheck },
-    { title: "Teacher review and export", body: "A summary can be shared only after teacher confirmation.", icon: Upload }
+    { title: "Write the draft", body: "Turn records into a draft the teacher can edit.", icon: FileText },
+    { title: "Check sharing language", body: "Flag wording that is not ready for parent-facing use.", icon: ShieldCheck },
+    { title: "Review, then share", body: "A summary can be shared only after teacher confirmation.", icon: Upload }
   ]
 } as const;
 

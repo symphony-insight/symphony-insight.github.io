@@ -85,10 +85,10 @@ export const mockApi = {
         displayStatus: report.safetyCheck.containsMedicalClaim ? "blocked" : "passed",
         plainSummary: report.safetyCheck.containsMedicalClaim
           ? "这版草稿暂时不能导出，请先修改标出的表述。"
-          : "没有发现不适合直接使用的表述。",
+          : "没有需要暂缓分享的表述。",
         plainSummaryEn: report.safetyCheck.containsMedicalClaim
           ? "This draft cannot be exported until the highlighted wording is edited."
-          : "No wording was found that should be held back from parent-facing use."
+          : "No wording needs to be held back before sharing."
       }
     };
 
@@ -103,8 +103,8 @@ export const mockApi = {
         targetType: "report",
         targetId: updatedReport.id,
         createdAt: generatedAt,
-        summary: "系统整理了一版报告草稿，等老师确认。",
-        summaryEn: "The system prepared a report draft for teacher review."
+        summary: "已更新一版报告草稿，等老师确认。",
+        summaryEn: "A new draft is ready for teacher review."
       },
       ...currentAuditLogs
     ];

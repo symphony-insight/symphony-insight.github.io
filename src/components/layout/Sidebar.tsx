@@ -62,6 +62,7 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
         <span>
           <span className="block text-[10px] font-bold uppercase tracking-[0.14em] text-tide-600">{t(language, "appKicker")}</span>
           <span className="block text-base font-extrabold leading-tight">SymPhony Insight</span>
+          <span className="block max-w-[10rem] text-xs leading-5 text-ink-muted">{t(language, "subtitle")}</span>
         </span>
       </a>
 

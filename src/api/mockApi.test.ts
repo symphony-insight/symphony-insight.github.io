@@ -54,15 +54,15 @@ describe("mockApi", () => {
       containsMedicalClaim: false,
       flaggedPhrases: [],
       displayStatus: "passed",
-      plainSummary: "没有发现不适合直接使用的表述。",
-      plainSummaryEn: "No wording was found that should be held back from parent-facing use."
+      plainSummary: "没有需要暂缓分享的表述。",
+      plainSummaryEn: "No wording needs to be held back before sharing."
     });
     expect(report.evidenceTrace.sessionIds).toContain("session-8");
     expect(report.evidenceTrace.rubricIds).toContain("join");
     expect(report.evidenceTrace.referenceIds).toContain("kim-2008");
   });
 
-  it("generates a fresh report draft and records a system audit entry", async () => {
+  it("generates a fresh report draft and records a teacher-facing audit entry", async () => {
     await mockApi.resetReviewState();
     const generated = await mockApi.generateReportDraft("xiaoyu");
     const auditLogs = await mockApi.getAuditLogs("xiaoyu");
@@ -76,8 +76,8 @@ describe("mockApi", () => {
       action: "report.generated",
       targetType: "report",
       targetId: "report-xiaoyu-8",
-      summary: "系统整理了一版报告草稿，等老师确认。",
-      summaryEn: "The system prepared a report draft for teacher review."
+      summary: "已更新一版报告草稿，等老师确认。",
+      summaryEn: "A new draft is ready for teacher review."
     });
   });
 

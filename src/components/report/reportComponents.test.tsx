@@ -10,10 +10,10 @@ describe("report workflow components", () => {
   it("renders the report workflow steps in teacher-facing language", () => {
     render(<ReportWorkflowSteps report={reportDraft} isGenerating={false} language="zh" />);
 
-    expect(screen.getByText("整理草稿")).toBeInTheDocument();
-    expect(screen.getByText("检查表述")).toBeInTheDocument();
+    expect(screen.getByText("写草稿")).toBeInTheDocument();
+    expect(screen.getByText("查表述")).toBeInTheDocument();
     expect(screen.getByText("老师确认")).toBeInTheDocument();
-    expect(screen.getByText("导出摘要")).toBeInTheDocument();
+    expect(screen.getByText("分享摘要")).toBeInTheDocument();
   });
 
   it("keeps the expression check step current when safety review needs edits", () => {
@@ -27,7 +27,7 @@ describe("report workflow components", () => {
 
     render(<ReportWorkflowSteps report={reportNeedingEdits} isGenerating={false} language="zh" />);
 
-    expect(screen.getByText("检查表述").closest('[aria-current="step"]')).toBeInTheDocument();
+    expect(screen.getByText("查表述").closest('[aria-current="step"]')).toBeInTheDocument();
   });
 
   it("keeps the draft step current before a report is ready for review", () => {
@@ -42,7 +42,7 @@ describe("report workflow components", () => {
 
     render(<ReportWorkflowSteps report={draftReport} isGenerating={false} language="zh" />);
 
-    expect(screen.getByText("整理草稿").closest('[aria-current="step"]')).toBeInTheDocument();
+    expect(screen.getByText("写草稿").closest('[aria-current="step"]')).toBeInTheDocument();
   });
 
   it("disables approval when the safety review is blocked", () => {
@@ -85,7 +85,7 @@ describe("report workflow components", () => {
     render(<ReportSafetyNotice safetyCheck={reportDraft.safetyCheck} language="zh" />);
 
     expect(screen.getByText("表述检查通过")).toBeInTheDocument();
-    expect(screen.getByText("没有发现不适合直接使用的表述。")).toBeInTheDocument();
+    expect(screen.getByText("没有需要暂缓分享的表述。")).toBeInTheDocument();
   });
 
   it("renders english copy when language is en", () => {
@@ -97,10 +97,10 @@ describe("report workflow components", () => {
       </div>
     );
 
-    expect(screen.getByText("Draft report")).toBeInTheDocument();
+    expect(screen.getByText("Draft")).toBeInTheDocument();
     expect(screen.getByText("Report sources")).toBeInTheDocument();
     expect(screen.getByText("Expression check passed")).toBeInTheDocument();
-    expect(screen.getByText("No wording was found that should be held back from parent-facing use.")).toBeInTheDocument();
+    expect(screen.getByText("No wording needs to be held back before sharing.")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /View rubric guide/ })).toHaveAttribute("href", "#/child/xiaoyu/rubrics");
   });
 });
